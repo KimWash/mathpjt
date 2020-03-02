@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7DD5CC">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="문제 풀고 돈 벌자"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/new_font"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="280px">
+
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="처음오는 분들은 여기 먼저"
+            android:textSize="24dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@android:dimen/app_icon_size"
+            android:layout_above="@+id/resisterbutton"
+            ></TextView>
+        <Button
+            android:id="@+id/resisterbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/new_font"
+            android:padding="5dp"
+            android:text="가입하기"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:background="#FFFFFF"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"></Button>
+        <Button
+            android:id="@+id/signbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/new_font"
+            android:padding="5dp"
+            android:text="로그인하기"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:background="#FFFFFF"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/resisterbutton"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            ></Button>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
