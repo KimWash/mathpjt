@@ -19,9 +19,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun nightMode(){
+        if (nightModeCheck.isNightModeActive(this) == true) {
+            setTheme(R.style.DarkTheme)
+        } else if (nightModeCheck.isNightModeActive(this) == false) {
+            setTheme(R.style.LightTheme)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        checkFirstRun()
         super.onCreate(savedInstanceState)
+        //시작할때 필수함수 (첫실행감지, 야간모드 전환)
+        checkFirstRun()
+        nightMode()
         setContentView(R.layout.activity_main)
 
         var loginButton = findViewById<Button>(R.id.loginButton) // 버튼 선언

@@ -3,9 +3,48 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="LightTheme" parent="Theme.AppCompat">
+        <item name="android:colorBackground">#F2F2F2</item>
+        <item name="colorPrimaryDark">#F2F2F2</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="textColor">#909090</item>
+        <item name="titleColor">#000000</item>
+        <item name="bgColor">#F2F2F2</item>
+        <item name="tileBG">#F6F6F6</item>
+        <item name="selectedColor">#0381fe</item>
+        <item name="unSelectedColor">#080808</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat">
+        <item name="android:colorBackground">#080808</item>
+        <item name="colorPrimaryDark">#080808</item>
+        <item name="bgColor">#080808</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="textColor">#999999</item>
+        <item name="titleColor">#fafafa</item>
+        <item name="tileBG">#252525</item>
+        <item name="selectedColor">#0381fe</item>
+        <item name="unSelectedColor">#fafafa</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColorPrimary">?attr/titleColor</item>
+        <item name="android:textColorSecondary">?attr/titleColor</item>
+        <item name="android:elevation">0dp</item>
+    </style>
+
 
 </resources>

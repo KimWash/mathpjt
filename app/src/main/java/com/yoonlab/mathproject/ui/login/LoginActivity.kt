@@ -16,15 +16,29 @@ import android.widget.ProgressBar
 import android.widget.Toast
 
 import com.yoonlab.mathproject.R
+import com.yoonlab.mathproject.nightModeCheck
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
 
+    fun nightMode(){
+        if (nightModeCheck.isNightModeActive(this) == true) {
+            setTheme(R.style.DarkTheme)
+        } else if (nightModeCheck.isNightModeActive(this) == false) {
+            setTheme(R.style.LightTheme)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        nightMode()
         setContentView(R.layout.activity_login)
+
+        setSupportActionBar(toolbar)
+        getSupportActionBar()?.title = "로그인"
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
