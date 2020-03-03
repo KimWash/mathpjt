@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         if(isFirstRun){
             val intIntent = Intent(this@MainActivity, IntroduceActivity::class.java)
             startActivity(intIntent)
-            //prefs.edit().putBoolean("isFirstRun", false).apply()
+            //prefs.edit().putBoolean("isFirstRun", false).apply() Todo:첫실행 후 가입/로그인 완료되면 isFirstRun을 false로 적용
         }
     }
 
