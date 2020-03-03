@@ -25,10 +25,10 @@
             android:textSize="24dp"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@android:dimen/app_icon_size"
-            android:layout_above="@+id/resisterbutton"
+            android:layout_above="@+id/resister"
             ></TextView>
         <Button
-            android:id="@+id/resisterbutton"
+            android:id="@+id/resister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/new_font"
@@ -50,7 +50,7 @@
             android:textSize="25dp"
             android:background="#FFFFFF"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/resisterbutton"
+            android:layout_below="@+id/resister"
             android:layout_marginTop="@android:dimen/app_icon_size"
             ></Button>
 

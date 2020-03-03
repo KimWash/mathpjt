@@ -19,6 +19,10 @@
         <activity android:name=".SignActivity">
 
         </activity>
+        <activity android:name=".JoinActivity">
+
+        </activity>
+
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
