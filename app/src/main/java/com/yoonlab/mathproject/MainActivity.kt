@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         if(isFirstRun){
             val intIntent = Intent(this@MainActivity, IntroduceActivity::class.java)
             startActivity(intIntent)
-            prefs.edit().putBoolean("isFirstRun", false).apply()
+            //prefs.edit().putBoolean("isFirstRun", false).apply()
         }
     }
 
