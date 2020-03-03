@@ -5,13 +5,34 @@
     android:orientation="vertical">
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:id="@+id/id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="ID"
+        android:inputType="textPersonName" />
 
-    </EditText>
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName|textEmailAddress" />
 
-    </EditText>
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/confirm_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:onClick="confirm_button"
+        android:clickable="true"/>
 </LinearLayout>
