@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:background="#FFFFFF"
     android:orientation="vertical"
-    android:background="#FFFFFF">
+    tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,33 +14,117 @@
         android:layout_weight="8"
         android:background="@color/colorjichang">
 
-        <Button
-            android:id="@+id/loginButton"
+        <RelativeLayout
+            android:layout_width="251dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/heart1"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/heartshape" />
+
+            <ImageView
+                android:id="@+id/heart2"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@id/heart1"
+                android:src="@drawable/heartshape" />
+
+            <ImageView
+                android:id="@+id/heart3"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@id/heart2"
+                android:src="@drawable/heartshape" />
+
+            <ImageView
+                android:id="@+id/heart4"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/heart3"
+                android:src="@drawable/heartshape" />
+
+            <ImageView
+                android:id="@+id/heart5"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@id/heart4"
+                android:src="@drawable/heartshape" />
+        </RelativeLayout>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:padding="10dp"
-            android:text="Login"
-            android:textAlignment="center"
+            android:layout_marginLeft="50sp"
+            android:layout_marginTop="40sp"
+            android:padding="10sp"
+            android:text="수포자를 위한 앱"
+            android:textSize="38sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/settingbutton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="15sp"
+            android:layout_marginRight="14sp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/settingbutton"
+            android:padding="10dp"></Button>
+
+        <ImageView
+            android:layout_width="420dp"
+            android:layout_height="420dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_functions_black_24dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="문제 풀러 가기"
+            android:background="@drawable/button_design2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/solve"
             />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Setting"
-            android:padding="10dp"
-            android:id="@+id/settingbutton"
-            android:background="#FFFFFF"
-            android:layout_toLeftOf="@+id/loginButton"
-            ></Button>
-
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/solve"
+            android:text="상점"
+            android:background="@drawable/button_design2"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/store"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Point :"
+            android:id="@+id/point"
+            android:layout_toRightOf="@+id/store"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
 
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2" />
-
 
 
 </LinearLayout>

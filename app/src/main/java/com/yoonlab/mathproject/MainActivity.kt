@@ -34,8 +34,7 @@ class MainActivity : AppCompatActivity() {
         nightMode()
         setContentView(R.layout.activity_main)
 
-        var loginButton = findViewById<Button>(R.id.loginButton) // 버튼 선언
-        loginButton.setOnClickListener { View -> val loginIntent = Intent(this@MainActivity, LoginActivity::class.java); startActivity(loginIntent) } //버튼클릭 리스너 선언
+
     }
 
 }

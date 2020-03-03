@@ -15,7 +15,8 @@
             android:textStyle="bold"
             android:fontFamily="@font/new_font"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="280px">
+            android:layout_marginTop="280px"
+            android:textColor="@color/colorjichang">
 
         </TextView>
         <TextView
@@ -26,6 +27,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@android:dimen/app_icon_size"
             android:layout_above="@+id/resister"
+            android:textStyle="bold"
             ></TextView>
         <Button
             android:id="@+id/resister"
