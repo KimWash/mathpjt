@@ -1,7 +1,6 @@
 package com.yoonlab.mathproject
 
 import android.content.Context
-import android.graphics.Paint
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -16,9 +15,24 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 
 public var mContext:Context? = null
 class JoinActivity : AppCompatActivity() {
+    fun checkEmail(email: String): Boolean {
+        val regex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$"
+        val p: Pattern = Pattern.compile(regex)
+        val m: Matcher = p.matcher(email)
+        return m.matches()
+    }
+    fun checkPw(pw:String):Boolean{
+        if(!Pattern.matches("^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-zA-Z]).{8,20}$", pw)){
+            return false
+        }
+        return true
+    }
 
     companion object{
         fun dispToast(context:Context?, str:String){
@@ -40,17 +54,27 @@ class JoinActivity : AppCompatActivity() {
         val sEmail = email.getText().toString()
         val sPw = password.getText().toString()
         val sPw_chk = password_chk.getText().toString()
-        if (sId == null){
+        //Todo: 아이디 중복확인, 비밀번호 생성규칙, 암호화(SHA-256)
+        if (sId == ""){
             dispToast(this, "ID를 입력해주세요.")
         }
-        else if (sEmail == null){
+        else if (sEmail == ""){
             dispToast(this, "이메일을 입력해주세요.")
         }
-        else if (sPw == null){
+        else if (sPw == ""){
             dispToast(this, "비밀번호를 입력해주세요.")
         }
-        else if (sPw_chk == null){
+        else if (sPw_chk == ""){
             dispToast(this, "비밀번호를 한번 더 입력해주세요.")
+        }
+        else if (!checkEmail(sEmail)){
+            dispToast(this, "올바른 이메일 형식이 아닙니다.")
+        }
+        else if (sPw != sPw_chk){
+            dispToast(this, "비밀번호가 일치하지 않습니다.")
+        }
+        else if (!checkPw(sPw)){
+            dispToast(this, "비밀번호는 영어, 숫자, 특수문자를 포함하여 8자에서 20자 사이로 지어주세요.")
         }
         else {
             val rdb = registDB(sId, sEmail, sPw)
@@ -68,9 +92,7 @@ class JoinActivity : AppCompatActivity() {
 class registDB(val sId: String,val sEmail: String, val sPw: String) : AsyncTask<Void, Int, Int>() {
     protected override fun doInBackground(vararg unused:Void): Int? {
         /* 인풋 파라메터값 생성 */
-        Log.i("[정보]", sId+sEmail+sPw)
         val param = "u_id=" + sId + "&u_email=" + sEmail + "&u_pw=" + sPw + ""
-        Log.i("[정보]", param)
         try
         {
             /* 서버연결 */
