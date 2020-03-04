@@ -1,6 +1,7 @@
 package com.yoonlab.mathproject.ui.login
 
 import android.app.Activity
+import android.os.AsyncTask
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,16 +9,26 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.yoonlab.mathproject.*
+import com.yoonlab.mathproject.registDB
 
-import com.yoonlab.mathproject.R
-import com.yoonlab.mathproject.nightModeCheck
+import kotlinx.android.synthetic.main.activity_join.*
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.password
+import kotlinx.android.synthetic.main.activity_login.username
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
 
 class LoginActivity : AppCompatActivity() {
 
@@ -39,105 +50,76 @@ class LoginActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         getSupportActionBar()?.title = "로그인"
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
-        val login = findViewById<Button>(R.id.login)
-        val loading = findViewById<ProgressBar>(R.id.loading)
-
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
-
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
-
-            // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
-
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
-            }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
-            }
-        })
-
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
-
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            finish()
-        })
-
-        username.afterTextChanged {
-            loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
-            )
+        val submitButton = findViewById<Button>(R.id.submitButton)
+        submitButton.setOnClickListener{submitButton()}
+    }
+    fun submitButton(){
+        val sId = username.getText().toString()
+        val sPw = password.getText().toString()
+        //Todo: 아이디
+        if (sId == ""){
+            JoinActivity.dispToast(this, "ID를 입력해주세요.")
         }
-
-        password.apply {
-            afterTextChanged {
-                loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
-                )
-            }
-
-            setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
-                        )
-                }
-                false
-            }
-
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
-            }
+        else if (sPw == ""){
+            JoinActivity.dispToast(this, "비밀번호를 입력해주세요.")
+        }
+        else{
+            val rdb = loginDB(sId, sPw)
+            rdb.execute()
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
-    }
 
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
-    }
 }
 
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
-fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
+class loginDB(val sId: String,val sPw: String) : AsyncTask<Void, Int, Int>() {
+    protected override fun doInBackground(vararg unused:Void): Int? {
+        /* 인풋 파라메터값 생성 */
+        val param = "u_id=" + sId + "&u_pw=" + sPw + ""
+        try
+        {
+            /* 서버연결 */
+            val url = URL(
+                "https://yoon-lab.xyz/mathpjt_login.php")
+            val conn = url.openConnection() as HttpURLConnection
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+            conn.setRequestMethod("POST")
+            conn.setDoInput(true)
+            conn.connect()
+            /* 안드로이드 -> 서버 파라메터값 전달 */
+            val outs = conn.getOutputStream()
+            outs.write(param.toByteArray(charset("UTF-8")))
+            outs.flush()
+            outs.close()
+            /* 서버 -> 안드로이드 파라메터값 전달 */
+            val iss = conn.getInputStream()
+            var inn = BufferedReader(InputStreamReader(iss))
+            val line = inn.readLine()
+            Log.e("RECV DATA", line)
+
+        }
+        catch (e: MalformedURLException) {
+            e.printStackTrace()
+        }
+        catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+
+    protected override fun onPostExecute(code:Int){
+        super.onPostExecute(code)
+        if (code == 0){
+            JoinActivity.dispToast(mContext, "회원가입이 완료되었습니다.")
+        }
+        else if (code == 1){
+            JoinActivity.dispToast(mContext, "서버와의 연결에 실패했습니다. Error Code: 1")
+        }
+        else if (code == 2){
+            JoinActivity.dispToast(mContext, "회원가입에 실패했습니다. Error Code: 2")
         }
 
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    })
+    }
 }
