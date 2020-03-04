@@ -35,6 +35,13 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/password_chk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password Retype"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/confirm_button"
