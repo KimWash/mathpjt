@@ -2,27 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/backgroundcolor">
 
     <EditText
+        android:layout_marginTop="@android:dimen/app_icon_size"
         android:id="@+id/id"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="ID"
+        android:padding="10dp"
+        android:layout_marginLeft="@android:dimen/app_icon_size"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@android:dimen/app_icon_size"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName|textEmailAddress" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_marginLeft="@android:dimen/app_icon_size"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Password"
@@ -30,9 +38,11 @@
 
     <Button
         android:id="@+id/confirm_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
+        android:layout_marginLeft="@android:dimen/notification_large_icon_width"
         android:onClick="confirm_button"
+        android:layout_marginTop="@android:dimen/app_icon_size"
         android:clickable="true"/>
 </LinearLayout>

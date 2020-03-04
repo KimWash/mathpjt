@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     fun nightMode(){
         if (nightModeCheck.isNightModeActive(this) == true) {
             setTheme(R.style.DarkTheme)

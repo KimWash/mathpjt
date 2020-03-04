@@ -28,9 +28,22 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Start"
             android:background="@drawable/button_design"
+            android:text="Start"
             android:textSize="15sp"></Button>
+
+        <ProgressBar
+            android:id="@+id/loadingbar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:progressBackgroundTint="#FFFFFF"
+            android:progress="50"
+            android:progressTint="@android:color/holo_blue_dark" />
     </RelativeLayout>
+
 
 </LinearLayout>
