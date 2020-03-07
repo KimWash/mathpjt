@@ -18,6 +18,15 @@ import java.net.URL
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+
 
 public var mContext:Context? = null
 class JoinActivity : AppCompatActivity() {
