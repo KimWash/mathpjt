@@ -30,7 +30,9 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
+import android.util.Base64
 import java.io.UnsupportedEncodingException;
+import java.security.CryptoPrimitive
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -82,8 +84,10 @@ class LoginActivity : AppCompatActivity() {
 
 class loginDB(val sId: String,val sPw: String) : AsyncTask<Void, Int, Int>() {
     protected override fun doInBackground(vararg unused:Void): Int? {
+        //ID와 비번 암호화
+        val cryptedsPw = CryptoPw(sPw)
         /* 인풋 파라메터값 생성 */
-        val param = "u_id=" + sId + "&u_pw=" + sPw + ""
+        val param = "u_id=" + sId + "&u_pw=" + cryptedsPw + ""
         try
         {
             /* 서버연결 */
@@ -130,4 +134,15 @@ class loginDB(val sId: String,val sPw: String) : AsyncTask<Void, Int, Int>() {
 
 
     }
+    //AES128 암호화
+    private fun CryptoPw(sPw: String): String {
+        val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
+        val keySpec = SecretKeySpec(byteArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) , "AES")
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec)
+        val crypted = cipher.doFinal(sPw.toByteArray())
+
+        val encodedByte = Base64.encode(crypted, Base64.DEFAULT)
+        return String(encodedByte)
+    }
+
 }

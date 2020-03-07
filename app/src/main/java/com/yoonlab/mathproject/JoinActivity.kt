@@ -9,6 +9,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -190,8 +191,10 @@ class checkInvalid(val sId: String) : AsyncTask<Void, Int, Int>() {
 
 class registDB(val sId: String,val sEmail: String, val sPw: String) : AsyncTask<Void, Int, Int>() {
     protected override fun doInBackground(vararg unused:Void): Int? {
+        //암호화
+        val cryptedPw = CryptoPw(sPw)
         /* 인풋 파라메터값 생성 */
-        val param = "u_id=" + sId + "&u_email=" + sEmail + "&u_pw=" + sPw + ""
+        val param = "u_id=" + sId + "&u_email=" + sEmail + "&u_pw=" + cryptedPw + ""
         try
         {
             /* 서버연결 */
@@ -248,6 +251,16 @@ class registDB(val sId: String,val sEmail: String, val sPw: String) : AsyncTask<
         }
 
 
+    }
+    //AES128 암호화
+    private fun CryptoPw(sPw: String): String {
+        val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
+        val keySpec = SecretKeySpec(byteArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0) , "AES")
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec)
+        val crypted = cipher.doFinal(sPw.toByteArray())
+
+        val encodedByte = Base64.encode(crypted, Base64.DEFAULT)
+        return String(encodedByte)
     }
 }
 
