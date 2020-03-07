@@ -19,15 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    fun checkFirstRun(){
-        var prefs:SharedPreferences = getSharedPreferences("Pref", MODE_PRIVATE)
-        var isFirstRun = prefs.getBoolean("isFirstRun", true)
-        if(isFirstRun){
-            val intIntent = Intent(this@MainActivity, IntroduceActivity::class.java)
-            startActivity(intIntent)
-            //prefs.edit().putBoolean("isFirstRun", false).apply() Todo:첫실행 후 가입/로그인 완료되면 isFirstRun을 false로 적용
-        }
-    }
+
 
 
     fun nightMode(){
@@ -41,7 +33,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
-        checkFirstRun()
         nightMode()
         setContentView(R.layout.activity_main)
     }
