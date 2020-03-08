@@ -35,7 +35,10 @@ class MainActivity : AppCompatActivity() {
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
         nightMode()
         setContentView(R.layout.activity_main)
+        var solve = findViewById<Button>(R.id.solve)
+        val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
+        solve.setOnClickListener{View -> startActivity(solvepage)}
     }
 
-    
+
 }

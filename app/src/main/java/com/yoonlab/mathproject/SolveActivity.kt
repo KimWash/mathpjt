@@ -20,22 +20,10 @@ import java.io.IOException
 class SolveActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_solve)
-
-
-        fetchJson()
-
-    }
-    fun fetchJson(){
-        val url = URL("https://yoon-lab.xyz/mathpjt_solve.php")
-        val conn = url.openConnection() as HttpURLConnection
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-        conn.setDoInput(true)
-        conn.connect()
-
 
 
     }
+
 
 
 }
