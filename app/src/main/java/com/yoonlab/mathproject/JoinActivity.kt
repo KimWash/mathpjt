@@ -40,6 +40,7 @@ import javax.crypto.spec.SecretKeySpec;
 public var mContext:Context? = null
 public var invalidId = false
 public var invalidChecked = false
+var uuid:String? = null
 
 class JoinActivity : AppCompatActivity() {
     fun checkEmail(email: String): Boolean {
@@ -137,6 +138,11 @@ class JoinActivity : AppCompatActivity() {
                 startActivity(MainIntent)
                 var prefs: SharedPreferences = getSharedPreferences("Pref", AppCompatActivity.MODE_PRIVATE)
                 prefs.edit().putBoolean("isFirstRun", false).apply()
+                var useruuid: SharedPreferences = getSharedPreferences("uuid", MODE_PRIVATE)
+                var uuideditor:SharedPreferences.Editor = useruuid.edit()
+                uuideditor.putString("uuid", uuid)
+                uuideditor.commit()
+                finish()
             }
         }
     }
@@ -196,7 +202,7 @@ class registDB(val sId: String,val sEmail: String, val sPw: String) : AsyncTask<
         //암호화
         val cryptedPw = CryptoPw(sPw)
         val decodedPw = URLDecoder.decode(cryptedPw)
-        val uuid = UUID.randomUUID()
+        uuid = UUID.randomUUID().toString()
         /* 인풋 파라메터값 생성 */
         val param = "u_id=" + sId + "&u_email=" + sEmail + "&u_pw=" + cryptedPw + "&u_uuid=" + uuid
         try
