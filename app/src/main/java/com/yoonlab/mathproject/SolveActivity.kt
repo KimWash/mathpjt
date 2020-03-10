@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_solve.*
 import java.net.HttpURLConnection
 import java.net.URL
 import java.io.IOException
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.reward.RewardedVideoAd
 
 
 

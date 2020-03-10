@@ -17,6 +17,10 @@ import com.yoonlab.mathproject.ui.login.LoginActivity
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 
+//광고
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.MobileAds;
+
 class MainActivity : AppCompatActivity() {
 
 
@@ -39,6 +43,10 @@ class MainActivity : AppCompatActivity() {
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
         solve.setOnClickListener{View -> startActivity(solvepage)}
     }
+
+
+
+
 
 
 }
