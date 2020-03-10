@@ -23,6 +23,11 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import java.io.IOException
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.reward.RewardedVideoAd
+
+
 
 var problemView:ImageView? = null
 var problemAns:Int? = null
