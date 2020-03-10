@@ -35,7 +35,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="답?"
+        android:hint="답?"
         android:textSize="50dp"
         android:layout_marginTop="50dp"
         android:paddingLeft="50dp"
@@ -43,6 +43,16 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/problems"
         android:id="@+id/answer"/>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answer"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="31dp"
+        android:text="submit" />
 
 
 </RelativeLayout>
