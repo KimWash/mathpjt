@@ -38,17 +38,6 @@
             android:textSize="20sp"
             android:elevation="5dp"></Button>
 
-        <ProgressBar
-            android:id="@+id/loadingbar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="330dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
-            android:progressBackgroundTint="#FFFFFF"
-            android:progress="30"
-            android:progressTint="@android:color/holo_blue_dark" />
 
         <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"
