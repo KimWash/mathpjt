@@ -26,9 +26,11 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.util.*
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -193,8 +195,10 @@ class registDB(val sId: String,val sEmail: String, val sPw: String) : AsyncTask<
     protected override fun doInBackground(vararg unused:Void): Int? {
         //암호화
         val cryptedPw = CryptoPw(sPw)
+        val decodedPw = URLDecoder.decode(cryptedPw)
+        val uuid = UUID.randomUUID()
         /* 인풋 파라메터값 생성 */
-        val param = "u_id=" + sId + "&u_email=" + sEmail + "&u_pw=" + cryptedPw + ""
+        val param = "u_id=" + sId + "&u_email=" + sEmail + "&u_pw=" + cryptedPw + "&u_uuid=" + uuid
         try
         {
             /* 서버연결 */

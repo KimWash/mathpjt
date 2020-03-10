@@ -23,21 +23,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignActivity">
-
-        </activity>
-        <activity android:name=".JoinActivity">
-
-        </activity>
+        <activity android:name=".SignActivity"></activity>
+        <activity android:name=".JoinActivity"></activity>
 
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".SetpopActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".SetpopActivity"></activity>
 
-        </activity>
+        <activity android:name=".SolveActivity"></activity>
     </application>
 
 </manifest>

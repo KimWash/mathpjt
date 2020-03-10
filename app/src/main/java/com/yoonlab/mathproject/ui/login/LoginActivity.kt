@@ -1,6 +1,8 @@
 package com.yoonlab.mathproject.ui.login
 
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -26,12 +28,10 @@ import kotlinx.android.synthetic.main.activity_login.username
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
 
 import android.util.Base64
 import java.io.UnsupportedEncodingException;
+import java.net.*
 import java.security.CryptoPrimitive
 import java.security.GeneralSecurityException;
 import java.security.Key;
@@ -39,7 +39,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
+public var mContext: Context? = null
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
@@ -56,13 +56,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         nightMode()
         setContentView(R.layout.activity_login)
-
+        mContext = this
         setSupportActionBar(toolbar)
         getSupportActionBar()?.title = "로그인"
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         val submitButton = findViewById<Button>(R.id.submitButton)
         submitButton.setOnClickListener{submitButton()}
     }
+
     fun submitButton(){
         val sId = username.getText().toString()
         val sPw = password.getText().toString()
@@ -75,19 +76,28 @@ class LoginActivity : AppCompatActivity() {
         }
         else{
             val rdb = loginDB(sId, sPw)
-            rdb.execute()
+            val result = rdb.execute().get()
+            if (result == 1){
+                val MainIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(MainIntent)
+            }
+            else if (result == 0){
+                password.setText("")
+            }
         }
     }
-
-
 }
 
 class loginDB(val sId: String,val sPw: String) : AsyncTask<Void, Int, Int>() {
     protected override fun doInBackground(vararg unused:Void): Int? {
+        Log.i("gotId", sId)
+        Log.i("getPw", sPw)
         //ID와 비번 암호화
-        val cryptedsPw = CryptoPw(sPw)
+        val cryptedPw = CryptoPw(sPw)
+        val decodedPw = URLDecoder.decode(cryptedPw)
+        Log.i("decodedPw", decodedPw)
         /* 인풋 파라메터값 생성 */
-        val param = "u_id=" + sId + "&u_pw=" + cryptedsPw + ""
+        val param = "u_id=" + sId + "&u_pw=" + decodedPw
         try
         {
             /* 서버연결 */
@@ -108,6 +118,15 @@ class loginDB(val sId: String,val sPw: String) : AsyncTask<Void, Int, Int>() {
             var inn = BufferedReader(InputStreamReader(iss))
             val line = inn.readLine()
             Log.e("RECV DATA", line)
+            if (line.equals("0")){
+                return 0
+            }
+            else if (line.equals("1")){
+                return 1
+            }
+            else if(line.equals("1064")){
+                return 1064
+            }
 
         }
         catch (e: MalformedURLException) {
@@ -123,13 +142,16 @@ class loginDB(val sId: String,val sPw: String) : AsyncTask<Void, Int, Int>() {
     protected override fun onPostExecute(code:Int){
         super.onPostExecute(code)
         if (code == 0){
-            JoinActivity.dispToast(mContext, "회원가입이 완료되었습니다.")
+            JoinActivity.dispToast(mContext, "비밀번호가 일치하지 않습니다.")
+            return
         }
         else if (code == 1){
-            JoinActivity.dispToast(mContext, "서버와의 연결에 실패했습니다. Error Code: 1")
+            JoinActivity.dispToast(mContext, "로그인에 성공하였습니다!")
+            return
         }
-        else if (code == 2){
-            JoinActivity.dispToast(mContext, "회원가입에 실패했습니다. Error Code: 2")
+        else if (code == 1064){
+            JoinActivity.dispToast(mContext, "로그인에 실패하였습니다. 에러코드: 1064 개발자에게 문의해주세요.")
+            return
         }
 
 
