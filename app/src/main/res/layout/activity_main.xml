@@ -17,54 +17,62 @@
         <RelativeLayout
             android:layout_width="251dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp">
+
+            <ImageView
+                android:layout_width="500dp"
+                android:layout_height="50dp"
+                android:background="@drawable/box"
+                ></ImageView>
 
             <ImageView
                 android:id="@+id/heart1"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/heartshape" />
+                android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
                 android:id="@+id/heart2"
-                android:layout_width="30dp"
-                android:layout_height="30sp"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@id/heart1"
-                android:src="@drawable/heartshape" />
+                android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
                 android:id="@+id/heart3"
-                android:layout_width="30dp"
-                android:layout_height="30sp"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@id/heart2"
-                android:src="@drawable/heartshape" />
+                android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
                 android:id="@+id/heart4"
-                android:layout_width="30dp"
-                android:layout_height="30sp"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/heart3"
-                android:src="@drawable/heartshape" />
+                android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
                 android:id="@+id/heart5"
-                android:layout_width="30dp"
-                android:layout_height="30sp"
+                android:layout_width="50dp"
+                android:layout_height="50sp"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@id/heart4"
-                android:src="@drawable/heartshape" />
+                android:src="@drawable/ic_functions_black_24dp" />
         </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50sp"
-            android:layout_marginTop="40sp"
+            android:layout_marginTop="70sp"
             android:padding="10sp"
             android:text="수포자를 위한 앱"
             android:textSize="38sp"
@@ -80,14 +88,14 @@
             android:layout_marginRight="14sp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/settingbutton"
-            android:padding="10dp"></Button>
+            android:padding="15dp"
+            ></Button>
 
         <ImageView
             android:layout_width="420dp"
             android:layout_height="420dp"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/ic_functions_black_24dp" />
+            android:layout_marginTop="170dp"
+            android:src="@drawable/app_logo" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -96,11 +104,12 @@
         android:layout_weight="2"
         >
         <Button
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="문제 풀러 가기"
             android:background="@drawable/button_design2"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:id="@+id/solve"
             />
@@ -108,10 +117,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/solve"
+            android:layout_below="@+id/solve"
             android:text="상점"
             android:background="@drawable/button_design2"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             android:id="@+id/store"/>
         <TextView
             android:layout_width="wrap_content"
@@ -119,7 +128,7 @@
             android:text="My Point :"
             android:id="@+id/point"
             android:layout_toRightOf="@+id/store"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="18sp"/>
