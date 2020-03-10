@@ -18,8 +18,9 @@ import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 //광고
-import com.google.android.gms.ads.rewarded.RewardedAd;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,7 +40,10 @@ class MainActivity : AppCompatActivity() {
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
         nightMode()
         setContentView(R.layout.activity_main)
+        MobileAds.initialize(this,"ca-app-pub-3940256099942544/6300978111")
+        bannerad.loadAd(AdRequest.Builder().build())
         var solve = findViewById<Button>(R.id.solve)
+
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
         solve.setOnClickListener{View -> startActivity(solvepage)}
     }
