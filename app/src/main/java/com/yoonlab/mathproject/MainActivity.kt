@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         MobileAds.initialize(this,"ca-app-pub-3940256099942544/6300978111")
         bannerad.loadAd(AdRequest.Builder().build())
-        var solve = findViewById<Button>(R.id.solve)
-
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
+        val pluspage = Intent(this@MainActivity, RewardActivity::class.java)
+        heartplus.setOnClickListener{View -> startActivity(pluspage)}
         solve.setOnClickListener{View -> startActivity(solvepage)}
     }
 

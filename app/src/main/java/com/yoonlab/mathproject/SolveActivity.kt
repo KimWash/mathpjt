@@ -4,15 +4,10 @@ import android.app.Activity
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Paint
 import android.os.AsyncTask
 import android.os.Bundle
-import android.renderscript.ScriptGroup
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_solve.*
@@ -23,9 +18,6 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.reward.RewardedVideoAd
-
 
 
 var problemView:ImageView? = null
@@ -71,6 +63,7 @@ class SolveActivity : AppCompatActivity(){
             JoinActivity.dispToast(this, "유저 정보를 불러오지 못했습니다. 개발자에게 문의해주세요.")
         }
     }
+
 
     class getProblem(val problem: Int) : AsyncTask<Void, Int, Any>() {
         protected override fun doInBackground(vararg unused: Void): Any? {

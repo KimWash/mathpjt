@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MathProject</string>
+    <string name="app_name">수포자</string>
     <string name="title_activity_login">로그인</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
