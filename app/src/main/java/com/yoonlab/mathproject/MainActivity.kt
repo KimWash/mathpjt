@@ -25,8 +25,6 @@ import com.google.android.gms.ads.MobileAds
 class MainActivity : AppCompatActivity() {
 
 
-
-
     fun nightMode(){
         if (nightModeCheck.isNightModeActive(this) == true) {
             setTheme(R.style.DarkTheme)
@@ -47,9 +45,6 @@ class MainActivity : AppCompatActivity() {
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
         solve.setOnClickListener{View -> startActivity(solvepage)}
     }
-
-
-
 
 
 
