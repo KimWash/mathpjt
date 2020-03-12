@@ -25,10 +25,10 @@
 
     <ImageView
         android:id="@+id/problems"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="170dp"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:background="@color/backgroundcolor">
 
     </ImageView>
@@ -36,8 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="답?"
-        android:textSize="50dp"
-        android:layout_marginTop="50dp"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
         android:layout_centerHorizontal="true"
@@ -51,7 +51,7 @@
         android:layout_below="@+id/answer"
         android:layout_alignParentStart="true"
         android:layout_marginStart="156dp"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="20sp"
         android:text="submit" />
 
 
