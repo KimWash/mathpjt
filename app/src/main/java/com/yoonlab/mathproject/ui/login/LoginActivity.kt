@@ -87,8 +87,8 @@ class LoginActivity : AppCompatActivity() {
                 username.setText("")
             }
             else {
-                val MainIntent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(MainIntent)
+                val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                startActivity(mainIntent)
                 finish()
             }
         }
