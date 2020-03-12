@@ -13,8 +13,9 @@ class StoreActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_store)
+        var homeButton = findViewById<Button>(R.id.home)
         val intIntent = Intent(this@StoreActivity, MainActivity::class.java)
-        home.setOnClickListener{View -> startActivity(intIntent)}
+        homeButton.setOnClickListener{View -> startActivity(intIntent)}
     }
 
 

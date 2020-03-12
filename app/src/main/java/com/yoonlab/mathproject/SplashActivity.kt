@@ -10,9 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity: AppCompatActivity()   {
-    private val SPLASH_TIME = 2000
-
-
+    private val SPLASH_TIME = 1500
 
 
     @Override
