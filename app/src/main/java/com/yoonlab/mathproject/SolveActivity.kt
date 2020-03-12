@@ -4,15 +4,10 @@ import android.app.Activity
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Paint
 import android.os.AsyncTask
 import android.os.Bundle
-import android.renderscript.ScriptGroup
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_solve.*

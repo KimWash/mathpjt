@@ -78,16 +78,40 @@
                 android:src="@drawable/ic_add_24px"></ImageButton>
         </RelativeLayout>
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50sp"
             android:layout_marginTop="70sp"
             android:padding="10sp"
-            android:text="수포자를 위한 앱"
-            android:textSize="38sp"
+            android:text="수"
+            android:textSize="50dp"
+            android:layout_toLeftOf="@+id/letter2"
+            android:fontFamily="@font/new_font"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/letter2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70sp"
+            android:padding="10sp"
+            android:text="포"
+            android:textSize="50dp"
+            android:layout_centerHorizontal="true"
+            android:letterSpacing="1.0"
+            android:fontFamily="@font/new_font"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70sp"
+            android:padding="10sp"
+            android:text="자"
+            android:textSize="50dp"
+            android:layout_toRightOf="@+id/letter2"
+            android:letterSpacing="1.0"
+            android:fontFamily="@font/new_font"
+            android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/settingbutton"
@@ -117,19 +141,19 @@
 
             android:id="@+id/solve"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/button_design2"
             android:text="문제 풀러 가기" />
 
         <Button
             android:id="@+id/store"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_below="@+id/solve"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:background="@drawable/button_design2"
             android:text="상점" />
 

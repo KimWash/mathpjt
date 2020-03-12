@@ -8,30 +8,83 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorAccent">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/app_logo"
-            android:layout_marginTop="50dp"></ImageView>
 
         <TextView
             android:id="@+id/hello"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/new_font"
+            android:text="수"
+            android:textColor="#000000"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            android:layout_toLeftOf="@id/hello2"></TextView>
+
+        <TextView
+            android:layout_marginLeft="3dp"
+            android:id="@+id/hello2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="85dp"
+            android:layout_toLeftOf="@id/hello3"
+            android:fontFamily="@font/new_font"
+            android:text="학문제를 풀고"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/hello3"
+            android:layout_marginLeft="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/new_font"
-            android:text="문제 풀고 돈 벌자"
+            android:text="포"
             android:textColor="#000000"
             android:textSize="45sp"
             android:textStyle="bold"></TextView>
+        <TextView
+            android:id="@+id/hello4"
+            android:layout_marginLeft="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/hello3"
+            android:layout_marginTop="85dp"
+            android:fontFamily="@font/new_font"
+            android:text="인트를 받"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"></TextView>
+        <TextView
+            android:layout_marginLeft="3dp"
+            android:id="@+id/hello5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/hello4"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/new_font"
+            android:text="자"
+            android:textColor="#000000"
+            android:textSize="45sp"
+            android:textStyle="bold"></TextView>
+
+        <ImageView
+            android:layout_below="@id/hello"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            android:src="@drawable/app_logo"
+            android:id="@+id/logo"
+            android:layout_marginTop="50dp"></ImageView>
 
         <Button
             android:id="@+id/startbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="630dp"
+            android:layout_below="@+id/logo"
             android:padding="10dp"
             android:background="@drawable/button_design"
             android:text="Start"

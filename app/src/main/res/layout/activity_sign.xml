@@ -46,17 +46,7 @@
             android:layout_below="@+id/resister"
             android:layout_marginTop="@android:dimen/app_icon_size"
             ></Button>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home"
-            android:padding="5dp"
-            android:textSize="25dp"
-            android:id="@+id/home"
-            android:background="@drawable/button_design2"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/signbutton"
-            android:layout_marginTop="30dp"/>
+
 
 
     </RelativeLayout>
