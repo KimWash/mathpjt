@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -24,25 +25,7 @@ import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
 
-
-    fun nightMode(){
-        if (nightModeCheck.isNightModeActive(this) == true) {
-            setTheme(R.style.DarkTheme)
-        } else if (nightModeCheck.isNightModeActive(this) == false) {
-            setTheme(R.style.LightTheme)
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //시작할때 필수함수 (첫실행감지, 야간모드 전환)
-        nightMode()
-        setContentView(R.layout.activity_main)
-        //시그마 갯수 이미지로 띄우는 부분
-        var useruuid: SharedPreferences = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
-        var uuid = useruuid.getString("uuid", null)
-        val heart = getHeart(uuid)
-        var heartnumber = heart.execute().get() as Int
+    fun setHeart(heartnumber:Int){
         if (heartnumber == 0){
             heart1.visibility = View.INVISIBLE
             heart2.visibility = View.INVISIBLE
@@ -90,6 +73,35 @@ class MainActivity : AppCompatActivity() {
             heart5.visibility = View.VISIBLE
 
         }
+    }
+
+    fun nightMode(){
+        if (nightModeCheck.isNightModeActive(this) == true) {
+            setTheme(R.style.DarkTheme)
+        } else if (nightModeCheck.isNightModeActive(this) == false) {
+            setTheme(R.style.LightTheme)
+        }
+    }
+
+    fun startupValues(){
+        var useruuid: SharedPreferences = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
+        var uuid = useruuid.getString("uuid", null)
+        val getPoint = getPoint(uuid)
+        var points = getPoint.execute().get() as Int
+        point.setText(points.toString())
+        val getHeart = getHeart(uuid)
+        var hearts = getHeart.execute().get() as Int
+        Log.i("hearts", hearts.toString())
+        setHeart(hearts)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //시작할때 필수함수 (첫실행감지, 야간모드 전환)
+        nightMode()
+        setContentView(R.layout.activity_main)
+        //시그마 갯수 이미지로 띄우는 부분
+        startupValues()
 
         MobileAds.initialize(this,"ca-app-pub-3940256099942544/6300978111")
         bannerad.loadAd(AdRequest.Builder().build())
