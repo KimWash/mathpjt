@@ -162,6 +162,7 @@ class MainActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+
                 }
             )
 
@@ -189,7 +190,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     override fun onRewardedAdClosed() {
-                        loadRewardedAd()
+                        Log.d("SSS", "onRewardVideoAdClosed()")
                     }
 
                     override fun onRewardedAdFailedToShow(errorCode: Int) {
@@ -202,7 +203,10 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onRewardedAdOpened() {
                     }
-                })
+                }
+
+            )
+
 
         }
     }
