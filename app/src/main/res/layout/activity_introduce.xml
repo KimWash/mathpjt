@@ -73,14 +73,16 @@
 
         <ImageView
             android:layout_below="@id/hello"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:layout_width="300dp"
+            android:layout_centerInParent="true"
+            android:layout_height="300dp"
             android:src="@drawable/app_logo"
             android:id="@+id/logo"
             android:layout_marginTop="50dp"></ImageView>
 
         <Button
             android:id="@+id/startbutton"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

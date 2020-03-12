@@ -22,11 +22,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.gms.ads.rewarded.RewardItem
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var mRewardedAd: RewardedAd
+    private var mIsLoading = false
 
-    fun setHeart(heartnumber:Int){
-        if (heartnumber == 0){
+    fun setHeart(hearts:Int){
+        if (hearts == 0){
             heart1.visibility = View.INVISIBLE
             heart2.visibility = View.INVISIBLE
             heart3.visibility = View.INVISIBLE
@@ -34,14 +39,14 @@ class MainActivity : AppCompatActivity() {
             heart5.visibility = View.INVISIBLE
 
         }
-        else if(heartnumber == 1){
+        else if(hearts == 1){
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.INVISIBLE
             heart3.visibility = View.INVISIBLE
             heart4.visibility = View.INVISIBLE
             heart5.visibility = View.INVISIBLE
         }
-        else if(heartnumber ==2){
+        else if(hearts ==2){
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.VISIBLE
             heart3.visibility = View.INVISIBLE
@@ -49,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             heart5.visibility = View.INVISIBLE
 
         }
-        else if(heartnumber == 3){
+        else if(hearts == 3){
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.VISIBLE
             heart3.visibility = View.VISIBLE
@@ -57,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             heart5.visibility = View.INVISIBLE
 
         }
-        else if(heartnumber == 4){
+        else if(hearts == 4){
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.VISIBLE
             heart3.visibility = View.VISIBLE
@@ -65,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             heart5.visibility = View.INVISIBLE
 
         }
-        else if(heartnumber == 5){
+        else if(hearts == 5){
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.VISIBLE
             heart3.visibility = View.VISIBLE
@@ -83,7 +88,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun startupValues(){
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //시작할때 필수함수 (첫실행감지, 야간모드 전환)
+        nightMode()
+        setContentView(R.layout.activity_main)
+        //시그마 갯수 이미지로 띄우는 부분
         var useruuid: SharedPreferences = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
         var uuid = useruuid.getString("uuid", null)
         val getPoint = getPoint(uuid)
@@ -93,23 +104,21 @@ class MainActivity : AppCompatActivity() {
         var hearts = getHeart.execute().get() as Int
         Log.i("hearts", hearts.toString())
         setHeart(hearts)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //시작할때 필수함수 (첫실행감지, 야간모드 전환)
-        nightMode()
-        setContentView(R.layout.activity_main)
-        //시그마 갯수 이미지로 띄우는 부분
-        startupValues()
 
         MobileAds.initialize(this,"ca-app-pub-3940256099942544/6300978111")
         bannerad.loadAd(AdRequest.Builder().build())
         settingbutton.setOnClickListener{showSettingPop()}
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
-        val pluspage = Intent(this@MainActivity, RewardActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
-        heartplus.setOnClickListener{View -> startActivity(pluspage)}
+        heartplus.setOnClickListener{
+            if (hearts > 5) {
+                Toast.makeText(this@MainActivity, "하트가 너무 많습니다", Toast.LENGTH_LONG).show()
+            }
+            else {
+                MobileAds.initialize(this) {}
+                loadRewardedAd()
+            }
+        }
         solve.setOnClickListener{View -> startActivity(solvepage)}
         store.setOnClickListener{View -> startActivity(storepage)}
     }
@@ -127,6 +136,75 @@ class MainActivity : AppCompatActivity() {
             .create()
         alertDialog.setView(view)
         alertDialog.show()
+    }
+    fun loadRewardedAd() {
+        if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
+            mIsLoading = true
+            mRewardedAd = RewardedAd(this, "ca-app-pub-3940256099942544/5224354917")
+            mRewardedAd.loadAd(
+                AdRequest.Builder().build(),
+                object : RewardedAdLoadCallback() {
+                    override fun onRewardedAdLoaded() {
+                        mIsLoading = false
+                        Toast.makeText(
+                            this@MainActivity,
+                            "광고가 재생 됩니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        showRewardedVideo()
+                    }
+
+                    override fun onRewardedAdFailedToLoad(errorCode: Int) {
+                        mIsLoading = false
+                        Toast.makeText(
+                            this@MainActivity,
+                            "오류가 났습니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            )
+
+        }
+
+
+    }
+    fun showRewardedVideo() {
+        if (mRewardedAd.isLoaded) {
+            mRewardedAd.show(
+                this,
+                object : RewardedAdCallback() {
+                    override fun onUserEarnedReward(
+                        rewardItem: RewardItem
+                    ) {
+                        val editheart = editHeart(uuid, 1, 1)
+                        editheart.execute()
+                            .get()
+                        Toast.makeText(
+                            this@MainActivity,
+                            "하트가 충전됩니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    }
+
+                    override fun onRewardedAdClosed() {
+                        loadRewardedAd()
+                    }
+
+                    override fun onRewardedAdFailedToShow(errorCode: Int) {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "오류",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                    override fun onRewardedAdOpened() {
+                    }
+                })
+
+        }
     }
 
 

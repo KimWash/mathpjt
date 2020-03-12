@@ -126,8 +126,9 @@
             android:padding="15dp"></Button>
 
         <ImageView
-            android:layout_width="420dp"
-            android:layout_height="420dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="170dp"
             android:src="@drawable/app_logo" />
     </RelativeLayout>
