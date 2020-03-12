@@ -13,7 +13,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.yoonlab.mathproject.ui.login.LoginActivity
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 

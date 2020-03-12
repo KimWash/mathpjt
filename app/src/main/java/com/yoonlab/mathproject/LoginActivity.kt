@@ -1,4 +1,4 @@
-package com.yoonlab.mathproject.ui.login
+package com.yoonlab.mathproject
 
 import android.app.Activity
 import android.content.Context
@@ -40,12 +40,11 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-public var mContext: Context? = null
-var uuid:String? = null
+
 
 class LoginActivity : AppCompatActivity() {
-
-    private lateinit var loginViewModel: LoginViewModel
+    public var mContext: Context? = null
+    var uuid:String? = null
 
     fun nightMode(){
         if (nightModeCheck.isNightModeActive(this) == true) {
