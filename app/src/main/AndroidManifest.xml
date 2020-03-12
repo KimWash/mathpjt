@@ -32,10 +32,10 @@
         <activity android:name=".JoinActivity"></activity>
 
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SetpopActivity"></activity>
+        <activity android:name=".StoreActivity"></activity>
 
         <activity android:name=".SolveActivity"></activity>
         <activity android:name=".RewardActivity"></activity>

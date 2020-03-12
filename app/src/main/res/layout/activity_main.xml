@@ -158,13 +158,24 @@
             android:text="상점" />
 
         <TextView
-            android:id="@+id/point"
+            android:id="@+id/point2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@+id/store"
             android:text="My Point :"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="194dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/store"
+            android:text=""
             android:textSize="18sp"
             android:textStyle="bold" />
 
