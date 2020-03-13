@@ -38,7 +38,7 @@ class SolveActivity : AppCompatActivity() {
         val HMP = howManyProblems()
         val pCount = HMP.execute().get()
         if (pCount is Int){
-            Log.i("문제번호", pCount.toString())
+            Log.i("문제갯수", pCount.toString())
             val random = Random()
             val num = random.nextInt(pCount)+1
             val gPb = getProblem(num)
@@ -54,7 +54,6 @@ class SolveActivity : AppCompatActivity() {
     fun checkAnswer() {
         var useruuid: SharedPreferences = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
         var uuid = useruuid.getString("uuid", null)
-        Log.i("uuid", uuid.toString())
         if (uuid != null) {
             val editHeart = editHeart(uuid.toString(), 0, 1) //UUID 불러오기
             val getHeart = getHeart(uuid)
@@ -164,8 +163,8 @@ class SolveActivity : AppCompatActivity() {
                 }
                 val prob = line.split(",".toRegex())
                 problemAns = prob[0].toInt()
-                problempoint = prob[3].toInt()
-                problemsolver = prob[4].toInt()
+                problempoint = prob[2].toInt()
+                problemsolver = prob[3].toInt()
                 var bmImg: Bitmap? = null
                 try {
                     val myFileUrl: URL = URL(prob[1])
