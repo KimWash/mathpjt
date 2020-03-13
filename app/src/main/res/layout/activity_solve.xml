@@ -59,7 +59,7 @@
             android:src="@drawable/ic_functions_black_24dp" />
 
         <ImageButton
-            android:id="@+id/heartplus"
+            android:id="@+id/heartplus1"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_alignParentRight="true"

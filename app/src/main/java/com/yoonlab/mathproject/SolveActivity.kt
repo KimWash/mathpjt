@@ -12,7 +12,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_solve.*
 import java.io.BufferedReader
 import java.io.IOException
@@ -23,37 +25,183 @@ import java.net.MalformedURLException
 import java.net.URL
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardedVideoAd
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
-var problemView:ImageView? = null
-var problemAns:Int? = null
-var problempoint:Int = 0
-var problemsolver:Int = 0
+var problemView: ImageView? = null
+var problemAns: Int? = null
+var problempoint: Int = 0
+var problemsolver: Int = 0
 public var mContext_Solve: Context? = null
 
 class SolveActivity : AppCompatActivity() {
+    private lateinit var mRewardedAd: RewardedAd
+    private var mIsLoading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_solve)
+        val hearts1 = setThings1()
+        heartplus.setOnClickListener {
+            if (hearts1 >= 5) {
+                Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
+            } else {
+                MobileAds.initialize(this) {}
+                loadRewardedAd()
+            }
+        }
         //어떤 문제를 불러옴??
         problemView = findViewById<ImageView>(R.id.problems)
         val HMP = howManyProblems()
         val pCount = HMP.execute().get()
-        if (pCount is Int){
+        if (pCount is Int) {
             Log.i("문제갯수", pCount.toString())
             val random = Random()
-            val num = random.nextInt(pCount)+1
+            val num = random.nextInt(pCount) + 1
             val gPb = getProblem(num)
             gPb.execute()
-        }
-        else{
+        } else {
             finish()
         }
         val submitButton = findViewById<Button>(R.id.submit)
-        submitButton.setOnClickListener { checkAnswer() }
+        submitButton.setOnClickListener {
+            checkAnswer()
+        }
+    }
+
+
+    fun setThings1(): Int { //UUID 불러오기
+        val getHeart = getHeart(uuid)
+        val heart = getHeart.execute().get() as Int
+        if (heart == 0) {
+            heart11.visibility = View.INVISIBLE
+            heart12.visibility = View.INVISIBLE
+            heart13.visibility = View.INVISIBLE
+            heart14.visibility = View.INVISIBLE
+            heart15.visibility = View.INVISIBLE
+
+        } else if (heart == 1) {
+            heart11.visibility = View.VISIBLE
+            heart12.visibility = View.INVISIBLE
+            heart13.visibility = View.INVISIBLE
+            heart14.visibility = View.INVISIBLE
+            heart15.visibility = View.INVISIBLE
+        } else if (heart == 2) {
+            heart11.visibility = View.VISIBLE
+            heart12.visibility = View.VISIBLE
+            heart13.visibility = View.INVISIBLE
+            heart14.visibility = View.INVISIBLE
+            heart15.visibility = View.INVISIBLE
+
+        } else if (heart == 3) {
+            heart11.visibility = View.VISIBLE
+            heart12.visibility = View.VISIBLE
+            heart13.visibility = View.VISIBLE
+            heart14.visibility = View.INVISIBLE
+            heart15.visibility = View.INVISIBLE
+
+        } else if (heart == 4) {
+            heart11.visibility = View.VISIBLE
+            heart12.visibility = View.VISIBLE
+            heart13.visibility = View.VISIBLE
+            heart14.visibility = View.VISIBLE
+            heart15.visibility = View.INVISIBLE
+
+        } else if (heart == 5) {
+            heart11.visibility = View.VISIBLE
+            heart12.visibility = View.VISIBLE
+            heart13.visibility = View.VISIBLE
+            heart14.visibility = View.VISIBLE
+            heart15.visibility = View.VISIBLE
+        }
+        return heart
+    }
+
+    fun loadRewardedAd() {
+        if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
+            mIsLoading = true
+            mRewardedAd = RewardedAd(this, "ca-app-pub-3940256099942544/5224354917")
+            mRewardedAd.loadAd(
+                AdRequest.Builder().build(),
+                object : RewardedAdLoadCallback() {
+                    override fun onRewardedAdLoaded() {
+                        mIsLoading = false
+                        Toast.makeText(
+                            this@SolveActivity,
+                            "광고가 재생 됩니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        showRewardedVideo()
+                    }
+
+                    override fun onRewardedAdFailedToLoad(errorCode: Int) {
+                        mIsLoading = false
+                        Toast.makeText(
+                            this@SolveActivity,
+                            "오류가 났습니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                }
+            )
+
+        }
+
+
+    }
+
+    fun showRewardedVideo() {
+        if (mRewardedAd.isLoaded) {
+            mRewardedAd.show(
+                this,
+                object : RewardedAdCallback() {
+                    override fun onUserEarnedReward(
+                        rewardItem: RewardItem
+                    ) {
+                        val changeheart = editHeart(uuidl, 1, 1)
+                        val result = changeheart.execute().get()
+                        if (result.toString() == "success") {
+                            Toast.makeText(
+                                this@SolveActivity,
+                                "하트가 충전됩니다",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                this@SolveActivity,
+                                "이런, 하트 충전에 오류가 있는 것 같아요. ",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                    }
+
+                    override fun onRewardedAdClosed() {
+                        Log.d("SSS", "onRewardVideoAdClosed()")
+                    }
+
+                    override fun onRewardedAdFailedToShow(errorCode: Int) {
+                        Toast.makeText(
+                            this@SolveActivity,
+                            "오류",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                    override fun onRewardedAdOpened() {
+                    }
+                }
+
+            )
+
+
+        }
     }
 
     fun checkAnswer() {
@@ -63,68 +211,21 @@ class SolveActivity : AppCompatActivity() {
             val editHeart = editHeart(uuid.toString(), 0, 1) //UUID 불러오기
             val getHeart = getHeart(uuid)
             val heart = getHeart.execute().get() as Int
-            if (heart == 0){
-                heart1.visibility = View.INVISIBLE
-                heart2.visibility = View.INVISIBLE
-                heart3.visibility = View.INVISIBLE
-                heart4.visibility = View.INVISIBLE
-                heart5.visibility = View.INVISIBLE
-
-            }
-            else if(heart == 1){
-                heart1.visibility = View.VISIBLE
-                heart2.visibility = View.INVISIBLE
-                heart3.visibility = View.INVISIBLE
-                heart4.visibility = View.INVISIBLE
-                heart5.visibility = View.INVISIBLE
-            }
-            else if(heart ==2){
-                heart1.visibility = View.VISIBLE
-                heart2.visibility = View.VISIBLE
-                heart3.visibility = View.INVISIBLE
-                heart4.visibility = View.INVISIBLE
-                heart5.visibility = View.INVISIBLE
-
-            }
-            else if(heart == 3){
-                heart1.visibility = View.VISIBLE
-                heart2.visibility = View.VISIBLE
-                heart3.visibility = View.VISIBLE
-                heart4.visibility = View.INVISIBLE
-                heart5.visibility = View.INVISIBLE
-
-            }
-            else if(heart == 4){
-                heart1.visibility = View.VISIBLE
-                heart2.visibility = View.VISIBLE
-                heart3.visibility = View.VISIBLE
-                heart4.visibility = View.VISIBLE
-                heart5.visibility = View.INVISIBLE
-
-            }
-            else if(heart == 5){
-                heart1.visibility = View.VISIBLE
-                heart2.visibility = View.VISIBLE
-                heart3.visibility = View.VISIBLE
-                heart4.visibility = View.VISIBLE
-                heart5.visibility = View.VISIBLE
-            }
             if (heart > 0) {
                 val result = editHeart.execute().get().toString()
                 if (result == "success") { //하트를 정상적으로 수정했을 때
+
                     if (Integer.parseInt(answer.getText().toString()) == problemAns) {
                         JoinActivity.dispToast(this, "정답입니다!")
-                        if(problemsolver == 0){
+                        if (problemsolver == 0) {
                             editPoint(uuid, 1, problempoint)
-                        }
-                        else{
+                        } else {
                             var totalpoint: Int = problempoint / problemsolver
                             editPoint(uuid, 1, totalpoint)
                         }
                         val homepage = Intent(this@SolveActivity, MainActivity::class.java)
                         startActivity(homepage)
-                    }
-                    else {
+                    } else {
                         JoinActivity.dispToast(this, "답이 틀렸네요..")
                         finish()
                     }
@@ -166,8 +267,7 @@ class SolveActivity : AppCompatActivity() {
                 Log.e("RECV DATA", line)
                 if (line.matches("\\d+".toRegex())) { //숫자만 있는게 확인되면
                     return line.toInt()
-                }
-                else{
+                } else {
                     return line
                 }
             } catch (e: MalformedURLException) {
