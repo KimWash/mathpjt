@@ -11,7 +11,7 @@
 
     <style name="LightTheme" parent="Theme.AppCompat">
         <item name="android:colorBackground">#F2F2F2</item>
-        <item name="colorPrimaryDark">#F2F2F2</item>
+        <item name="colorPrimaryDark">#80E0DD</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="textColor">#909090</item>
         <item name="titleColor">#000000</item>
