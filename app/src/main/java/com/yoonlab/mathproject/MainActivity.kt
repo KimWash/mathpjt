@@ -25,12 +25,28 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.rewarded.RewardedAdCallback
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.gms.ads.rewarded.RewardItem
+var useruuid:SharedPreferences? = null
+var uuidl:String? = null
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mRewardedAd: RewardedAd
     private var mIsLoading = false
 
-    fun setHeart(hearts:Int){
+    fun nightMode(){
+        if (nightModeCheck.isNightModeActive(this) == true) {
+            setTheme(R.style.DarkTheme)
+        } else if (nightModeCheck.isNightModeActive(this) == false) {
+            setTheme(R.style.LightTheme)
+        }
+    }
+
+    fun setThings(): Int{
+        val getPoint = getPoint(uuidl)
+        var points = getPoint.execute().get() as Int
+        point.setText(points.toString())
+        val getHeart = getHeart(uuidl)
+        var hearts = getHeart.execute().get() as Int
         if (hearts == 0){
             heart1.visibility = View.INVISIBLE
             heart2.visibility = View.INVISIBLE
@@ -78,32 +94,18 @@ class MainActivity : AppCompatActivity() {
             heart5.visibility = View.VISIBLE
 
         }
+        return hearts
     }
-
-    fun nightMode(){
-        if (nightModeCheck.isNightModeActive(this) == true) {
-            setTheme(R.style.DarkTheme)
-        } else if (nightModeCheck.isNightModeActive(this) == false) {
-            setTheme(R.style.LightTheme)
-        }
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
+        useruuid = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
+        uuidl = useruuid?.getString("uuid", null)
         nightMode()
         setContentView(R.layout.activity_main)
         //시그마 갯수 이미지로 띄우는 부분
-        var useruuid: SharedPreferences = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
-        var uuid = useruuid.getString("uuid", null)
-        val getPoint = getPoint(uuid)
-        var points = getPoint.execute().get() as Int
-        point.setText(points.toString())
-        val getHeart = getHeart(uuid)
-        var hearts = getHeart.execute().get() as Int
-        Log.i("hearts", hearts.toString())
-        setHeart(hearts)
+        val hearts = setThings()
 
         MobileAds.initialize(this,"ca-app-pub-3940256099942544/6300978111")
         bannerad.loadAd(AdRequest.Builder().build())
@@ -111,8 +113,8 @@ class MainActivity : AppCompatActivity() {
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         heartplus.setOnClickListener{
-            if (hearts > 5) {
-                Toast.makeText(this@MainActivity, "하트가 너무 많습니다", Toast.LENGTH_LONG).show()
+            if (hearts >= 5) {
+                Toast.makeText(this@MainActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
             }
             else {
                 MobileAds.initialize(this) {}
@@ -178,13 +180,23 @@ class MainActivity : AppCompatActivity() {
                     override fun onUserEarnedReward(
                         rewardItem: RewardItem
                     ) {
-                        val changeheart = editHeart(uuid, 1, 1)
-                        changeheart.execute().get()
-                        Toast.makeText(
-                            this@MainActivity,
-                            "하트가 충전됩니다",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        val changeheart = editHeart(uuidl, 1, 1)
+                        val result = changeheart.execute().get()
+                        if (result.toString() == "success"){
+                            Toast.makeText(
+                                this@MainActivity,
+                                "하트가 충전됩니다",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            setThings()
+                        }
+                        else{
+                            Toast.makeText(
+                                this@MainActivity,
+                                "이런, 하트 충전에 오류가 있는 것 같아요. ",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
 
                     }
 
