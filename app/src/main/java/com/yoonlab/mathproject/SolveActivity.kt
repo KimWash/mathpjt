@@ -242,8 +242,6 @@ class SolveActivity : AppCompatActivity() {
             }
             return null
         }
-        //문제 포인트 계산
-        fun pointcalc(problempoint: Int, problemsolver: Int) = problempoint / problemsolver
 
         protected override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
