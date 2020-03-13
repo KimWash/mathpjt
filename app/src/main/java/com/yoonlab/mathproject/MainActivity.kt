@@ -178,9 +178,8 @@ class MainActivity : AppCompatActivity() {
                     override fun onUserEarnedReward(
                         rewardItem: RewardItem
                     ) {
-                        val editheart = editHeart(uuid, 1, 1)
-                        editheart.execute()
-                            .get()
+                        val changeheart = editHeart(uuid, 1, 1)
+                        changeheart.execute().get()
                         Toast.makeText(
                             this@MainActivity,
                             "하트가 충전됩니다",

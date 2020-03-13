@@ -25,6 +25,8 @@ import java.util.*
 
 var problemView:ImageView? = null
 var problemAns:Int? = null
+var problempoint:Int = 0
+var problemsolver:Int = 0
 
 class SolveActivity : AppCompatActivity() {
 
@@ -62,6 +64,13 @@ class SolveActivity : AppCompatActivity() {
                 if (result == "success") { //하트를 정상적으로 수정했을 때
                     if (Integer.parseInt(answer.getText().toString()) == problemAns) {
                         JoinActivity.dispToast(this, "정답입니다!")
+                        if(problemsolver == 0){
+                            editPoint(uuid, 1, problempoint)
+                        }
+                        else{
+                            var totalpoint: Int = problempoint / problemsolver
+                            editPoint(uuid, 1, totalpoint)
+                        }
                     }
                 } else {  //하트를 수정하지 못했을 때
                     JoinActivity.dispToast(this, "서버 오류입니다. 개발자에게 문의해주세요.")
@@ -155,6 +164,8 @@ class SolveActivity : AppCompatActivity() {
                 }
                 val prob = line.split(",".toRegex())
                 problemAns = prob[0].toInt()
+                problempoint = prob[3].toInt()
+                problemsolver = prob[4].toInt()
                 var bmImg: Bitmap? = null
                 try {
                     val myFileUrl: URL = URL(prob[1])
@@ -175,6 +186,8 @@ class SolveActivity : AppCompatActivity() {
             }
             return null
         }
+        //문제 포인트 계산
+        fun pointcalc(problempoint: Int, problemsolver: Int) = problempoint / problemsolver
 
         protected override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
