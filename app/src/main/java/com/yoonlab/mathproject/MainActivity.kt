@@ -109,9 +109,9 @@ class MainActivity : AppCompatActivity() {
 
         MobileAds.initialize(this,"ca-app-pub-3940256099942544/6300978111")
         bannerad.loadAd(AdRequest.Builder().build())
-        settingbutton.setOnClickListener{showSettingPop()}
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
+        val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
         heartplus.setOnClickListener{
             if (hearts >= 5) {
                 Toast.makeText(this@MainActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
@@ -123,21 +123,7 @@ class MainActivity : AppCompatActivity() {
         }
         solve.setOnClickListener{View -> startActivity(solvepage)}
         store.setOnClickListener{View -> startActivity(storepage)}
-    }
-    fun showSettingPop(){
-        val pop= getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = pop.inflate(R.layout.activity_setpop, null)
-        Toast.makeText(
-            this@MainActivity,
-            "설정입니다",
-            Toast.LENGTH_LONG
-        ).show()
-        val alertDialog = AlertDialog.Builder(this)
-            .setTitle("설정")
-            .setNeutralButton("close",null)
-            .create()
-        alertDialog.setView(view)
-        alertDialog.show()
+        settingbutton.setOnClickListener{View -> startActivity(settingActivity)}
     }
     fun loadRewardedAd() {
         if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
