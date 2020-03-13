@@ -71,6 +71,10 @@ class SolveActivity : AppCompatActivity() {
                             editPoint(uuid, 1, totalpoint)
                         }
                     }
+                    else {
+                        JoinActivity.dispToast(this, "답이 틀렸네요..")
+                        finish()
+                    }
                 } else {  //하트를 수정하지 못했을 때
                     JoinActivity.dispToast(this, "서버 오류입니다. 개발자에게 문의해주세요.")
                 }
@@ -202,6 +206,3 @@ class SolveActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
