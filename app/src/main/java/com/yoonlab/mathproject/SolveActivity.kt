@@ -2,12 +2,14 @@ package com.yoonlab.mathproject
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,7 @@ import java.net.MalformedURLException
 import java.net.URL
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardedVideoAd
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
@@ -60,6 +63,52 @@ class SolveActivity : AppCompatActivity() {
             val editHeart = editHeart(uuid.toString(), 0, 1) //UUID 불러오기
             val getHeart = getHeart(uuid)
             val heart = getHeart.execute().get() as Int
+            if (heart == 0){
+                heart1.visibility = View.INVISIBLE
+                heart2.visibility = View.INVISIBLE
+                heart3.visibility = View.INVISIBLE
+                heart4.visibility = View.INVISIBLE
+                heart5.visibility = View.INVISIBLE
+
+            }
+            else if(heart == 1){
+                heart1.visibility = View.VISIBLE
+                heart2.visibility = View.INVISIBLE
+                heart3.visibility = View.INVISIBLE
+                heart4.visibility = View.INVISIBLE
+                heart5.visibility = View.INVISIBLE
+            }
+            else if(heart ==2){
+                heart1.visibility = View.VISIBLE
+                heart2.visibility = View.VISIBLE
+                heart3.visibility = View.INVISIBLE
+                heart4.visibility = View.INVISIBLE
+                heart5.visibility = View.INVISIBLE
+
+            }
+            else if(heart == 3){
+                heart1.visibility = View.VISIBLE
+                heart2.visibility = View.VISIBLE
+                heart3.visibility = View.VISIBLE
+                heart4.visibility = View.INVISIBLE
+                heart5.visibility = View.INVISIBLE
+
+            }
+            else if(heart == 4){
+                heart1.visibility = View.VISIBLE
+                heart2.visibility = View.VISIBLE
+                heart3.visibility = View.VISIBLE
+                heart4.visibility = View.VISIBLE
+                heart5.visibility = View.INVISIBLE
+
+            }
+            else if(heart == 5){
+                heart1.visibility = View.VISIBLE
+                heart2.visibility = View.VISIBLE
+                heart3.visibility = View.VISIBLE
+                heart4.visibility = View.VISIBLE
+                heart5.visibility = View.VISIBLE
+            }
             if (heart > 0) {
                 val result = editHeart.execute().get().toString()
                 if (result == "success") { //하트를 정상적으로 수정했을 때
@@ -72,6 +121,8 @@ class SolveActivity : AppCompatActivity() {
                             var totalpoint: Int = problempoint / problemsolver
                             editPoint(uuid, 1, totalpoint)
                         }
+                        val homepage = Intent(this@SolveActivity, MainActivity::class.java)
+                        startActivity(homepage)
                     }
                     else {
                         JoinActivity.dispToast(this, "답이 틀렸네요..")
