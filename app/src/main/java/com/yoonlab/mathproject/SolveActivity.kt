@@ -1,6 +1,7 @@
 package com.yoonlab.mathproject
 
 import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -27,6 +28,7 @@ var problemView:ImageView? = null
 var problemAns:Int? = null
 var problempoint:Int = 0
 var problemsolver:Int = 0
+public var mContext_Solve: Context? = null
 
 class SolveActivity : AppCompatActivity() {
 
@@ -128,7 +130,7 @@ class SolveActivity : AppCompatActivity() {
         protected override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
             if (result == "Error 4: No Data") {
-                JoinActivity.dispToast(mContext, "오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")
+                JoinActivity.dispToast(mContext_Solve, "오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")
                 return
             }
             return
@@ -195,7 +197,7 @@ class SolveActivity : AppCompatActivity() {
         protected override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
             if (result == "Error 4: No Data") {
-                JoinActivity.dispToast(mContext, "오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")
+                JoinActivity.dispToast(mContext_Solve, "오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")
                 return
             }
             try {

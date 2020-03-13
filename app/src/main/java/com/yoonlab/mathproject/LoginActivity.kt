@@ -41,10 +41,9 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-
+public var mContext_Login: Context? = null
 class LoginActivity : AppCompatActivity() {
-    public var mContext: Context? = null
-    var uuid:String? = null
+
 
     fun nightMode(){
         if (nightModeCheck.isNightModeActive(this) == true) {
@@ -58,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         nightMode()
         setContentView(R.layout.activity_login)
-        mContext = this
+        mContext_Login = this
         setSupportActionBar(toolbar)
         getSupportActionBar()?.title = "로그인"
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
@@ -150,19 +149,19 @@ class LoginActivity : AppCompatActivity() {
         protected override fun onPostExecute(code: Any?) {
             super.onPostExecute(code)
             if (code == 0){
-                JoinActivity.dispToast(mContext, "비밀번호가 일치하지 않습니다.")
+                JoinActivity.dispToast(mContext_Login, "비밀번호가 일치하지 않습니다.")
                 return
             }
             else if (code == 1064){
-                JoinActivity.dispToast(mContext, "로그인에 실패하였습니다. 에러코드: 1064 개발자에게 문의해주세요.")
+                JoinActivity.dispToast(mContext_Login, "로그인에 실패하였습니다. 에러코드: 1064 개발자에게 문의해주세요.")
                 return
             }
             else if (code == 3){
-                JoinActivity.dispToast(mContext, "아이디를 찾을 수 없습니다.")
+                JoinActivity.dispToast(mContext_Login, "아이디를 찾을 수 없습니다.")
                 return
             }
             else {
-                JoinActivity.dispToast(mContext, "로그인에 성공하였습니다!")
+                JoinActivity.dispToast(mContext_Login, "로그인에 성공하였습니다!")
                 var useruuid: SharedPreferences = context.getSharedPreferences("uuid", MODE_PRIVATE)
                 var uuideditor: SharedPreferences.Editor = useruuid.edit()
                 uuideditor.putString("uuid", code.toString())

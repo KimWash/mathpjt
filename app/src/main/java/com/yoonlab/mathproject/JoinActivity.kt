@@ -35,9 +35,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-
-
-public var mContext:Context? = null
+public var mContext_Join:Context? = null
 public var invalidId = false
 public var invalidChecked = false
 var uuid:String? = null
@@ -65,7 +63,7 @@ class JoinActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join)
-        mContext = this
+        mContext_Join = this
         val submitButton = findViewById<Button>(R.id.submitButton)
         submitButton.setOnClickListener{submitButton()}
         val invalidButton = findViewById<Button>(R.id.checkInvalid)
@@ -248,15 +246,15 @@ class registDB(val sId: String,val sEmail: String, val sPw: String) : AsyncTask<
     protected override fun onPostExecute(code:Int){
         super.onPostExecute(code)
         if (code == 0){
-            JoinActivity.dispToast(mContext, "회원가입이 완료되었습니다.")
+            JoinActivity.dispToast(mContext_Join, "회원가입이 완료되었습니다.")
             return
         }
         else if (code == 1){
-            JoinActivity.dispToast(mContext, "서버와의 연결에 실패했습니다. Error Code: 1")
+            JoinActivity.dispToast(mContext_Join, "서버와의 연결에 실패했습니다. Error Code: 1")
             return
         }
         else if (code == 2){
-            JoinActivity.dispToast(mContext, "회원가입에 실패했습니다. Error Code: 2")
+            JoinActivity.dispToast(mContext_Join, "회원가입에 실패했습니다. Error Code: 2")
             return
         }
 
