@@ -4,7 +4,7 @@
         <!-- drawable/circle_card_icon.xml -->
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
             android:shape="oval" android:tint="#FFFFFF">
-            <solid android:color="#8df"/>
+            <solid android:color="#FFFFFF"/>
             <size
                 android:width="48dp"
                 android:height="48dp"
@@ -12,5 +12,5 @@
 
         </shape>
     </item>
-    <item android:drawable="@drawable/setting"/>
+    <item android:drawable="@drawable/ic_favorite_border_24px"/>
 </layer-list>
