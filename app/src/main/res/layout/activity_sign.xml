@@ -46,6 +46,12 @@
             android:layout_below="@+id/resister"
             android:layout_marginTop="@android:dimen/app_icon_size"
             ></Button>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:src="@drawable/sheep"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
 
 
 
