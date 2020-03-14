@@ -43,40 +43,9 @@ class SolveActivity : AppCompatActivity() {
     private lateinit var mRewardedAd: RewardedAd
     private var mIsLoading = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_solve)
-        val hearts1 = setThings1()
-        heartplus.setOnClickListener {
-            if (hearts1 >= 5) {
-                Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
-            } else {
-                MobileAds.initialize(this) {}
-                loadRewardedAd()
-            }
-        }
-        //어떤 문제를 불러옴??
-        problemView = findViewById<ImageView>(R.id.problems)
-        val HMP = howManyProblems()
-        val pCount = HMP.execute().get()
-        if (pCount is Int) {
-            Log.i("문제갯수", pCount.toString())
-            val random = Random()
-            val num = random.nextInt(pCount) + 1
-            val gPb = getProblem(num)
-            gPb.execute()
-        } else {
-            finish()
-        }
-        val submitButton = findViewById<Button>(R.id.submit)
-        submitButton.setOnClickListener {
-            checkAnswer()
-        }
-    }
-
 
     fun setThings1(): Int { //UUID 불러오기
-        val getHeart = getHeart(uuid)
+        val getHeart = getHeart(uuidl)
         val heart = getHeart.execute().get() as Int
         if (heart == 0) {
             heart11.visibility = View.INVISIBLE
@@ -121,6 +90,42 @@ class SolveActivity : AppCompatActivity() {
         }
         return heart
     }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_solve)
+        useruuid = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
+        uuidl = useruuid?.getString("uuid", null)
+        val hearts1 = setThings1()
+        heartplus1.setOnClickListener {
+            if (hearts1 >= 5) {
+                Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
+            } else {
+                MobileAds.initialize(this) {}
+                loadRewardedAd()
+            }
+        }
+        //어떤 문제를 불러옴??
+        problemView = findViewById<ImageView>(R.id.problems)
+        val HMP = howManyProblems()
+        val pCount = HMP.execute().get()
+        if (pCount is Int) {
+            Log.i("문제갯수", pCount.toString())
+            val random = Random()
+            val num = random.nextInt(pCount) + 1
+            val gPb = getProblem(num)
+            gPb.execute()
+        } else {
+            finish()
+        }
+        val submitButton = findViewById<Button>(R.id.submit)
+        submitButton.setOnClickListener {
+            checkAnswer()
+        }
+    }
+
+
+
 
     fun loadRewardedAd() {
         if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
@@ -228,15 +233,21 @@ class SolveActivity : AppCompatActivity() {
                     } else {
                         JoinActivity.dispToast(this, "답이 틀렸네요..")
                         finish()
+                        val homepage = Intent(this@SolveActivity, MainActivity::class.java)
+                        startActivity(homepage)
                     }
                 } else {  //하트를 수정하지 못했을 때
                     JoinActivity.dispToast(this, "서버 오류입니다. 개발자에게 문의해주세요.")
+                    val homepage = Intent(this@SolveActivity, MainActivity::class.java)
+                    startActivity(homepage)
                 }
             } else if (heart <= 0) {
                 JoinActivity.dispToast(this, "하트가 모자랍니다. 충전해주세요!")
             }
         } else if (uuid == null) {
             JoinActivity.dispToast(this, "유저 정보를 불러오지 못했습니다. 개발자에게 문의해주세요.")
+            val homepage = Intent(this@SolveActivity, MainActivity::class.java)
+            startActivity(homepage)
         }
     }
 

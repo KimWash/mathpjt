@@ -25,6 +25,8 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.rewarded.RewardedAdCallback
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.gms.ads.rewarded.RewardItem
+
+
 var useruuid:SharedPreferences? = null
 var uuidl:String? = null
 
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     fun setThings(): Int{
         val getPoint = getPoint(uuidl)
         var points = getPoint.execute().get() as Int
-        point.setText(points.toString())
+        point2.setText(points.toString())
         val getHeart = getHeart(uuidl)
         var hearts = getHeart.execute().get() as Int
         if (hearts == 0){
