@@ -44,9 +44,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setThings(): Int{
-        val getPoint = getPoint(uuidl)
-        var points = getPoint.execute().get() as Int
-        point2.setText(points.toString())
         val getHeart = getHeart(uuidl)
         var hearts = getHeart.execute().get() as Int
         if (hearts == 0){
@@ -106,6 +103,9 @@ class MainActivity : AppCompatActivity() {
         uuidl = useruuid?.getString("uuid", null)
         nightMode()
         setContentView(R.layout.activity_main)
+        val getPoint = getPoint(uuidl)
+        var points = getPoint.execute().get() as Int
+        point2.setText(points.toString())
         //시그마 갯수 이미지로 띄우는 부분
         val hearts = setThings()
 
