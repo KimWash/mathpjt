@@ -122,4 +122,10 @@
             android:layout_marginTop="10sp"
             android:text="submit" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/pointView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </RelativeLayout>
