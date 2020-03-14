@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         //시그마 갯수 이미지로 띄우는 부분
         val hearts = setThings()
 
-        MobileAds.initialize(this,"ca-app-pub-3940256099942544/6300978111")
+        MobileAds.initialize(this,"ca-app-pub-4544671315865800/8295224890")
         bannerad.loadAd(AdRequest.Builder().build())
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
     fun loadRewardedAd() {
         if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
             mIsLoading = true
-            mRewardedAd = RewardedAd(this, "ca-app-pub-3940256099942544/5224354917")
+            mRewardedAd = RewardedAd(this, "ca-app-pub-4544671315865800/1491510376")
             mRewardedAd.loadAd(
                 AdRequest.Builder().build(),
                 object : RewardedAdLoadCallback() {

@@ -17,7 +17,7 @@ class IntroduceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_introduce)
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544/6300978111")
+        MobileAds.initialize(this, "ca-app-pub-4544671315865800/8295224890")
         bannerad.loadAd(AdRequest.Builder().build())
         var startbutton = findViewById<Button>(R.id.startbutton)
         val intIntent = Intent(this@IntroduceActivity, SignActivity::class.java)

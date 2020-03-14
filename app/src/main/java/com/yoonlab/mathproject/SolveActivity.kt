@@ -148,7 +148,7 @@ class SolveActivity : AppCompatActivity() {
     fun loadRewardedAd() {
         if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
             mIsLoading = true
-            mRewardedAd = RewardedAd(this, "ca-app-pub-3940256099942544/5224354917")
+            mRewardedAd = RewardedAd(this, "ca-app-pub-4544671315865800/1491510376")
             mRewardedAd.loadAd(
                 AdRequest.Builder().build(),
                 object : RewardedAdLoadCallback() {
