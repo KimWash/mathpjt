@@ -86,6 +86,8 @@ class LoginActivity : AppCompatActivity() {
             }
             else {
                 val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(mainIntent)
                 finish()
             }
@@ -162,6 +164,8 @@ class LoginActivity : AppCompatActivity() {
             }
             else {
                 JoinActivity.dispToast(mContext_Login, "로그인에 성공하였습니다!")
+                var prefs: SharedPreferences = context.getSharedPreferences("Pref", AppCompatActivity.MODE_PRIVATE)
+                prefs.edit().putBoolean("isFirstRun", false).apply()
                 var useruuid: SharedPreferences = context.getSharedPreferences("uuid", MODE_PRIVATE)
                 var uuideditor: SharedPreferences.Editor = useruuid.edit()
                 uuideditor.putString("uuid", code.toString())

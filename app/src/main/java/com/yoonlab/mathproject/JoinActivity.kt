@@ -133,6 +133,8 @@ class JoinActivity : AppCompatActivity() {
             val result = rdb.execute().get()
             if (result == 0) {  // 회원가입이 완료되면?
                 val MainIntent = Intent(this@JoinActivity, MainActivity::class.java)
+                MainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                MainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(MainIntent)
                 var prefs: SharedPreferences = getSharedPreferences("Pref", AppCompatActivity.MODE_PRIVATE)
                 prefs.edit().putBoolean("isFirstRun", false).apply()
