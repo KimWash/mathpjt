@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -38,7 +39,7 @@ var problemAns: Int? = null
 var problempoint: Int = 0
 var problemsolver: Int = 0
 public var mContext_Solve: Context? = null
-var uuidl2:String? = null
+var uuidl2: String? = null
 
 class SolveActivity : AppCompatActivity() {
     private lateinit var mRewardedAd: RewardedAd
@@ -106,6 +107,17 @@ class SolveActivity : AppCompatActivity() {
                 loadRewardedAd()
             }
         }
+
+
+        answer.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                //Perform Code
+                checkAnswer()
+                return@OnKeyListener true
+            }
+            false
+        })
+
         //어떤 문제를 불러옴??
         problemView = findViewById<ImageView>(R.id.problems)
         val HMP = howManyProblems()
@@ -125,7 +137,7 @@ class SolveActivity : AppCompatActivity() {
         }
     }
 
-    fun getPoints(): Int{
+    fun getPoints(): Int {
         val getPoint = getPoint(uuidl2)
         var points = getPoint.execute().get() as Int
         pointView.setText(points.toString())
