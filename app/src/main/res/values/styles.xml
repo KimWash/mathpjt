@@ -41,8 +41,8 @@
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textSize">19sp</item>
-        <item name="android:textColorPrimary">?attr/titleColor</item>
-        <item name="android:textColorSecondary">?attr/titleColor</item>
+        <item name="android:textColorPrimary">#000000</item>
+        <item name="android:textColorSecondary">#000000</item>
         <item name="android:elevation">0dp</item>
     </style>
 

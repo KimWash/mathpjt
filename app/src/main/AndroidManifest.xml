@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SettingsActivity"></activity>
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
