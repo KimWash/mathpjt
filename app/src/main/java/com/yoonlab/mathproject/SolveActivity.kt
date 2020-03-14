@@ -38,14 +38,14 @@ var problemAns: Int? = null
 var problempoint: Int = 0
 var problemsolver: Int = 0
 public var mContext_Solve: Context? = null
+var uuidl2:String? = null
 
 class SolveActivity : AppCompatActivity() {
     private lateinit var mRewardedAd: RewardedAd
     private var mIsLoading = false
 
-
     fun setThings1(): Int { //UUID 불러오기
-        val getHeart = getHeart(uuidl)
+        val getHeart = getHeart(uuidl2)
         val heart = getHeart.execute().get() as Int
         if (heart == 0) {
             heart11.visibility = View.INVISIBLE
@@ -95,8 +95,9 @@ class SolveActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_solve)
         useruuid = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
-        uuidl = useruuid?.getString("uuid", null)
+        uuidl2 = useruuid?.getString("uuid", null)
         val hearts1 = setThings1()
+        getPoints()
         heartplus1.setOnClickListener {
             if (hearts1 >= 5) {
                 Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
@@ -124,7 +125,12 @@ class SolveActivity : AppCompatActivity() {
         }
     }
 
-
+    fun getPoints(): Int{
+        val getPoint = getPoint(uuidl2)
+        var points = getPoint.execute().get() as Int
+        pointView.setText(points.toString())
+        return points
+    }
 
 
     fun loadRewardedAd() {
@@ -169,7 +175,7 @@ class SolveActivity : AppCompatActivity() {
                     override fun onUserEarnedReward(
                         rewardItem: RewardItem
                     ) {
-                        val changeheart = editHeart(uuidl, 1, 1)
+                        val changeheart = editHeart(uuidl2, 1, 1)
                         val result = changeheart.execute().get()
                         if (result.toString() == "success") {
                             Toast.makeText(
@@ -219,14 +225,15 @@ class SolveActivity : AppCompatActivity() {
             if (heart > 0) {
                 val result = editHeart.execute().get().toString()
                 if (result == "success") { //하트를 정상적으로 수정했을 때
-
-                    if (Integer.parseInt(answer.getText().toString()) == problemAns) {
+                    if (Integer.parseInt(answer.getText().toString()) == problemAns) { //DB상의 답과 입력한 답이 일치할때
                         JoinActivity.dispToast(this, "정답입니다!")
-                        if (problemsolver == 0) {
-                            editPoint(uuid, 1, problempoint)
-                        } else {
+                        if (problemsolver == 0) { //문제 푼 사람이 0명일때
+                            val editPoint = editPoint(uuid, 1, problempoint)
+                            editPoint.execute()
+                        } else { //그외에는
                             var totalpoint: Int = problempoint / problemsolver
-                            editPoint(uuid, 1, totalpoint)
+                            val editPoint = editPoint(uuid, 1, totalpoint)
+                            editPoint.execute()
                         }
                         val homepage = Intent(this@SolveActivity, MainActivity::class.java)
                         startActivity(homepage)
@@ -324,7 +331,7 @@ class SolveActivity : AppCompatActivity() {
                 val iss = conn.getInputStream()
                 var inn = BufferedReader(InputStreamReader(iss))
                 val line = inn.readLine()
-                Log.e("RECV DATA", line)
+                Log.e("RECV DATA*", line)
 
                 if (line == "Error 4: No Data") {
                     return line
