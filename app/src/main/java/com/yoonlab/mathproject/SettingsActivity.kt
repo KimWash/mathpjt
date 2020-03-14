@@ -4,32 +4,54 @@ import android.app.Activity
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceFragmentCompat
-import com.yoonlab.mathproject.SettingsActivity.*
-import kotlinx.android.synthetic.main.settings_activity.*
 import android.widget.Button
-import kotlinx.android.synthetic.main.activity_store.*
-import kotlinx.android.synthetic.main.settings_activity.home
+import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_setting.*
 
 
 class SettingsActivity : AppCompatActivity() {
-    var useruuid: SharedPreferences? = null
-    var uuidl:String? = null
-    var loggedinStatus: SharedPreferences? = null
-    var loggedin:Boolean? = null
+    var useruuid_Setting: SharedPreferences? = null
+    var uuidl_Setting:String? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_activity)
+        setContentView(R.layout.activity_setting)
+        setSupportActionBar(toolbar2)
+        supportActionBar?.title = "설정"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        useruuid = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
-        uuidl = useruuid?.getString("uuid", null)
-        loggedinStatus = getSharedPreferences("loggedIn", Activity.MODE_PRIVATE)
-        loggedin = loggedinStatus?.getBoolean("loggedIn", true) //Todo:수정
-        val homepage = Intent(this@SettingsActivity, MainActivity::class.java)
-        home.setOnClickListener{View -> startActivity(homepage)}
+        useruuid_Setting = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
+        uuidl_Setting= useruuid_Setting?.getString("uuid", null)
 
+        if (uuidl_Setting != null){ //UUID가 빈칸이 아니면
+            loginout.setText("로그아웃")
+        }
+        else{
+            loginout.setText("로그인")
+        }
+        var loginout = findViewById<Button>(R.id.loginout)
+        loginout.setOnClickListener { loginoutClick() }
+
+    }
+
+    private fun loginoutClick() {
+        if (uuidl_Setting != null){ //UUID가 빈칸이 아니면 -> 로그인상태
+            var uuideditor_Setting: SharedPreferences.Editor = useruuid_Setting!!.edit()
+            uuideditor_Setting.putString("uuid", "")
+            uuideditor_Setting.commit()
+            var IntAct = Intent(this@SettingsActivity, IntroduceActivity::class.java)
+            IntAct.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            IntAct.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(IntAct)
+        }
+        else{
+           var IntAct = Intent(this@SettingsActivity, IntroduceActivity::class.java)
+           IntAct.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            IntAct.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(IntAct)
+        }
     }
 
 }
