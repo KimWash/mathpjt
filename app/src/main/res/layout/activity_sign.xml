@@ -16,7 +16,7 @@
             android:fontFamily="@font/new_font"
             android:layout_centerHorizontal="true"
             android:layout_alignBottom="@+id/resister"
-            android:layout_marginBottom="150dp"
+            android:layout_marginBottom="130dp"
             android:textColor="#000000">
 
         </TextView>
@@ -30,8 +30,7 @@
             android:textColor="#000000"
             android:textSize="25dp"
             android:background="#FFFFFF"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"></Button>
+            android:layout_centerInParent="true"></Button>
         <Button
             android:id="@+id/signbutton"
             android:layout_width="wrap_content"
@@ -44,7 +43,7 @@
             android:background="#FFFFFF"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/resister"
-            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:layout_marginTop="30dp"
             ></Button>
         <ImageView
             android:layout_width="200dp"

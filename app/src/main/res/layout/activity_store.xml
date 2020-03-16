@@ -13,12 +13,22 @@
         android:textStyle="bold"
         android:layout_marginTop="30dp"/>
     <TextView
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="준비중입니다"
+        android:text="죄송합니다 "
         android:textSize="40dp"
         android:id="@+id/sort"
         android:layout_below="@id/storeletter"
+        android:layout_marginTop="80dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="곧 업데이트 하겠습니다 "
+        android:textSize="40dp"
+        android:id="@+id/sort2"
+        android:layout_below="@id/sort"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         />
@@ -28,8 +38,8 @@
         android:text="홈으로"
         android:id="@+id/home"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/sort"
-        android:layout_marginTop="50dp" />
+        android:layout_below="@id/sort2"
+        android:layout_marginTop="90dp" />
 
 
 

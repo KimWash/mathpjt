@@ -1,39 +1,36 @@
 package com.yoonlab.mathproject
 
+//광고
+
 import android.app.Activity
-import android.content.Context
-import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.activity_main.*
-
-//광고
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdCallback
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
-import com.google.android.gms.ads.rewarded.RewardItem
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 var useruuid:SharedPreferences? = null
 var uuidl:String? = null
+var mBackWait:Long = 0
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mRewardedAd: RewardedAd
     private var mIsLoading = false
+    private lateinit var mInterstitialAd: InterstitialAd
+
 
     fun nightMode(){
         if (nightModeCheck.isNightModeActive(this) == true) {
@@ -96,6 +93,22 @@ class MainActivity : AppCompatActivity() {
         return hearts
     }
 
+
+    override fun onBackPressed() {
+        // 뒤로가기 버튼 클릭
+        if(System.currentTimeMillis() - mBackWait >=2000 ) {
+            mBackWait = System.currentTimeMillis()
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.show()
+                finish()
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.")
+            }
+        } else {
+            finish() //액티비티 종료
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
@@ -106,6 +119,12 @@ class MainActivity : AppCompatActivity() {
         val getPoint = getPoint(uuidl)
         var points = getPoint.execute().get() as Int
         point2.setText(points.toString())
+        //전면광고
+        MobileAds.initialize(this) {"ca-app-pub-3940256099942544/1033173712"}
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+
         //시그마 갯수 이미지로 띄우는 부분
         val hearts = setThings()
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
