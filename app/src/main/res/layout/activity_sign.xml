@@ -7,19 +7,21 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="문제 풀고 돈 벌자"
-            android:textSize="43dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/new_font"
-            android:layout_centerHorizontal="true"
             android:layout_alignBottom="@+id/resister"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="130dp"
-            android:textColor="#000000">
+            android:fontFamily="@font/new_font"
+            android:text="수포자"
+            android:textColor="#000000"
+            android:textSize="63dp"
+            android:textStyle="bold">
 
         </TextView>
+
         <Button
             android:id="@+id/resister"
             android:layout_width="wrap_content"

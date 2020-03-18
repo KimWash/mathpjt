@@ -120,9 +120,9 @@ class MainActivity : AppCompatActivity() {
         var points = getPoint.execute().get() as Int
         point2.setText(points.toString())
         //전면광고
-        MobileAds.initialize(this) {"ca-app-pub-3940256099942544/1033173712"}
+        MobileAds.initialize(this) {"ca-app-pub-4544671315865800/6106624378"}
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/6106624378"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
 
         //시그마 갯수 이미지로 띄우는 부분
