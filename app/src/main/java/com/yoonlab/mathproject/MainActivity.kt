@@ -1,16 +1,19 @@
 package com.yoonlab.mathproject
 
-//광고
 
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
@@ -21,9 +24,9 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-var useruuid:SharedPreferences? = null
-var uuidl:String? = null
-var mBackWait:Long = 0
+var useruuid: SharedPreferences? = null
+var uuidl: String? = null
+var mBackWait: Long = 0
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mInterstitialAd: InterstitialAd
 
 
-    fun nightMode(){
+    fun nightMode() {
         if (nightModeCheck.isNightModeActive(this) == true) {
             setTheme(R.style.DarkTheme)
         } else if (nightModeCheck.isNightModeActive(this) == false) {
@@ -40,49 +43,53 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setThings(): Int{
+    fun setThings(): Int {
         val getHeart = getHeart(uuidl)
         var hearts = getHeart.execute().get() as Int
-        if (hearts == 0){
+        if (hearts == 0) {
             heart1.visibility = View.INVISIBLE
             heart2.visibility = View.INVISIBLE
             heart3.visibility = View.INVISIBLE
             heart4.visibility = View.INVISIBLE
             heart5.visibility = View.INVISIBLE
 
-        }
-        else if(hearts == 1){
+        } else if (hearts == 1) {
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.INVISIBLE
             heart3.visibility = View.INVISIBLE
             heart4.visibility = View.INVISIBLE
             heart5.visibility = View.INVISIBLE
-        }
-        else if(hearts ==2){
+        } else if (hearts == 2) {
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.VISIBLE
             heart3.visibility = View.INVISIBLE
             heart4.visibility = View.INVISIBLE
             heart5.visibility = View.INVISIBLE
 
-        }
-        else if(hearts == 3){
+        } else if (hearts == 3) {
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.VISIBLE
             heart3.visibility = View.VISIBLE
             heart4.visibility = View.INVISIBLE
             heart5.visibility = View.INVISIBLE
 
-        }
-        else if(hearts == 4){
+        } else if (hearts == 4) {
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.VISIBLE
             heart3.visibility = View.VISIBLE
             heart4.visibility = View.VISIBLE
             heart5.visibility = View.INVISIBLE
 
-        }
-        else if(hearts == 5){
+        } else if (hearts == 5) {
+            var title = "수포자"
+            var content = "하트가 가득찼습니다"
+            var builder =
+                NotificationCompat.Builder(this, "Notification")
+                    .setSmallIcon(R.mipmap.fbion)
+                    .setContentTitle(title).setContentText(content).setAutoCancel(true)
+                    .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            NotificationManagerCompat. from (this).notify(10, builder.build())
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.VISIBLE
             heart3.visibility = View.VISIBLE
@@ -96,7 +103,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         // 뒤로가기 버튼 클릭
-        if(System.currentTimeMillis() - mBackWait >=2000 ) {
+        if (System.currentTimeMillis() - mBackWait >= 2000) {
             mBackWait = System.currentTimeMillis()
             if (mInterstitialAd.isLoaded) {
                 mInterstitialAd.show()
@@ -120,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         var points = getPoint.execute().get() as Int
         point2.setText(points.toString())
         //전면광고
-        MobileAds.initialize(this) {"ca-app-pub-4544671315865800/6106624378"}
+        MobileAds.initialize(this) { "ca-app-pub-4544671315865800/6106624378" }
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/6106624378"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
@@ -130,19 +137,19 @@ class MainActivity : AppCompatActivity() {
         val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
-        heartplus.setOnClickListener{
+        heartplus.setOnClickListener {
             if (hearts >= 5) {
                 Toast.makeText(this@MainActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
-            }
-            else {
+            } else {
                 MobileAds.initialize(this) {}
                 loadRewardedAd()
             }
         }
-        solve.setOnClickListener{View -> startActivity(solvepage)}
-        store.setOnClickListener{View -> startActivity(storepage)}
-        settingbutton.setOnClickListener{View -> startActivity(settingActivity)}
+        solve.setOnClickListener { View -> startActivity(solvepage) }
+        store.setOnClickListener { View -> startActivity(storepage) }
+        settingbutton.setOnClickListener { View -> startActivity(settingActivity) }
     }
+
     fun loadRewardedAd() {
         if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
             mIsLoading = true
@@ -176,6 +183,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
     fun showRewardedVideo() {
         if (mRewardedAd.isLoaded) {
             mRewardedAd.show(
@@ -186,15 +194,14 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         val changeheart = editHeart(uuidl, 1, 1)
                         val result = changeheart.execute().get()
-                        if (result.toString() == "success"){
+                        if (result.toString() == "success") {
                             Toast.makeText(
                                 this@MainActivity,
                                 "하트가 충전됩니다",
                                 Toast.LENGTH_LONG
                             ).show()
                             setThings()
-                        }
-                        else{
+                        } else {
                             Toast.makeText(
                                 this@MainActivity,
                                 "이런, 하트 충전에 오류가 있는 것 같아요. ",
@@ -225,7 +232,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
 
 
 }

@@ -2,6 +2,7 @@ package com.yoonlab.mathproject
 
 //import com.yoonlab.mathproject.ui.login.registDB
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,9 +12,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Base64
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_join.*
 import java.io.BufferedReader
@@ -63,6 +63,24 @@ class JoinActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join)
+        //학년을 선택하는 spinner
+        val items = arrayOf("중학교1학년","중학교2학년","중학교3학년","고등학교1학년","고등학교2학년","고등학교3학년")
+        val myAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
+        grade.adapter = myAdapter
+        //spinner 선택
+        class SpinnerActivity : Activity(), AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+                val spinner: Spinner = findViewById(R.id.grade)
+                val sgrade = spinner.onItemSelectedListener.toString()
+                var tv = findViewById<TextView>(R.id.howgrade)
+                tv.setText(sgrade)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                val sgrade = ""
+            }
+        }
+
         mContext_Join = this
         val submitButton = findViewById<Button>(R.id.submitButton)
         submitButton.setOnClickListener{submitButton()}
@@ -82,6 +100,9 @@ class JoinActivity : AppCompatActivity() {
             }
         })
     }
+
+
+
     fun checkInvalid(){
         val sId = username.getText().toString()
         val cI = checkInvalid(sId)
@@ -100,12 +121,16 @@ class JoinActivity : AppCompatActivity() {
     fun submitButton(){
         Log.i("정보", username.getText().toString()+email.getText().toString()+password.getText().toString())
         val sId = username.getText().toString()
+        val sGrade = grade.toString()
         val sEmail = email.getText().toString()
         val sPw = password.getText().toString()
         val sPw_chk = password_chk.getText().toString()
         //Todo: 아이디 중복확인, 비밀번호 생성규칙, 암호화(SHA-256)
         if (sId == ""){
             dispToast(this, "ID를 입력해주세요.")
+        }
+        else if (sGrade == "") {
+            dispToast(this, "학년을 골라주세요")
         }
         else if (sEmail == ""){
             dispToast(this, "이메일을 입력해주세요.")
@@ -129,7 +154,7 @@ class JoinActivity : AppCompatActivity() {
             dispToast(this, "아이디 중복확인을 해주세요.")
         }
         else {
-            val rdb = registDB(sId, sEmail, sPw)
+            val rdb = registDB(sId, sGrade ,sEmail, sPw)
             val result = rdb.execute().get()
             if (result == 0) {  // 회원가입이 완료되면?
                 val MainIntent = Intent(this@JoinActivity, MainActivity::class.java)
@@ -147,6 +172,9 @@ class JoinActivity : AppCompatActivity() {
         }
     }
 }
+
+
+
 
 class checkInvalid(val sId: String) : AsyncTask<Void, Int, Int>() {
     protected override fun doInBackground(vararg unused:Void): Int? {
@@ -197,14 +225,14 @@ class checkInvalid(val sId: String) : AsyncTask<Void, Int, Int>() {
 
 
 
-class registDB(val sId: String,val sEmail: String, val sPw: String) : AsyncTask<Void, Int, Int>() {
+class registDB(val sId: String,val sGrade: String, val sEmail: String, val sPw: String) : AsyncTask<Void, Int, Int>() {
     protected override fun doInBackground(vararg unused:Void): Int? {
         //암호화
         val cryptedPw = CryptoPw(sPw)
         val decodedPw = URLDecoder.decode(cryptedPw)
         uuid = UUID.randomUUID().toString()
         /* 인풋 파라메터값 생성 */
-        val param = "u_id=" + sId + "&u_email=" + sEmail + "&u_pw=" + cryptedPw + "&u_uuid=" + uuid
+        val param = "u_id=" + sId + "&u_email=" + sEmail + "&u_pw=" + cryptedPw + "&u_uuid=" + uuid + "&u grade=" + sGrade
         try
         {
             /* 서버연결 */

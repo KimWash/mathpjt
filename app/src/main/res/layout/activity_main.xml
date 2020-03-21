@@ -133,7 +133,6 @@
             android:textColor="#000000"
             android:textSize="28dp" />
 
-
         <Button
             android:id="@+id/settingbutton"
             android:layout_width="60dp"
@@ -144,7 +143,8 @@
             android:layout_marginRight="14sp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/settingbutton"
-            android:padding="15dp"></Button>
+            android:padding="15dp"
+            />
 
     </RelativeLayout>
 
@@ -161,7 +161,7 @@
 
         <ImageButton
             android:src="@drawable/problem"
-            android:elevation="3dp"
+            android:elevation="4dp"
             android:id="@+id/solve"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -174,7 +174,7 @@
             android:textSize="25dp" />
 
         <ImageButton
-            android:elevation="3dp"
+            android:elevation="4dp"
             android:src="@drawable/store"
             android:id="@+id/store"
             android:layout_width="150dp"
@@ -190,7 +190,7 @@
 
         <ImageButton
             android:src="@drawable/learn"
-            android:elevation="3dp"
+            android:elevation="4dp"
             android:id="@+id/learn"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -206,7 +206,7 @@
         <ImageButton
             android:src="@drawable/rank"
             android:id="@+id/ranking"
-            android:elevation="3dp"
+            android:elevation="4dp"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_below="@+id/store"

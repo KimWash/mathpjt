@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorAccent">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
@@ -12,9 +13,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorAccent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="설정"
+            android:textSize="40dp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="내가 만든 문제 보내고 100포인트 받기"
+            android:textSize="20dp"
+            android:layout_marginTop="30dp"
+            />
+
 
         <Button
+            android:layout_marginTop="30dp"
             android:id="@+id/loginout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
