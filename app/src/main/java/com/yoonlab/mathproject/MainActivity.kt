@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setThings(): Int {
-        val getHeart = getHeart(uuidl)
-        var hearts = getHeart.execute().get() as Int
+        val getHeart = getInf(uuidl, 3)
+        var hearts = Integer.parseInt(getHeart.execute().get() as String)
         if (hearts == 0) {
             heart1.visibility = View.INVISIBLE
             heart2.visibility = View.INVISIBLE
@@ -123,9 +123,12 @@ class MainActivity : AppCompatActivity() {
         uuidl = useruuid?.getString("uuid", null)
         nightMode()
         setContentView(R.layout.activity_main)
-        val getPoint = getPoint(uuidl)
-        var points = getPoint.execute().get() as Int
-        point2.setText(points.toString())
+        val getPoint = getInf(uuidl,5)
+        var points = getPoint.execute().get() as String
+        point2.setText(points)
+        val getNick = getInf(uuidl, 0)
+        val name = getNick.execute().get() as String
+        nickname.setText(name)
         //전면광고
         MobileAds.initialize(this) { "ca-app-pub-4544671315865800/6106624378" }
         mInterstitialAd = InterstitialAd(this)
@@ -134,7 +137,7 @@ class MainActivity : AppCompatActivity() {
 
         //시그마 갯수 이미지로 띄우는 부분
         val hearts = setThings()
-        val solvepage = Intent(this@MainActivity, SelectActivity::class.java)
+        //val solvepage = Intent(this@MainActivity, SelectActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
         heartplus.setOnClickListener {
@@ -145,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                 loadRewardedAd()
             }
         }
-        solve.setOnClickListener { View -> startActivity(solvepage) }
+        //solve.setOnClickListener { View -> startActivity(solvepage) }
         store.setOnClickListener { View -> startActivity(storepage) }
         settingbutton.setOnClickListener { View -> startActivity(settingActivity) }
     }
@@ -192,7 +195,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onUserEarnedReward(
                         rewardItem: RewardItem
                     ) {
-                        val changeheart = editHeart(uuidl, 1, 1)
+                        val changeheart = editInf(uuidl, 3, 1, 1)
                         val result = changeheart.execute().get()
                         if (result.toString() == "success") {
                             Toast.makeText(
