@@ -97,12 +97,13 @@ class SolveActivity : AppCompatActivity() {
         setContentView(R.layout.activity_solve)
         useruuid = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
         uuidl2 = useruuid?.getString("uuid", null)
-        val hearts1 = setThings1()
+        val heart = setThings1()
         getPoints()
         heartplus1.setOnClickListener {
-            if (hearts1 >= 5) {
+            if (heart >= 5) {
                 Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
-            } else {
+            }
+            else {
                 MobileAds.initialize(this) {}
                 loadRewardedAd()
             }
@@ -128,6 +129,8 @@ class SolveActivity : AppCompatActivity() {
             val num = random.nextInt(pCount) + 1
             val gPb = getProblem(num)
             gPb.execute()
+            problemspoint.setText(problempoint)
+            problemssolver.setText(problemsolver)
         } else {
             finish()
         }
@@ -135,6 +138,7 @@ class SolveActivity : AppCompatActivity() {
         submitButton.setOnClickListener {
             checkAnswer()
         }
+
     }
 
     fun getPoints(): Int {
@@ -154,14 +158,8 @@ class SolveActivity : AppCompatActivity() {
                 object : RewardedAdLoadCallback() {
                     override fun onRewardedAdLoaded() {
                         mIsLoading = false
-                        Toast.makeText(
-                            this@SolveActivity,
-                            "광고가 재생 됩니다",
-                            Toast.LENGTH_LONG
-                        ).show()
                         showRewardedVideo()
                     }
-
                     override fun onRewardedAdFailedToLoad(errorCode: Int) {
                         mIsLoading = false
                         Toast.makeText(
@@ -195,6 +193,8 @@ class SolveActivity : AppCompatActivity() {
                                 "하트가 충전됩니다",
                                 Toast.LENGTH_LONG
                             ).show()
+                            val refresh = Intent(this@SolveActivity, JoinActivity::class.java)
+                            startActivity(refresh)
                         } else {
                             Toast.makeText(
                                 this@SolveActivity,
@@ -239,14 +239,6 @@ class SolveActivity : AppCompatActivity() {
                 if (result == "success") { //하트를 정상적으로 수정했을 때
                     if (Integer.parseInt(answer.getText().toString()) == problemAns) { //DB상의 답과 입력한 답이 일치할때
                         JoinActivity.dispToast(this, "정답입니다!")
-                        if (problemsolver == 0) { //문제 푼 사람이 0명일때
-                            val editPoint = editPoint(uuid, 1, problempoint)
-                            editPoint.execute()
-                        } else { //그외에는
-                            var totalpoint: Int = problempoint / problemsolver
-                            val editPoint = editPoint(uuid, 1, totalpoint)
-                            editPoint.execute()
-                        }
                         val homepage = Intent(this@SolveActivity, MainActivity::class.java)
                         startActivity(homepage)
                     } else {

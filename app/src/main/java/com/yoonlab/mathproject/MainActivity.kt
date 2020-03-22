@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
             mBackWait = System.currentTimeMillis()
             if (mInterstitialAd.isLoaded) {
                 mInterstitialAd.show()
-                finish()
+                System.exit(0)
             } else {
                 Log.d("TAG", "The interstitial wasn't loaded yet.")
             }
@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity() {
 
         //시그마 갯수 이미지로 띄우는 부분
         val hearts = setThings()
-        val solvepage = Intent(this@MainActivity, SolveActivity::class.java)
+        val solvepage = Intent(this@MainActivity, SelectActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
         heartplus.setOnClickListener {
@@ -200,6 +200,8 @@ class MainActivity : AppCompatActivity() {
                                 "하트가 충전됩니다",
                                 Toast.LENGTH_LONG
                             ).show()
+                            val refresh = Intent(this@MainActivity, JoinActivity::class.java)
+                            startActivity(refresh)
                             setThings()
                         } else {
                             Toast.makeText(

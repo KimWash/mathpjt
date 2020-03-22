@@ -31,6 +31,7 @@
         <activity android:name=".IntroduceActivity"></activity>
         <activity android:name=".SignActivity" />
         <activity android:name=".JoinActivity" />
+        <activity android:name=".SelectActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />

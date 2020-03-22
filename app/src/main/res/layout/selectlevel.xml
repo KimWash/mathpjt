@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <TextView
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:textSize="28dp"
         android:id="@+id/test"
         android:textStyle="bold"
@@ -12,8 +12,45 @@
         android:layout_height="wrap_content"
         android:text="풀고 싶은 문제를 선택하세요"/>
 
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/test"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/no"
+        android:text="No.1" />
+    <TextView
+        android:layout_below="@+id/test"
+        android:layout_toRightOf="@+id/no"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:id="@+id/level"
+        android:layout_height="wrap_content"
+        android:text="Easy1" />
+    <TextView
+        android:layout_below="@+id/test"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pt"
+        android:text="Problem's Point" />
+    <TextView
+        android:layout_below="@+id/test"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/pt"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Problem's Solver" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
+        android:id="@+id/selecting"
         android:layout_height="match_parent" />
 
 
