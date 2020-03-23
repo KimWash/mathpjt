@@ -9,15 +9,17 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-class getHeart(val uuid: String?) : AsyncTask<Void, Int, Any>() {
+class getInf(val uuid: String?, val type:Int) : AsyncTask<Void, Int, Any>() {
     protected override fun doInBackground(vararg unused: Void): Any? {
         //암호화
         /* 인풋 파라메터값 생성 */
-        val param = "u_uuid=" + uuid
+        //컬럼 번호수 (0: id, 1:pw, 2:email, 3:heart, 4:uuid(UUID는고정.수정불가), 5:point, 6:grade, 7:solvingproblem)
+        Log.i("type", type.toString())
+        val param = "u_uuid=" + uuid + "&type=" + type
         try {
             /* 서버연결 */
             val url = URL(
-                "https://yoon-lab.xyz/mathpjt_getheart.php"
+                "https://yoon-lab.xyz/mathpjt_getInf.php"
             )
             val conn = url.openConnection() as HttpURLConnection
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
@@ -34,7 +36,7 @@ class getHeart(val uuid: String?) : AsyncTask<Void, Int, Any>() {
             var inn = BufferedReader(InputStreamReader(iss))
             val line = inn.readLine()
             Log.e("RECV DATA", line)
-            return line.toInt()
+            return line
 
         } catch (e: MalformedURLException) {
             e.printStackTrace()

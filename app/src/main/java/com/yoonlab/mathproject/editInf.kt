@@ -9,15 +9,22 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-class editPoint (val uuid: String?, val type: Int, val value:Int) : AsyncTask<Void, Int, Any>() {
+class editInf(val uuid: String?, val type: Int, val calc: Int ,val value:Int) : AsyncTask<Void, Int, Any>() {
     protected override fun doInBackground(vararg unused: Void): Any? {
-        //암호화
-        /* 인풋 파라메터값 생성 */
-        val param = "u_uuid=" + uuid + "&type=" + type.toString() + "&u_value=" + value.toString()
+        var param:String? = null
+        if (type == 3){  //컬럼 번호수 (0: id, 1:pw, 2:email, 3:heart, 4:uuid(UUID는고정.수정불가), 5:point, 6:grade, 7:solvingproblem)
+            param = "u_uuid=" + uuid + "&type=" + type.toString() + "&calc=" + calc.toString() + "&u_value=" + value.toString()
+        }else if(type == 5){
+            param = "u_uuid=" + uuid + "&type=" + type.toString() + "&calc=" + calc.toString() + "&u_value=" + value.toString()
+        }
+        else{
+            param = "u_uuid=" + uuid + "&type=" + type.toString() + "&u_value=" + value.toString()
+        }
+
         try {
             /* 서버연결 */
             val url = URL(
-                "https://yoon-lab.xyz/mathpjt_editPoint.php"
+                "https://yoon-lab.xyz/mathpjt_editInf.php"
             )
             val conn = url.openConnection() as HttpURLConnection
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")

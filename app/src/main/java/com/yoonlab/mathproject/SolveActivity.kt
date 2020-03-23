@@ -46,7 +46,7 @@ class SolveActivity : AppCompatActivity() {
     private var mIsLoading = false
 
     fun setThings1(): Int { //UUID 불러오기
-        val getHeart = getHeart(uuidl2)
+        val getHeart = getInf(uuidl2, 3)
         val heart = getHeart.execute().get() as Int
         if (heart == 0) {
             heart11.visibility = View.INVISIBLE
@@ -120,13 +120,14 @@ class SolveActivity : AppCompatActivity() {
         })
 
         //어떤 문제를 불러옴??
+        var num:Int? = null
         problemView = findViewById<ImageView>(R.id.problems)
         val HMP = howManyProblems()
         val pCount = HMP.execute().get()
         if (pCount is Int) {
             Log.i("문제갯수", pCount.toString())
             val random = Random()
-            val num = random.nextInt(pCount) + 1
+            num = random.nextInt(pCount) + 1
             val gPb = getProblem(num)
             gPb.execute()
             problemspoint.setText(problempoint)
@@ -137,12 +138,13 @@ class SolveActivity : AppCompatActivity() {
         val submitButton = findViewById<Button>(R.id.submit)
         submitButton.setOnClickListener {
             checkAnswer()
+            editInf(uuidl2, 7, 0, num!!)
         }
 
     }
 
     fun getPoints(): Int {
-        val getPoint = getPoint(uuidl2)
+        val getPoint = getInf(uuidl2, 5)
         var points = getPoint.execute().get() as Int
         pointView.setText(points.toString())
         return points
@@ -185,7 +187,7 @@ class SolveActivity : AppCompatActivity() {
                     override fun onUserEarnedReward(
                         rewardItem: RewardItem
                     ) {
-                        val changeheart = editHeart(uuidl2, 1, 1)
+                        val changeheart = editInf(uuidl2, 3, 1, 1)
                         val result = changeheart.execute().get()
                         if (result.toString() == "success") {
                             Toast.makeText(
@@ -231,8 +233,8 @@ class SolveActivity : AppCompatActivity() {
         var useruuid: SharedPreferences = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
         var uuid = useruuid.getString("uuid", null)
         if (uuid != null) {
-            val editHeart = editHeart(uuid.toString(), 0, 1) //UUID 불러오기
-            val getHeart = getHeart(uuid)
+            val editHeart = editInf(uuid.toString(), 3, 0, 1) //UUID 불러오기
+            val getHeart = getInf(uuid, 3)
             val heart = getHeart.execute().get() as Int
             if (heart > 0) {
                 val result = editHeart.execute().get().toString()
