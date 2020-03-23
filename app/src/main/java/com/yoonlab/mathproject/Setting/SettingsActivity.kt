@@ -1,19 +1,29 @@
 package com.yoonlab.mathproject
 
 import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.os.Build
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_setting.*
+import org.w3c.dom.Text
 
 
 class SettingsActivity : AppCompatActivity() {
     var useruuid_Setting: SharedPreferences? = null
     var uuidl_Setting:String? = null
 
+    fun getVersionInfo(context: Context) : String{
+        val info: PackageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+        val version = info.versionName
+        return version
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +43,21 @@ class SettingsActivity : AppCompatActivity() {
         }
         var loginout = findViewById<Button>(R.id.loginout)
         loginout.setOnClickListener { loginoutClick() }
-
+        var aboutus = findViewById<Button>(R.id.about_us)
+        aboutus.setOnClickListener {
+            var aboutusAct = Intent(this@SettingsActivity, aboutusActivity::class.java)
+            startActivity(aboutusAct)
+        }
+        var sendreport = findViewById<TextView>(R.id.sendReport)
+        sendreport.setOnClickListener {
+            val emailIntent = Intent(Intent.ACTION_SEND)
+            emailIntent.setType("message/rfc822")
+            val emails:Array<String> = arrayOf("support@yoon-lab.xyz")
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, emails)
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "수포자 앱 오류 신고")
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "어플리케이션 버전: " + getVersionInfo(this) + "\n기기 제조사: " + Build.BRAND + "\n기기 모델명: " + Build.MODEL + "\n소프트웨어 빌드번호: " + Build.VERSION.INCREMENTAL + "\n안드로이드 버전: " + Build.VERSION.RELEASE + " (API LEVEL: " + Build.VERSION.SDK_INT + ")\n문의 내용: ")
+            startActivity(emailIntent)
+        }
     }
 
     private fun loginoutClick() {

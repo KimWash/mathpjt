@@ -60,10 +60,21 @@
                 android:text="LOGOUT" />
 
             <Button
-                android:id="@+id/button2"
+                android:layout_marginTop="30dp"
+                android:id="@+id/about_us"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:text="about us" />
+
+            <TextView
+                android:layout_marginTop="30dp"
+                android:id="@+id/sendReport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="오류 보내기"
+                android:layout_gravity="bottom"
+                android:textAlignment="center"
+                tools:ignore="RtlCompat" />
 
 
         </LinearLayout>
