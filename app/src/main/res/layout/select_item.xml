@@ -7,25 +7,33 @@
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <TextView
+        android:layout_marginLeft="30dp"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:text="@{Problem.number11}"
+        android:textSize="30dp"
         android:id="@+id/number1" />
     <TextView
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
         android:text="@{Problem.level11}"
         android:id="@+id/name" />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
         android:text="@{Problem.solver11}"
         android:id="@+id/solver" />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="30dp"
+        android:layout_height="wrap_content"
         android:text="@{Problem.point11}"
         android:id="@+id/point1" />
 
