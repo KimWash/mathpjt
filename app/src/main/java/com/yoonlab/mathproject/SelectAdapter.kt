@@ -10,6 +10,11 @@ import com.yoonlab.mathproject.ProblemList
 
 class SelectAdapter : RecyclerView.Adapter<SelectAdapter.SelectViewHolder>() {
 
+    val whatnumber = null
+    val whatlevel = null
+    val whatsolver = null
+    val whatpoint  = null
+
     interface ItemClickListener {
         fun onClick(view: View, position: Int)
     }

@@ -40,7 +40,9 @@ public var invalidId = false
 public var invalidChecked = false
 var uuid:String? = null
 
+
 class JoinActivity : AppCompatActivity() {
+    var sgrade:String? = null
     fun checkEmail(email: String): Boolean {
         val regex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$"
         val p: Pattern = Pattern.compile(regex)
@@ -71,7 +73,7 @@ class JoinActivity : AppCompatActivity() {
         class SpinnerActivity : Activity(), AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
                 val spinner: Spinner = findViewById(R.id.grade)
-                val sgrade = spinner.onItemSelectedListener.toString()
+                sgrade = spinner.onItemSelectedListener.toString()
                 var tv = findViewById<TextView>(R.id.howgrade)
                 tv.setText(sgrade)
             }
