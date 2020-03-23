@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="grades">
+        <item>중학교1학년</item>
+        <item>중학교2학년</item>
+        <item>중학교3학년</item>
+        <item>고등학교1학년</item>
+        <item>고등학교2학년</item>
+        <item>고등학교3학년</item>
+    </string-array>
+</resources>

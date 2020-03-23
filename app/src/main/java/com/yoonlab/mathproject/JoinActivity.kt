@@ -64,20 +64,40 @@ class JoinActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join)
         //학년을 선택하는 spinner
-        val items = arrayOf("중학교1학년","중학교2학년","중학교3학년","고등학교1학년","고등학교2학년","고등학교3학년")
+        val items = resources.getStringArray(R.array.grades)
         val myAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, items)
         grade.adapter = myAdapter
-        //spinner 선택
-        class SpinnerActivity : Activity(), AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-                val spinner: Spinner = findViewById(R.id.grade)
-                val sgrade = spinner.onItemSelectedListener.toString()
-                var tv = findViewById<TextView>(R.id.howgrade)
-                tv.setText(sgrade)
+        grade.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작하게 됩니다.
+                when(position) {
+                    0   ->  {
+                        howgrade.text = "중학교1학년"
+                    }
+                    1   ->  {
+                        howgrade.text = "중학교2학년"
+                    }
+                    2   ->  {
+                        howgrade.text = "중학교3학년"
+                    }
+                    3   ->  {
+                        howgrade.text = "고등학교1학년"
+                    }
+                    4   ->  {
+                        howgrade.text = "고등학교2학년"
+                    }
+                    5   ->  {
+                        howgrade.text = "고등학교3학년"
+
+                    }
+                    else -> {
+                        howgrade.text = "학년을 고르세요"
+                    }
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                val sgrade = ""
+                howgrade.text = "학년을 고르세요"
             }
         }
 
@@ -121,7 +141,7 @@ class JoinActivity : AppCompatActivity() {
     fun submitButton(){
         Log.i("정보", username.getText().toString()+email.getText().toString()+password.getText().toString())
         val sId = username.getText().toString()
-        val sGrade = grade.toString()
+        val sGrade = howgrade.toString()
         val sEmail = email.getText().toString()
         val sPw = password.getText().toString()
         val sPw_chk = password_chk.getText().toString()
