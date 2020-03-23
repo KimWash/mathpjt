@@ -47,49 +47,50 @@ class SolveActivity : AppCompatActivity() {
 
     fun setThings1(): Int { //UUID 불러오기
         val getHeart = getInf(uuidl2, 3)
-        val heart = getHeart.execute().get() as Int
-        if (heart == 0) {
+        val heart = getHeart.execute().get() as String
+        val heart10 = Integer.parseInt(heart)
+        if (heart10 == 0) {
             heart11.visibility = View.INVISIBLE
             heart12.visibility = View.INVISIBLE
             heart13.visibility = View.INVISIBLE
             heart14.visibility = View.INVISIBLE
             heart15.visibility = View.INVISIBLE
 
-        } else if (heart == 1) {
+        } else if (heart10 == 1) {
             heart11.visibility = View.VISIBLE
             heart12.visibility = View.INVISIBLE
             heart13.visibility = View.INVISIBLE
             heart14.visibility = View.INVISIBLE
             heart15.visibility = View.INVISIBLE
-        } else if (heart == 2) {
+        } else if (heart10 == 2) {
             heart11.visibility = View.VISIBLE
             heart12.visibility = View.VISIBLE
             heart13.visibility = View.INVISIBLE
             heart14.visibility = View.INVISIBLE
             heart15.visibility = View.INVISIBLE
 
-        } else if (heart == 3) {
+        } else if (heart10 == 3) {
             heart11.visibility = View.VISIBLE
             heart12.visibility = View.VISIBLE
             heart13.visibility = View.VISIBLE
             heart14.visibility = View.INVISIBLE
             heart15.visibility = View.INVISIBLE
 
-        } else if (heart == 4) {
+        } else if (heart10 == 4) {
             heart11.visibility = View.VISIBLE
             heart12.visibility = View.VISIBLE
             heart13.visibility = View.VISIBLE
             heart14.visibility = View.VISIBLE
             heart15.visibility = View.INVISIBLE
 
-        } else if (heart == 5) {
+        } else if (heart10 == 5) {
             heart11.visibility = View.VISIBLE
             heart12.visibility = View.VISIBLE
             heart13.visibility = View.VISIBLE
             heart14.visibility = View.VISIBLE
             heart15.visibility = View.VISIBLE
         }
-        return heart
+        return heart10
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -145,9 +146,10 @@ class SolveActivity : AppCompatActivity() {
 
     fun getPoints(): Int {
         val getPoint = getInf(uuidl2, 5)
-        var points = getPoint.execute().get() as Int
-        pointView.setText(points.toString())
-        return points
+        var points = getPoint.execute().get() as String
+        var points1 = Integer.parseInt(points)
+        pointView.setText(points1.toString())
+        return points1
     }
 
 
