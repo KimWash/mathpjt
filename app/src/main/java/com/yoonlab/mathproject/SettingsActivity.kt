@@ -19,7 +19,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
-        setSupportActionBar(toolbar2)
+        setSupportActionBar(toolbar)
         supportActionBar?.title = "설정"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         useruuid_Setting = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
