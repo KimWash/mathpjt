@@ -14,90 +14,95 @@
 
     <EditText
         android:id="@+id/username"
-        android:elevation="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/checkInvalid"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:background="@color/colorAccent"
+        android:elevation="2dp"
         android:ems="15"
         android:hint="ID"
         android:inputType="textPersonName"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:textCursorDrawable="@color/Darkbar">
 
     </EditText>
 
     <Button
         android:id="@+id/checkInvalid"
-        android:layout_centerHorizontal="true"
         android:layout_width="80dp"
         android:layout_height="38dp"
         android:layout_above="@+id/email"
+        android:layout_centerHorizontal="true"
         android:text="중복확인" />
+
     <TextView
+        android:id="@+id/howgrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="7dp"
         android:layout_toRightOf="@+id/checkInvalid"
         android:text="Grade"
-        android:layout_marginTop="7dp"
-        android:textSize="13dp"
-        android:id="@+id/howgrade"
-        android:layout_marginLeft="30dp"
-        android:layout_below="@id/username"/>
+        android:textSize="13dp" />
 
     <Spinner
-        android:layout_toRightOf="@+id/checkInvalid"
-        android:layout_below="@+id/username"
-        android:layout_marginLeft="40dp"
+        android:id="@+id/grade"
         android:layout_width="80dp"
         android:layout_height="38dp"
+        android:layout_below="@+id/username"
+        android:layout_marginLeft="40dp"
 
-        android:id="@+id/grade">
-    </Spinner>
+        android:layout_toRightOf="@+id/checkInvalid"></Spinner>
 
 
     <EditText
         android:id="@+id/email"
-        android:elevation="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         android:background="@color/colorAccent"
+        android:elevation="2dp"
         android:ems="15"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textCursorDrawable="@color/Darkbar" />
 
     <EditText
         android:id="@+id/password"
-        android:elevation="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/email"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         android:background="@color/colorAccent"
+        android:elevation="2dp"
         android:ems="15"
         android:hint="Password"
         android:inputType="textPassword"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textCursorDrawable="@color/Darkbar" />
 
     <EditText
         android:id="@+id/password_chk"
-        android:elevation="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@android:dimen/app_icon_size"
         android:layout_marginTop="10dp"
         android:background="@color/colorAccent"
+        android:elevation="2dp"
         android:ems="15"
         android:hint="Password Retype"
         android:inputType="textPassword"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textCursorDrawable="@color/Darkbar" />
 
     <Button
         android:id="@+id/submitButton"
@@ -106,8 +111,8 @@
         android:layout_below="@+id/password_chk"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:ems="19"
         android:clickable="true"
+        android:ems="19"
         android:onClick="submitButton"
         android:text="Sign In" />
 

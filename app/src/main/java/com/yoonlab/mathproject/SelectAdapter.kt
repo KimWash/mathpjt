@@ -8,7 +8,8 @@ import kotlinx.android.synthetic.main.select_item.view.*
 import kotlinx.android.synthetic.main.selectlevel.view.*
 import com.yoonlab.mathproject.ProblemList
 
-class SelectAdapter : RecyclerView.Adapter<SelectAdapter.SelectViewHolder>() {
+class SelectAdapter(data : MutableList<ProblemList>) : RecyclerView.Adapter<SelectAdapter.SelectViewHolder>() {
+    var items: MutableList<ProblemList> = data
 
     interface ItemClickListener {
         fun onClick(view: View, position: Int)
@@ -20,12 +21,6 @@ class SelectAdapter : RecyclerView.Adapter<SelectAdapter.SelectViewHolder>() {
     }
 
 
-    //items MutableList, MutableList는 item을 추가할 수 있다.
-    var items: MutableList<ProblemList> = mutableListOf(
-        ProblemList("1", "퀴즈1","100","0"),
-        ProblemList("2", "퀴즈2","100","0"),
-        ProblemList("3", "퀴즈3","100","0")
-    )
 
     //뷰홀더 생성
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int) = SelectViewHolder(p0)
@@ -41,6 +36,7 @@ class SelectAdapter : RecyclerView.Adapter<SelectAdapter.SelectViewHolder>() {
                 whatlevel.text = item.level11
                 whatsolver.text = item.solver11
                 whatpoint.text = item.point11
+                whatlevelnum.text = item.levelnumber11
             }
         }
         p0.itemView.setOnClickListener {
@@ -54,5 +50,6 @@ class SelectAdapter : RecyclerView.Adapter<SelectAdapter.SelectViewHolder>() {
         val whatlevel = itemView.name
         val whatsolver = itemView.solver
         val whatpoint = itemView.point1
+        val whatlevelnum = itemView.levelnumber1
     }
 }

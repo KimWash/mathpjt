@@ -340,7 +340,6 @@ class SolveActivity : AppCompatActivity() {
                 var inn = BufferedReader(InputStreamReader(iss))
                 val line = inn.readLine()
                 Log.e("RECV DATA*", line)
-
                 if (line == "Error 4: No Data") {
                     return line
                 }
