@@ -16,6 +16,9 @@
             android:name=".SettingsActivity"
             android:parentActivityName=".MainActivity">
         </activity>
+        <activity
+            android:name=".aboutusActivity"
+            android:parentActivityName=".SettingsActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"

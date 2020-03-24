@@ -40,7 +40,9 @@ public var invalidId = false
 public var invalidChecked = false
 var uuid:String? = null
 
+
 class JoinActivity : AppCompatActivity() {
+    var sgrade:String? = null
     fun checkEmail(email: String): Boolean {
         val regex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$"
         val p: Pattern = Pattern.compile(regex)
