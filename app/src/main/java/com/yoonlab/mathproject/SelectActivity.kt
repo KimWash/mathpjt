@@ -121,6 +121,7 @@ class SelectActivity : AppCompatActivity(){
             } catch (e: IOException) {
                 e.printStackTrace()
             }
+            return
         }
     }
 }
