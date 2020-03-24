@@ -15,7 +15,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import kotlinx.android.synthetic.main.activity_solve.*
 import java.io.BufferedReader
 import java.io.IOException
@@ -42,8 +44,7 @@ public var mContext_Solve: Context? = null
 var uuidl2: String? = null
 
 class SolveActivity : AppCompatActivity() {
-    private lateinit var mRewardedAd: RewardedAd
-    private var mIsLoading = false
+    private lateinit var mInterstitialAd: InterstitialAd
 
     fun setThings1(): Int { //UUID 불러오기
         val getHeart = getInf(uuidl2, 3)
@@ -100,14 +101,48 @@ class SolveActivity : AppCompatActivity() {
         uuidl2 = useruuid?.getString("uuid", null)
         val heart = setThings1()
         getPoints()
+        MobileAds.initialize(this, "ca-app-pub-4544671315865800/9374767616")
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
         heartplus1.setOnClickListener {
             if (heart >= 5) {
                 Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
+            } else {
+                if (mInterstitialAd.isLoaded) {
+                    mInterstitialAd.show()
+                    mInterstitialAd.adListener = object : AdListener() {
+                        override fun onAdLoaded() {
+                            val changeheart = editInf(uuidl2, 3, 1, 1)
+                            val result = changeheart.execute().get()
+                            if (result.toString() == "success") {
+                                Toast.makeText(
+                                    this@SolveActivity,
+                                    "하트가 충전됩니다",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                val refresh = Intent(this@SolveActivity, SolveActivity::class.java)
+                                startActivity(refresh)
+                            }
+
+                        }
+                        override fun onAdFailedToLoad(errorCode: Int) {
+                            Toast.makeText(
+                                this@SolveActivity,
+                                "광고 재생에 문제가 있습니다",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                        override fun onAdClosed() {
+                            mInterstitialAd.loadAd(AdRequest.Builder().build())
+                        }
+                    }
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.")
+                }
             }
-            else {
-                MobileAds.initialize(this) {}
-                loadRewardedAd()
-            }
+
         }
 
 
@@ -121,7 +156,7 @@ class SolveActivity : AppCompatActivity() {
         })
 
         //어떤 문제를 불러옴??
-        var num:Int? = null
+        var num: Int? = null
         problemView = findViewById<ImageView>(R.id.problems)
         val HMP = howManyProblems()
         val pCount = HMP.execute().get()
@@ -153,84 +188,6 @@ class SolveActivity : AppCompatActivity() {
     }
 
 
-    fun loadRewardedAd() {
-        if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
-            mIsLoading = true
-            mRewardedAd = RewardedAd(this, "ca-app-pub-4544671315865800/1491510376")
-            mRewardedAd.loadAd(
-                AdRequest.Builder().build(),
-                object : RewardedAdLoadCallback() {
-                    override fun onRewardedAdLoaded() {
-                        mIsLoading = false
-                        showRewardedVideo()
-                    }
-                    override fun onRewardedAdFailedToLoad(errorCode: Int) {
-                        mIsLoading = false
-                        Toast.makeText(
-                            this@SolveActivity,
-                            "오류가 났습니다",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-
-                }
-            )
-
-        }
-
-
-    }
-
-    fun showRewardedVideo() {
-        if (mRewardedAd.isLoaded) {
-            mRewardedAd.show(
-                this,
-                object : RewardedAdCallback() {
-                    override fun onUserEarnedReward(
-                        rewardItem: RewardItem
-                    ) {
-                        val changeheart = editInf(uuidl2, 3, 1, 1)
-                        val result = changeheart.execute().get()
-                        if (result.toString() == "success") {
-                            Toast.makeText(
-                                this@SolveActivity,
-                                "하트가 충전됩니다",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            val refresh = Intent(this@SolveActivity, JoinActivity::class.java)
-                            startActivity(refresh)
-                        } else {
-                            Toast.makeText(
-                                this@SolveActivity,
-                                "이런, 하트 충전에 오류가 있는 것 같아요. ",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-
-                    }
-
-                    override fun onRewardedAdClosed() {
-                        Log.d("SSS", "onRewardVideoAdClosed()")
-                    }
-
-                    override fun onRewardedAdFailedToShow(errorCode: Int) {
-                        Toast.makeText(
-                            this@SolveActivity,
-                            "오류",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-
-                    override fun onRewardedAdOpened() {
-                    }
-                }
-
-            )
-
-
-        }
-    }
-
     fun checkAnswer() {
         var useruuid: SharedPreferences = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
         var uuid = useruuid.getString("uuid", null)
@@ -241,7 +198,10 @@ class SolveActivity : AppCompatActivity() {
             if (heart > 0) {
                 val result = editHeart.execute().get().toString()
                 if (result == "success") { //하트를 정상적으로 수정했을 때
-                    if (Integer.parseInt(answer.getText().toString()) == problemAns) { //DB상의 답과 입력한 답이 일치할때
+                    if (Integer.parseInt(
+                            answer.getText().toString()
+                        ) == problemAns
+                    ) { //DB상의 답과 입력한 답이 일치할때
                         JoinActivity.dispToast(this, "정답입니다!")
                         val homepage = Intent(this@SolveActivity, MainActivity::class.java)
                         startActivity(homepage)

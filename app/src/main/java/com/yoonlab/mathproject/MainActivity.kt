@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
@@ -22,6 +23,7 @@ import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdCallback
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_solve.*
 
 
 var useruuid: SharedPreferences? = null
@@ -30,8 +32,6 @@ var mBackWait: Long = 0
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var mRewardedAd: RewardedAd
-    private var mIsLoading = false
     private lateinit var mInterstitialAd: InterstitialAd
 
 
@@ -129,6 +129,7 @@ class MainActivity : AppCompatActivity() {
         val getNick = getInf(uuidl, 0)
         val name = getNick.execute().get() as String
         nickname.setText(name)
+
         //전면광고
         MobileAds.initialize(this) { "ca-app-pub-4544671315865800/6106624378" }
         mInterstitialAd = InterstitialAd(this)
@@ -140,103 +141,54 @@ class MainActivity : AppCompatActivity() {
         val solvepage = Intent(this@MainActivity, SelectActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
+        MobileAds.initialize(this, "ca-app-pub-4544671315865800/9374767616")
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
         heartplus.setOnClickListener {
             if (hearts >= 5) {
                 Toast.makeText(this@MainActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
             } else {
-                MobileAds.initialize(this) {}
-                loadRewardedAd()
+                if (mInterstitialAd.isLoaded) {
+                    mInterstitialAd.show()
+                    mInterstitialAd.adListener = object : AdListener() {
+                        override fun onAdLoaded() {
+                            val changeheart = editInf(uuidl2, 3, 1, 1)
+                            val result = changeheart.execute().get()
+                            if (result.toString() == "success") {
+                                Toast.makeText(
+                                    this@MainActivity,
+                                    "하트가 충전됩니다",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                val refresh = Intent(this@MainActivity, MainActivity::class.java)
+                                startActivity(refresh)
+                            }
+
+                        }
+                        override fun onAdFailedToLoad(errorCode: Int) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "광고 재생에 문제가 있습니다",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                        override fun onAdClosed() {
+                            mInterstitialAd.loadAd(AdRequest.Builder().build())
+                        }
+                    }
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.")
+                }
             }
+
         }
         solve.setOnClickListener { View -> startActivity(solvepage) }
         store.setOnClickListener { View -> startActivity(storepage) }
         settingbutton.setOnClickListener { View -> startActivity(settingActivity) }
     }
 
-    fun loadRewardedAd() {
-        if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
-            mIsLoading = true
-            mRewardedAd = RewardedAd(this, "ca-app-pub-4544671315865800/1491510376")
-            mRewardedAd.loadAd(
-                AdRequest.Builder().build(),
-                object : RewardedAdLoadCallback() {
-                    override fun onRewardedAdLoaded() {
-                        mIsLoading = false
-                        Toast.makeText(
-                            this@MainActivity,
-                            "광고가 재생 됩니다",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        showRewardedVideo()
-                    }
-
-                    override fun onRewardedAdFailedToLoad(errorCode: Int) {
-                        mIsLoading = false
-                        Toast.makeText(
-                            this@MainActivity,
-                            "오류가 났습니다",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-
-                }
-            )
-
-        }
-
-
-    }
-
-    fun showRewardedVideo() {
-        if (mRewardedAd.isLoaded) {
-            mRewardedAd.show(
-                this,
-                object : RewardedAdCallback() {
-                    override fun onUserEarnedReward(
-                        rewardItem: RewardItem
-                    ) {
-                        val changeheart = editInf(uuidl, 3, 1, 1)
-                        val result = changeheart.execute().get()
-                        if (result.toString() == "success") {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "하트가 충전됩니다",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            val refresh = Intent(this@MainActivity, JoinActivity::class.java)
-                            startActivity(refresh)
-                            setThings()
-                        } else {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "이런, 하트 충전에 오류가 있는 것 같아요. ",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-
-                    }
-
-                    override fun onRewardedAdClosed() {
-                        Log.d("SSS", "onRewardVideoAdClosed()")
-                    }
-
-                    override fun onRewardedAdFailedToShow(errorCode: Int) {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "오류",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-
-                    override fun onRewardedAdOpened() {
-                    }
-                }
-
-            )
-
-
-        }
-    }
 
 
 }
