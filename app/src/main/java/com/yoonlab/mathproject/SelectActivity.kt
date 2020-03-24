@@ -45,7 +45,7 @@ class SelectActivity : AppCompatActivity(){
         val HMP = SolveActivity.howManyProblems()
         val pCount = HMP.execute().get() as Int
         for (i in 1 until pCount+1) {
-            GetProblem1(i).execute()
+            val problemInf = GetProblem1(i).execute().get() as Array<String>
             when (problemlevel) {
                 "0" -> {
                     items.add(ProblemList("$i","Easy","$problempoint1","$problemsolver1", "$problemlevelnumber"))}
@@ -102,7 +102,9 @@ class SelectActivity : AppCompatActivity(){
                 problemsolver1 = prob[3]
                 var problemstring = prob[1].split("_".toRegex())
                 problemlevel = problemstring[2]
-                problemlevelnumber = problemstring[3]
+                problemlevelnumber = problemstring[3].split(".j".toRegex())[0]
+                var problemInf:Array<String> = arrayOf(problempoint1, problemsolver1, problemlevel, problemlevelnumber)
+                return problemInf
             } catch (e: MalformedURLException) {
                 e.printStackTrace()
             } catch (e: IOException) {
@@ -116,11 +118,7 @@ class SelectActivity : AppCompatActivity(){
                 JoinActivity.dispToast(mContext_Solve, "오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")
                 return
             }
-            try {
-                problemView?.setImageBitmap(result as Bitmap?)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            return
         }
     }
 }
