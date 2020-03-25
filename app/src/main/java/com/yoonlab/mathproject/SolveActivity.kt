@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Paint
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -44,6 +45,7 @@ public var mContext_Solve: Context? = null
 var uuidl2: String? = null
 
 class SolveActivity : AppCompatActivity() {
+    var num: Int? = null
     private lateinit var mInterstitialAd: InterstitialAd
 
     fun setThings1(): Int { //UUID 불러오기
@@ -156,7 +158,7 @@ class SolveActivity : AppCompatActivity() {
         })
 
         //어떤 문제를 불러옴??
-        var num: Int? = null
+
         problemView = findViewById<ImageView>(R.id.problems)
         val HMP = howManyProblems()
         val pCount = HMP.execute().get()
@@ -164,7 +166,7 @@ class SolveActivity : AppCompatActivity() {
             Log.i("문제갯수", pCount.toString())
             val random = Random()
             num = random.nextInt(pCount) + 1
-            val gPb = getProblem(num)
+            val gPb = getProblem(num!!)
             gPb.execute()
             problemspoint.setText(problempoint)
             problemssolver.setText(problemsolver)
@@ -203,6 +205,14 @@ class SolveActivity : AppCompatActivity() {
                         ) == problemAns
                     ) { //DB상의 답과 입력한 답이 일치할때
                         JoinActivity.dispToast(this, "정답입니다!")
+                        var solvedProb = editInf(uuid, 7,0 , num!!)
+                        var result = solvedProb.execute().get()
+                        if (result == "success"){
+
+                        }
+                        else{
+                            JoinActivity.dispToast(this, "무언가 잘못되어 소중한 답정보를 전송하지 못했습니다.. :( 개발자에게 문의해주세요!")
+                        }
                         val homepage = Intent(this@SolveActivity, MainActivity::class.java)
                         startActivity(homepage)
                     } else {
