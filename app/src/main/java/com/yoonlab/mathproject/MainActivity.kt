@@ -2,14 +2,13 @@ package com.yoonlab.mathproject
 
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -18,17 +17,12 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.rewarded.RewardItem
-import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewarded.RewardedAdCallback
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_solve.*
+import kotlinx.android.synthetic.main.back_press.*
 
 
 var useruuid: SharedPreferences? = null
 var uuidl: String? = null
-var mBackWait: Long = 0
 
 
 class MainActivity : AppCompatActivity() {
@@ -89,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     .setContentTitle(title).setContentText(content).setAutoCancel(true)
                     .setColor(ContextCompat.getColor(this, R.color.colorAccent))
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            NotificationManagerCompat. from (this).notify(10, builder.build())
+            NotificationManagerCompat.from(this).notify(10, builder.build())
             heart1.visibility = View.VISIBLE
             heart2.visibility = View.VISIBLE
             heart3.visibility = View.VISIBLE
@@ -101,21 +95,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onBackPressed() {
-        // 뒤로가기 버튼 클릭
-        if (System.currentTimeMillis() - mBackWait >= 2000) {
-            mBackWait = System.currentTimeMillis()
-            if (mInterstitialAd.isLoaded) {
-                mInterstitialAd.show()
-                System.exit(0)
-            } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.")
-            }
-        } else {
-            finish() //액티비티 종료
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
@@ -123,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         uuidl = useruuid?.getString("uuid", null)
         nightMode()
         setContentView(R.layout.activity_main)
-        val getPoint = getInf(uuidl,5)
+        val getPoint = getInf(uuidl, 5)
         var points = getPoint.execute().get() as String
         point2.setText(points)
         val getNick = getInf(uuidl, 0)
@@ -166,6 +145,7 @@ class MainActivity : AppCompatActivity() {
                             }
 
                         }
+
                         override fun onAdFailedToLoad(errorCode: Int) {
                             Toast.makeText(
                                 this@MainActivity,
@@ -189,6 +169,17 @@ class MainActivity : AppCompatActivity() {
         settingbutton.setOnClickListener { View -> startActivity(settingActivity) }
     }
 
+
+    override fun onBackPressed() {
+        setContentView(R.layout.back_press)
+        val builder = AlertDialog.Builder(this)
+        builder.show()
+        out_button.setOnClickListener() {
+                finishAffinity()
+        }
+        out_button_cancel.setOnClickListener() {
+        }
+    }
 
 
 }

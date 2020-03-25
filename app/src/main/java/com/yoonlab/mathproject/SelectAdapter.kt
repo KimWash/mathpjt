@@ -11,11 +11,6 @@ import com.yoonlab.mathproject.ProblemList
 class SelectAdapter(data : MutableList<ProblemList>) : RecyclerView.Adapter<SelectAdapter.SelectViewHolder>() {
     var items: MutableList<ProblemList> = data
 
-    val whatnumber = null
-    val whatlevel = null
-    val whatsolver = null
-    val whatpoint  = null
-
     interface ItemClickListener {
         fun onClick(view: View, position: Int)
     }

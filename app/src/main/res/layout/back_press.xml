@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="수포자를 종료하시겠습니까?"
+        android:textColor="#000000"
+        android:textStyle="bold" />
+    <com.google.android.gms.ads.formats.NativeAdView
+        android:id="@+id/dialog_native"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="280x250"
+        ads:adUnitId="ca-app-pub-4544671315865800/4449458582" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/out_button"
+            android:layout_weight="1"
+            android:text="종료"
+            android:gravity="center"
+            android:padding="10dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="취소"
+            android:id="@+id/out_button_cancel" />
+
+    </LinearLayout>
+
+</LinearLayout>
