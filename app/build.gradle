@@ -45,4 +45,5 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.google.android.gms:play-services-ads:19.0.0'
+    implementation 'com.github.instacart.truetime-android:library-extension-rx:3.4'
 }

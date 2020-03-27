@@ -22,6 +22,7 @@ import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdCallback
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.yoonlab.mathproject.updateHeart.Companion.update_heart
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_solve.*
 
@@ -118,6 +119,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        update_heart()
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
         useruuid = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
         uuidl = useruuid?.getString("uuid", null)
