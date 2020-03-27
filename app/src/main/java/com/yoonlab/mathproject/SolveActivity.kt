@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Paint
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
@@ -27,11 +28,6 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.reward.RewardedVideoAd
-import com.google.android.gms.ads.rewarded.RewardItem
-import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewarded.RewardedAdCallback
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -45,6 +41,7 @@ var uuidl2: String? = null
 
 class SolveActivity : AppCompatActivity() {
     private lateinit var mInterstitialAd: InterstitialAd
+    private val problemnum =  sProblem
 
     fun setThings1(): Int { //UUID 불러오기
         val getHeart = getInf(uuidl2, 3)
@@ -101,51 +98,9 @@ class SolveActivity : AppCompatActivity() {
         uuidl2 = useruuid?.getString("uuid", null)
         val heart = setThings1()
         getPoints()
-        MobileAds.initialize(this, "ca-app-pub-4544671315865800/9374767616")
-        mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
         heartplus1.setOnClickListener {
-            if (heart >= 5) {
-                Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
-            } else {
-                if (mInterstitialAd.isLoaded) {
-                    mInterstitialAd.show()
-                    mInterstitialAd.adListener = object : AdListener() {
-                        override fun onAdLoaded() {
-                            val changeheart = editInf(uuidl2, 3, 1, 1)
-                            val result = changeheart.execute().get()
-                            if (result.toString() == "success") {
-                                Toast.makeText(
-                                    this@SolveActivity,
-                                    "하트가 충전됩니다",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                val refresh = Intent(this@SolveActivity, SolveActivity::class.java)
-                                startActivity(refresh)
-                            }
-
-                        }
-                        override fun onAdFailedToLoad(errorCode: Int) {
-                            Toast.makeText(
-                                this@SolveActivity,
-                                "광고 재생에 문제가 있습니다",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-
-                        override fun onAdClosed() {
-                            mInterstitialAd.loadAd(AdRequest.Builder().build())
-                        }
-                    }
-                } else {
-                    Log.d("TAG", "The interstitial wasn't loaded yet.")
-                }
-            }
-
+            HeartPlus(heart)
         }
-
-
         answer.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 //Perform Code
@@ -154,29 +109,58 @@ class SolveActivity : AppCompatActivity() {
             }
             false
         })
+        getProblem(problemnum)
 
         //어떤 문제를 불러옴??
-        var num: Int? = null
+
         problemView = findViewById<ImageView>(R.id.problems)
-        val HMP = howManyProblems()
-        val pCount = HMP.execute().get()
-        if (pCount is Int) {
-            Log.i("문제갯수", pCount.toString())
-            val random = Random()
-            num = random.nextInt(pCount) + 1
-            val gPb = getProblem(num)
-            gPb.execute()
-            problemspoint.setText(problempoint)
-            problemssolver.setText(problemsolver)
-        } else {
-            finish()
-        }
-        val submitButton = findViewById<Button>(R.id.submit)
-        submitButton.setOnClickListener {
+        submit.setOnClickListener {
             checkAnswer()
-            editInf(uuidl2, 7, 0, num!!)
+            editInf(uuidl2, 7, 0, problemnum!!)
         }
 
+    }
+    fun HeartPlus(heart:Int){
+        MobileAds.initialize(this, "ca-app-pub-4544671315865800/9374767616")
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+        if (heart >= 5) {
+            Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
+        } else {
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.show()
+                mInterstitialAd.adListener = object : AdListener() {
+                    override fun onAdLoaded() {
+                        val changeheart = editInf(uuidl2, 3, 1, 1)
+                        val result = changeheart.execute().get()
+                        if (result.toString() == "success") {
+                            Toast.makeText(
+                                this@SolveActivity,
+                                "하트가 충전됩니다",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            val refresh = Intent(this@SolveActivity, SolveActivity::class.java)
+                            startActivity(refresh)
+                        }
+
+                    }
+                    override fun onAdFailedToLoad(errorCode: Int) {
+                        Toast.makeText(
+                            this@SolveActivity,
+                            "광고 재생에 문제가 있습니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                    override fun onAdClosed() {
+                        mInterstitialAd.loadAd(AdRequest.Builder().build())
+                    }
+                }
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.")
+            }
+        }
     }
 
     fun getPoints(): Int {
@@ -203,6 +187,16 @@ class SolveActivity : AppCompatActivity() {
                         ) == problemAns
                     ) { //DB상의 답과 입력한 답이 일치할때
                         JoinActivity.dispToast(this, "정답입니다!")
+                        var solvedProb = editInf(uuid, 7, 0, problemnum)
+                        var result = solvedProb.execute().get()
+                        if (result == "success") {
+
+                        } else {
+                            JoinActivity.dispToast(
+                                this,
+                                "무언가 잘못되어 소중한 답정보를 전송하지 못했습니다.. :( 개발자에게 문의해주세요!"
+                            )
+                        }
                         val homepage = Intent(this@SolveActivity, MainActivity::class.java)
                         startActivity(homepage)
                     } else {
@@ -226,53 +220,7 @@ class SolveActivity : AppCompatActivity() {
         }
     }
 
-    class howManyProblems() : AsyncTask<Void, Int, Any>() {
-        protected override fun doInBackground(vararg unused: Void): Any? {
-            //암호화
-            /* 인풋 파라메터값 생성 */
-            val param = ""
-            try {
-                /* 서버연결 */
-                val url = URL(
-                    "https://yoon-lab.xyz/mathpjt_HMP.php"
-                )
-                val conn = url.openConnection() as HttpURLConnection
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-                conn.setRequestMethod("POST")
-                conn.setDoInput(true)
-                conn.connect()
-                /* 안드로이드 -> 서버 파라메터값 전달 */
-                val outs = conn.getOutputStream()
-                outs.write(param.toByteArray(charset("UTF-8")))
-                outs.flush()
-                outs.close()
-                /* 서버 -> 안드로이드 파라메터값 전달 */
-                val iss = conn.getInputStream()
-                var inn = BufferedReader(InputStreamReader(iss))
-                val line = inn.readLine()
-                Log.e("RECV DATA", line)
-                if (line.matches("\\d+".toRegex())) { //숫자만 있는게 확인되면
-                    return line.toInt()
-                } else {
-                    return line
-                }
-            } catch (e: MalformedURLException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            return null
-        }
 
-        protected override fun onPostExecute(result: Any?) {
-            super.onPostExecute(result)
-            if (result == "Error 4: No Data") {
-                JoinActivity.dispToast(mContext_Solve, "오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")
-                return
-            }
-            return
-        }
-    }
 
 
     class getProblem(val problem: Int) : AsyncTask<Void, Int, Any>() {
