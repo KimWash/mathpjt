@@ -27,10 +27,11 @@ import java.net.MalformedURLException
 import java.net.URL
 import java.util.*
 
-var problemlevelnumber: String = ""
+
 var problemlevel: String = ""
 var problempoint1: String = ""
 var problemsolver1: String = ""
+var sProblem:Int = 0
 
 class SelectActivity : AppCompatActivity(){
     var items: MutableList<ProblemList> = mutableListOf()
@@ -48,11 +49,11 @@ class SelectActivity : AppCompatActivity(){
             val problemInf = GetProblem1(i).execute().get() as Array<String>
             when (problemlevel) {
                 "0" -> {
-                    items.add(ProblemList("$i","Easy","$problempoint1","$problemsolver1", "$problemlevelnumber"))}
+                    items.add(ProblemList("$i","Easy","$problempoint1","$problemsolver1"))}
                 "1" -> {
-                    items.add(ProblemList("$i","Middle","$problempoint1","$problemsolver1", "$problemlevelnumber"))}
+                    items.add(ProblemList("$i","Middle","$problempoint1","$problemsolver1"))}
                 "2" -> {
-                    items.add(ProblemList("$i","Hard","$problempoint1","$problemsolver1", "$problemlevelnumber"))}
+                    items.add(ProblemList("$i","Hard","$problempoint1","$problemsolver1"))}
             }
         }
         initLayout()
@@ -64,9 +65,8 @@ class SelectActivity : AppCompatActivity(){
         //클릭리스너 등록
         adapter.setItemClickListener( object : SelectAdapter.ItemClickListener{
             override fun onClick(view: View, position: Int) {
-                var pos = items.get(position)
-                var num = pos.number11
-                val solvepage = Intent(this@SelectActivity, SolveActivity(num)::class.java)
+                sProblem = position
+                val solvepage = Intent(this@SelectActivity, SolveActivity::class.java)
                 startActivity(solvepage)
             }
         })
@@ -104,8 +104,7 @@ class SelectActivity : AppCompatActivity(){
                 problemsolver1 = prob[3]
                 var problemstring = prob[1].split("_".toRegex())
                 problemlevel = problemstring[2]
-                problemlevelnumber = problemstring[3].split(".j".toRegex())[0]
-                var problemInf:Array<String> = arrayOf(problempoint1, problemsolver1, problemlevel, problemlevelnumber)
+                var problemInf:Array<String> = arrayOf(problempoint1, problemsolver1, problemlevel)
                 return problemInf
             } catch (e: MalformedURLException) {
                 e.printStackTrace()
