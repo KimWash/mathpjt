@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="80dp"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -45,49 +45,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="자신의 닉네임과 문제 사진을"
-                android:layout_gravity="center_horizontal"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-            <TextView
+            <Button
+                android:id="@+id/notice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
-                android:textSize="25dp"
-                android:text="support@yoon-lab.xyz로" />
-            <TextView
+                android:ems="20"
+                android:text="NOTICE"
+                />
+            <Button
+                android:layout_marginTop="30dp"
+                android:id="@+id/about_us"
+                android:ems="20"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textStyle="bold"
-                android:textSize="25dp"
-                android:text="보내고" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="포인트 받자"
-                android:textStyle="bold"
-                android:textSize="25dp"
-                android:layout_gravity="center_horizontal"/>
+                android:text="about us"
+                />
 
             <Button
                 android:layout_marginTop="30dp"
                 android:id="@+id/loginout"
-                android:layout_width="match_parent"
+                android:ems="20"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:text="LOGOUT" />
+                android:text="LOGOUT"
+                />
 
-            <Button
-                android:layout_marginTop="30dp"
-                android:id="@+id/about_us"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="about us" />
 
             <TextView
                 android:layout_marginTop="30dp"
@@ -97,7 +82,8 @@
                 android:text="오류 보내기"
                 android:layout_gravity="bottom"
                 android:textAlignment="center"
-                tools:ignore="RtlCompat" />
+                tools:ignore="RtlCompat"
+                />
 
 
         </LinearLayout>

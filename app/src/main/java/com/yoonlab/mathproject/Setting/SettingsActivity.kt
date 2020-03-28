@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import com.yoonlab.mathproject.Setting.NoticeActivity
 import kotlinx.android.synthetic.main.activity_setting.*
 import org.w3c.dom.Text
 
@@ -47,6 +48,10 @@ class SettingsActivity : AppCompatActivity() {
         aboutus.setOnClickListener {
             var aboutusAct = Intent(this@SettingsActivity, aboutusActivity::class.java)
             startActivity(aboutusAct)
+        }
+        notice.setOnClickListener{
+            var noticepage = Intent(this@SettingsActivity,NoticeActivity::class.java)
+            startActivity(noticepage)
         }
         var sendreport = findViewById<TextView>(R.id.sendReport)
         sendreport.setOnClickListener {

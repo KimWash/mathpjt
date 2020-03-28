@@ -12,7 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="8"
         android:background="@color/backgroundcolor">
 
         <RelativeLayout
@@ -82,8 +82,8 @@
 
         <ImageView
             android:id="@+id/sheep"
-            android:layout_width="150dp"
-            android:layout_height="230dp"
+            android:layout_width="370dp"
+            android:layout_height="400dp"
             android:layout_centerVertical="true"
             android:src="@drawable/sheep" />
 
@@ -91,22 +91,18 @@
             android:id="@+id/ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/sheep"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="70dp"
-            android:layout_toRightOf="@+id/sheep"
+            android:layout_below="@+id/sheep"
             android:text="ID :"
             android:textColor="#000000"
+            android:layout_toLeftOf="@+id/nickname"
             android:textSize="28dp" />
 
         <TextView
             android:id="@+id/nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/sheep"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="70dp"
-            android:layout_toRightOf="@+id/ID"
+            android:layout_below="@+id/sheep"
+            android:layout_centerHorizontal="true"
             android:text="nickname"
             android:textColor="#000000"
             android:textSize="28dp" />
@@ -116,9 +112,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ID"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/sheep"
             android:text="Point :"
+            android:layout_toLeftOf="@+id/point2"
             android:textColor="#000000"
             android:textSize="28sp" />
 
@@ -128,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/nickname"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/point"
+            android:layout_centerHorizontal="true"
             android:text="point"
             android:textColor="#000000"
             android:textSize="28dp" />
@@ -143,88 +138,78 @@
             android:layout_marginRight="14sp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/settingbutton"
-            android:padding="15dp"
-            />
+            android:padding="15dp" />
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_weight="2"
         android:orientation="horizontal">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
             <ImageButton
-                android:src="@drawable/problem"
-                android:elevation="4dp"
                 android:id="@+id/solve"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@android:dimen/app_icon_size"
+                android:layout_width="68dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
                 android:ems="5"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="42dp"
                 android:paddingBottom="42dp"
+                android:src="@drawable/problem"
                 android:text="문제"
                 android:textSize="25dp" />
-            <ImageButton
-                android:src="@drawable/learn"
-                android:elevation="4dp"
-                android:id="@+id/learn"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_below="@+id/solve"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@android:dimen/app_icon_size"
-                android:ems="5"
-                android:paddingTop="42dp"
-                android:paddingBottom="42dp"
-                android:text="배우기"
-                android:textSize="25dp" />
 
 
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
             <ImageButton
-                android:elevation="4dp"
-                android:src="@drawable/store"
+                android:layout_toRightOf="@+id/solve"
                 android:id="@+id/store"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@android:dimen/app_icon_size"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_width="68dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:elevation="4dp"
                 android:ems="5"
                 android:paddingTop="42dp"
                 android:paddingBottom="42dp"
+                android:src="@drawable/store"
                 android:text="상점"
                 android:textSize="25dp" />
 
             <ImageButton
-                android:src="@drawable/rank"
                 android:id="@+id/ranking"
+                android:layout_toLeftOf="@+id/learn"
+                android:layout_width="68dp"
+                android:layout_height="70dp"
                 android:elevation="4dp"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_below="@+id/store"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@android:dimen/app_icon_size"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:ems="5"
                 android:paddingTop="42dp"
                 android:paddingBottom="42dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/rank"
                 android:text="랭킹"
                 android:textSize="25dp" />
 
-        </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/learn"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="68dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:layout_centerVertical="true"
+                android:paddingBottom="42dp"
+                android:src="@drawable/learn"
+                android:text="배우기"
+                android:textSize="25dp" />
 
 
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

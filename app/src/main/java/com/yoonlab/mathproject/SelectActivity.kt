@@ -43,10 +43,12 @@ class SelectActivity : AppCompatActivity(){
         uuidl2 = useruuid?.getString("uuid", null)
         //어떤 문제를 불러옴??
         problemView = findViewById<ImageView>(R.id.problems)
-        val HMP = howManyProblems()
-        val pCount = HMP.execute().get() as Int
+        val pCount = howManyProblems().execute().get() as Int
         for (i in 1 until pCount+1) {
-            val problemInf = GetProblem1(i).execute().get() as Array<String>
+            var problemInf = GetProblem1(i).execute().get() as Array<String>
+            problempoint1 = problemInf[0]
+            problemsolver1 = problemInf[1]
+            problemlevel = problemInf[2]
             when (problemlevel) {
                 "0" -> {
                     items.add(ProblemList("$i","Easy","$problempoint1","$problemsolver1"))}
