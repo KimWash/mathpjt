@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.instacart.library.truetime.TrueTime
 
 class SplashActivity: AppCompatActivity()   {
     private val SPLASH_TIME = 1500
@@ -18,9 +17,6 @@ class SplashActivity: AppCompatActivity()   {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        Thread(Runnable {
-            TrueTime.build().initialize();
-        }).start()
 
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo

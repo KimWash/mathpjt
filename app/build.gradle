@@ -44,6 +44,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.squareup.okhttp3:okhttp:4.4.1'
     implementation 'com.google.code.gson:gson:2.8.6'
+<<<<<<< HEAD
     implementation 'com.github.instacart.truetime-android:library-extension-rx:3.4'
     implementation 'com.google.android.gms:play-services-ads:19.0.1'
+=======
+    implementation 'com.google.android.gms:play-services-ads:19.0.0'
+>>>>>>> parent of ef6d33a... 하트자동충전(개발중)
 }

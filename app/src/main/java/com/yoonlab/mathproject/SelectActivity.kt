@@ -34,7 +34,7 @@ var problemsolver1: String = ""
 var sProblem:Int = 0
 
 class SelectActivity : AppCompatActivity(){
-    var items: MutableList<ProblemList> = mutableListOf()
+    private var items: MutableList<ProblemList> = mutableListOf()
     private val adapter = SelectAdapter(items)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class SelectActivity : AppCompatActivity(){
         val HMP = howManyProblems()
         val pCount = HMP.execute().get() as Int
         for (i in 1 until pCount+1) {
-            val problemInf = GetProblem1(i).execute().get() as Array<String>
+            GetProblem1(i).execute()
             when (problemlevel) {
                 "0" -> {
                     items.add(ProblemList("$i","Easy","$problempoint1","$problemsolver1"))}
@@ -104,8 +104,6 @@ class SelectActivity : AppCompatActivity(){
                 problemsolver1 = prob[3]
                 var problemstring = prob[1].split("_".toRegex())
                 problemlevel = problemstring[2]
-                var problemInf:Array<String> = arrayOf(problempoint1, problemsolver1, problemlevel)
-                return problemInf
             } catch (e: MalformedURLException) {
                 e.printStackTrace()
             } catch (e: IOException) {

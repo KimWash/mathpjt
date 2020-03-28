@@ -11,8 +11,22 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+<<<<<<< HEAD
 import com.yoonlab.mathproject.updateHeart.Companion.update_heart
 import com.google.android.gms.ads.*
+=======
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+>>>>>>> parent of ef6d33a... 하트자동충전(개발중)
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.back_press.*
 
@@ -85,8 +99,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        update_heart()
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
         useruuid = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
         uuidl = useruuid?.getString("uuid", null)
