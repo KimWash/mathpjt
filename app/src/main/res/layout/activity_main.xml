@@ -148,83 +148,79 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
-        android:orientation="horizontal">
+        android:layout_weight="7">
+
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageButton
-                android:src="@drawable/problem"
-                android:elevation="4dp"
-                android:id="@+id/solve"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@android:dimen/app_icon_size"
-                android:ems="5"
-                android:paddingTop="42dp"
-                android:paddingBottom="42dp"
-                android:text="문제"
-                android:textSize="25dp" />
-            <ImageButton
-                android:src="@drawable/learn"
-                android:elevation="4dp"
-                android:id="@+id/learn"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_below="@+id/solve"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@android:dimen/app_icon_size"
-                android:ems="5"
-                android:paddingTop="42dp"
-                android:paddingBottom="42dp"
-                android:text="배우기"
-                android:textSize="25dp" />
-
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageButton
-                android:elevation="4dp"
-                android:src="@drawable/store"
-                android:id="@+id/store"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@android:dimen/app_icon_size"
-                android:ems="5"
-                android:paddingTop="42dp"
-                android:paddingBottom="42dp"
-                android:text="상점"
-                android:textSize="25dp" />
-
-            <ImageButton
-                android:src="@drawable/rank"
-                android:id="@+id/ranking"
-                android:elevation="4dp"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_below="@+id/store"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@android:dimen/app_icon_size"
-                android:ems="5"
-                android:paddingTop="42dp"
-                android:paddingBottom="42dp"
-                android:text="랭킹"
-                android:textSize="25dp" />
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
         </RelativeLayout>
 
+        <ImageButton
+            android:src="@drawable/problem"
+            android:elevation="4dp"
+            android:id="@+id/solve"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:ems="5"
+            android:paddingTop="42dp"
+            android:paddingBottom="42dp"
+            android:text="문제"
+            android:textSize="25dp" />
+
+        <ImageButton
+            android:elevation="4dp"
+            android:src="@drawable/store"
+            android:id="@+id/store"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:layout_toRightOf="@+id/solve"
+            android:ems="5"
+            android:paddingTop="42dp"
+            android:paddingBottom="42dp"
+            android:text="상점"
+            android:textSize="25dp" />
+
+        <ImageButton
+            android:src="@drawable/learn"
+            android:elevation="4dp"
+            android:id="@+id/learn"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/solve"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:ems="5"
+            android:paddingTop="42dp"
+            android:paddingBottom="42dp"
+            android:text="배우기"
+            android:textSize="25dp" />
+
+        <ImageButton
+            android:src="@drawable/rank"
+            android:id="@+id/ranking"
+            android:elevation="4dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/store"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:layout_toRightOf="@+id/learn"
+            android:ems="5"
+            android:paddingTop="42dp"
+            android:paddingBottom="42dp"
+            android:text="랭킹"
+            android:textSize="25dp" />
 
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

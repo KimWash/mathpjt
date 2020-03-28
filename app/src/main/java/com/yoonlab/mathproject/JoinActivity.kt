@@ -39,10 +39,10 @@ public var mContext_Join:Context? = null
 public var invalidId = false
 public var invalidChecked = false
 var uuid:String? = null
-var sgrade:String = ""
 
 
 class JoinActivity : AppCompatActivity() {
+    var sgrade:String? = null
     fun checkEmail(email: String): Boolean {
         val regex = "^[_a-zA-Z0-9-\\.]+@[\\.a-zA-Z0-9-]+\\.[a-zA-Z]+$"
         val p: Pattern = Pattern.compile(regex)
@@ -75,27 +75,22 @@ class JoinActivity : AppCompatActivity() {
                 when(position) {
                     0   ->  {
                         howgrade.text = "중학교1학년"
-                        sgrade = "중학교1학년"
                     }
                     1   ->  {
                         howgrade.text = "중학교2학년"
-                        sgrade = "중학교2학년"
                     }
                     2   ->  {
                         howgrade.text = "중학교3학년"
-                        sgrade = "중학교3학년"
                     }
                     3   ->  {
                         howgrade.text = "고등학교1학년"
-                        sgrade = "고등학교1학년"
                     }
                     4   ->  {
                         howgrade.text = "고등학교2학년"
-                        sgrade = "고등학교2학년"
                     }
                     5   ->  {
                         howgrade.text = "고등학교3학년"
-                        sgrade = "고등학교3학년"
+
                     }
                     else -> {
                         howgrade.text = "학년을 고르세요"
@@ -148,7 +143,7 @@ class JoinActivity : AppCompatActivity() {
     fun submitButton(){
         Log.i("정보", username.getText().toString()+email.getText().toString()+password.getText().toString())
         val sId = username.getText().toString()
-        val sGrade = sgrade
+        val sGrade = howgrade.toString()
         val sEmail = email.getText().toString()
         val sPw = password.getText().toString()
         val sPw_chk = password_chk.getText().toString()
