@@ -16,14 +16,14 @@
         android:textStyle="bold" />
     /
 
-    <com.google.android.gms.ads.AdView
+    <com.google.android.gms.ads.NativeExpressAdView
         android:id="@+id/adView"
         android:layout_width="250dp"
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="250x200"
-        ads:adUnitId="ca-app-pub-4544671315865800/4449458582"></com.google.android.gms.ads.AdView>
+        ads:adUnitId="ca-app-pub-4544671315865800/4449458582"></com.google.android.gms.ads.NativeExpressAdView>
 
     <LinearLayout
         android:layout_width="match_parent"

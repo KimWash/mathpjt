@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
+    android:id="@+id/drawer_layout"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -79,6 +80,7 @@
                 android:layout_marginRight="10dp"
                 android:src="@drawable/plusbutton"></ImageButton>
         </RelativeLayout>
+
 
         <ImageView
             android:id="@+id/sheep"

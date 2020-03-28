@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="문제, 풀이, 답을 사진 찍어서 보내면"
+            android:text="ID, 문제, 풀이, 답을 사진 찍어서 보내면"
             />
         <TextView
             android:layout_width="wrap_content"

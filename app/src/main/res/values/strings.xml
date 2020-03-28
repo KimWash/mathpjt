@@ -10,4 +10,9 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="admob_app_id">ca-app-pub-4544671315865800~5372009667</string>
+    <string name="main_screen_description">Pick which kind of update would you like to test</string>
+    <string name="flexible">Flexible</string>
+    <string name="immediate">Immediate</string>
+    <string name="version_name">version %1$s</string>
+    <string name="version_code">version code %1$d</string>
 </resources>
