@@ -14,7 +14,6 @@ class getInf(val uuid: String?, val type:Int) : AsyncTask<Void, Int, Any>() {
         //암호화
         /* 인풋 파라메터값 생성 */
         //컬럼 번호수 (0: id, 1:pw, 2:email, 3:heart, 4:uuid(UUID는고정.수정불가), 5:point, 6:grade, 7:solvingproblem)
-        Log.i("type", type.toString())
         val param = "u_uuid=" + uuid + "&type=" + type
         try {
             /* 서버연결 */

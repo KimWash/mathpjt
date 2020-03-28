@@ -1,14 +1,19 @@
 package com.yoonlab.mathproject
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.instacart.library.truetime.TrueTime
+import com.instacart.library.truetime.TrueTimeRx
+import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class SplashActivity: AppCompatActivity()   {
     private val SPLASH_TIME = 1500
@@ -20,6 +25,15 @@ class SplashActivity: AppCompatActivity()   {
         setContentView(R.layout.activity_splash)
         Thread(Runnable {
             TrueTime.build().initialize();
+            TrueTimeRx.build()
+                .initializeRx("ntp2.kornet.net")
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                    { date: Date ->
+                        Log.e(ContentValues.TAG, "TrueTime was initialized and we have a time: $date")
+                    }
+                ) { throwable: Throwable -> throwable.printStackTrace() }
+
         }).start()
 
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
