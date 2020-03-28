@@ -20,12 +20,15 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import kotlinx.android.synthetic.main.activity_solve.*
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.*
 import java.util.*
 
 
@@ -38,6 +41,7 @@ var uuidl2: String? = null
 
 class SolveActivity : AppCompatActivity() {
     private lateinit var mInterstitialAd: InterstitialAd
+    private val problemnum =  sProblem
 
     fun setThings1(): Int { //UUID 불러오기
         val getHeart = getInf(uuidl2, 3)
@@ -105,14 +109,14 @@ class SolveActivity : AppCompatActivity() {
             }
             false
         })
-        getProblem(sProblem).execute()
+        getProblem(problemnum)
 
         //어떤 문제를 불러옴??
 
         problemView = findViewById<ImageView>(R.id.problems)
         submit.setOnClickListener {
             checkAnswer()
-            editInf(uuidl2, 7, 0, sProblem!!)
+            editInf(uuidl2, 7, 0, problemnum!!)
         }
 
     }
@@ -183,7 +187,7 @@ class SolveActivity : AppCompatActivity() {
                         ) == problemAns
                     ) { //DB상의 답과 입력한 답이 일치할때
                         JoinActivity.dispToast(this, "정답입니다!")
-                        var solvedProb = editInf(uuid, 7, 0, sProblem)
+                        var solvedProb = editInf(uuid, 7, 0, problemnum)
                         var result = solvedProb.execute().get()
                         if (result == "success") {
 
@@ -275,13 +279,13 @@ class SolveActivity : AppCompatActivity() {
         protected override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
             if (result == "Error 4: No Data") {
-                JoinActivity.dispToast(mContext_Solve, "서버 내부 오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")
+                JoinActivity.dispToast(mContext_Solve, "오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")
                 return
             }
             try {
                 problemView?.setImageBitmap(result as Bitmap?)
-            } catch (e: FileNotFoundException) {
-                JoinActivity.dispToast(mContext_Solve, "문제를 불러오는데 오류가 발생했습니다. 에러코드: 5 개발자에게 연락바랍니다. ")
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
     }
