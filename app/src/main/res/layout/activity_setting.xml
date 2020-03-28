@@ -45,13 +45,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <Button
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="내가 만든 문제 보내고 100포인트 받기"
-                android:textSize="20dp"
-                android:layout_marginTop="30dp"
-                />
+                android:text="자신의 닉네임과 문제 사진을"
+                android:layout_gravity="center_horizontal"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="support@yoon-lab.xyz로" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:text="보내고" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="포인트 받자"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:layout_gravity="center_horizontal"/>
+
             <Button
                 android:layout_marginTop="30dp"
                 android:id="@+id/loginout"

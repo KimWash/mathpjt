@@ -10,6 +10,4 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="admob_app_id">ca-app-pub-4544671315865800~5372009667</string>
-    <string name="banner_ad_unit_id">ca-app-pub-4544671315865800/8295224890</string>
-    <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
 </resources>
