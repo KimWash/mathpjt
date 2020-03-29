@@ -105,7 +105,10 @@ class SolveActivity : AppCompatActivity() {
             }
             false
         })
-        getProblem(sProblem).execute()
+        val problemInf = GetProblem(sProblem).execute().get() as Array<*>
+        problempoint = problemInf[0] as Int
+        problemsolver = problemInf[1] as Int
+        problemAns = problemInf[3] as Int?
 
         //어떤 문제를 불러옴??
 
@@ -218,71 +221,4 @@ class SolveActivity : AppCompatActivity() {
 
 
 
-
-    class getProblem(val problem: Int) : AsyncTask<Void, Int, Any>() {
-        protected override fun doInBackground(vararg unused: Void): Any? {
-            //암호화
-            /* 인풋 파라메터값 생성 */
-            val param = "u_problem=" + problem
-            try {
-                /* 서버연결 */
-                val url = URL(
-                    "https://yoon-lab.xyz/mathpjt_solve.php"
-                )
-                val conn = url.openConnection() as HttpURLConnection
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-                conn.setRequestMethod("POST")
-                conn.setDoInput(true)
-                conn.connect()
-                /* 안드로이드 -> 서버 파라메터값 전달 */
-                val outs = conn.getOutputStream()
-                outs.write(param.toByteArray(charset("UTF-8")))
-                outs.flush()
-                outs.close()
-                /* 서버 -> 안드로이드 파라메터값 전달 */
-                val iss = conn.getInputStream()
-                var inn = BufferedReader(InputStreamReader(iss))
-                val line = inn.readLine()
-                Log.e("RECV DATA*", line)
-                if (line == "Error 4: No Data") {
-                    return line
-                }
-                val prob = line.split(",".toRegex())
-                problemAns = prob[0].toInt()
-                problempoint = prob[2].toInt()
-                problemsolver = prob[3].toInt()
-                var bmImg: Bitmap? = null
-                try {
-                    val myFileUrl: URL = URL(prob[1])
-                    val conn: HttpURLConnection = myFileUrl.openConnection() as HttpURLConnection
-                    conn.setDoInput(true)
-                    conn.connect()
-                    val is2: InputStream = conn.getInputStream()
-                    bmImg = BitmapFactory.decodeStream(is2)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-                return bmImg
-
-            } catch (e: MalformedURLException) {
-                e.printStackTrace()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            return null
-        }
-
-        protected override fun onPostExecute(result: Any?) {
-            super.onPostExecute(result)
-            if (result == "Error 4: No Data") {
-                JoinActivity.dispToast(mContext_Solve, "서버 내부 오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")
-                return
-            }
-            try {
-                problemView?.setImageBitmap(result as Bitmap?)
-            } catch (e: FileNotFoundException) {
-                JoinActivity.dispToast(mContext_Solve, "문제를 불러오는데 오류가 발생했습니다. 에러코드: 5 개발자에게 연락바랍니다. ")
-            }
-        }
-    }
 }

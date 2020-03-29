@@ -128,13 +128,13 @@ class MainActivity : AppCompatActivity() {
 
         //시그마 갯수 이미지로 띄우는 부분
         val hearts = setThings()
-        val solvepage = Intent(this@MainActivity, SelectActivity::class.java)
+        val selectpage = Intent(this@MainActivity, SelectActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
         heartplus.setOnClickListener {
             HeartPlusMain(hearts)
         }
-        solve.setOnClickListener { View -> startActivity(solvepage) }
+        solve.setOnClickListener { View -> startActivity(selectpage) }
         store.setOnClickListener { View -> startActivity(storepage) }
         settingbutton.setOnClickListener { View -> startActivity(settingActivity) }
     }
