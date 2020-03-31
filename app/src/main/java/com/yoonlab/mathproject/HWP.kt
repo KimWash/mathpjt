@@ -9,10 +9,10 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-class HWP() : AsyncTask<Void, Int, Any>() {
-    protected override fun doInBackground(vararg unused: Void): Any? {
+class HWP : AsyncTask<Void, Int, Any>() {
+    override fun doInBackground(vararg unused: Void): Any? {
         //암호화
-        /* 인풋 파라메터값 생성 */
+        //인풋 파라메터값 생성
         val param = ""
         try {
             /* 서버연결 */
@@ -21,22 +21,21 @@ class HWP() : AsyncTask<Void, Int, Any>() {
             )
             val conn = url.openConnection() as HttpURLConnection
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-            conn.setRequestMethod("POST")
-            conn.setDoInput(true)
+            conn.requestMethod = "POST"
+            conn.doInput = true
             conn.connect()
             /* 안드로이드 -> 서버 파라메터값 전달 */
-            val outs = conn.getOutputStream()
+            val outs = conn.outputStream
             outs.write(param.toByteArray(charset("UTF-8")))
             outs.flush()
             outs.close()
             /* 서버 -> 안드로이드 파라메터값 전달 */
-            val iss = conn.getInputStream()
-            var inn = BufferedReader(InputStreamReader(iss))
+            val iss = conn.inputStream
+            val inn = BufferedReader(InputStreamReader(iss))
             val line = inn.readLine()
             Log.e("RECV DATA", line)
             if (line.matches("\\d+".toRegex())) { //숫자만 있는게 확인되면
                 return line.toInt()
-            } else {
                 return line
             }
         } catch (e: MalformedURLException) {
@@ -47,7 +46,7 @@ class HWP() : AsyncTask<Void, Int, Any>() {
         return null
     }
 
-    protected override fun onPostExecute(result: Any?) {
+    override fun onPostExecute(result: Any?) {
         super.onPostExecute(result)
         if (result == "Error 4: No Data") {
             JoinActivity.dispToast(mContext_Solve, "오류가 발생했습니다. 에러코드: 4 개발자에게 연락바랍니다.")

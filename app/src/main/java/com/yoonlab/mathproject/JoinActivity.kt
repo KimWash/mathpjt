@@ -2,7 +2,6 @@ package com.yoonlab.mathproject
 
 //import com.yoonlab.mathproject.ui.login.registDB
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -25,19 +24,14 @@ import java.net.URL
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder
-import java.security.GeneralSecurityException;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
 import java.util.*
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 
-public var mContext_Join:Context? = null
-public var invalidId = false
-public var invalidChecked = false
+var mContext_Join:Context? = null
+var invalidId = false
+var invalidChecked = false
 var uuid:String? = null
 var sgrade:String = ""
 
@@ -147,11 +141,11 @@ class JoinActivity : AppCompatActivity() {
     }
     fun submitButton(){
         Log.i("정보", username.getText().toString()+email.getText().toString()+password.getText().toString())
-        val sId = username.getText().toString()
+        val sId = username.text.toString()
         val sGrade = sgrade
-        val sEmail = email.getText().toString()
-        val sPw = password.getText().toString()
-        val sPw_chk = password_chk.getText().toString()
+        val sEmail = email.text.toString()
+        val sPw = password.text.toString()
+        val sPw_chk = password_chk.text.toString()
         //Todo: 아이디 중복확인, 비밀번호 생성규칙, 암호화(SHA-256)
         if (sId == ""){
             dispToast(this, "ID를 입력해주세요.")
@@ -184,16 +178,16 @@ class JoinActivity : AppCompatActivity() {
             val rdb = registDB(sId, sGrade ,sEmail, sPw)
             val result = rdb.execute().get()
             if (result == 0) {  // 회원가입이 완료되면?
-                val MainIntent = Intent(this@JoinActivity, MainActivity::class.java)
-                MainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                MainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(MainIntent)
-                var prefs: SharedPreferences = getSharedPreferences("Pref", AppCompatActivity.MODE_PRIVATE)
+                val mainintent = Intent(this@JoinActivity, MainActivity::class.java)
+                mainintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                mainintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(mainintent)
+                val prefs: SharedPreferences = getSharedPreferences("Pref", MODE_PRIVATE)
                 prefs.edit().putBoolean("isFirstRun", false).apply()
-                var useruuid: SharedPreferences = getSharedPreferences("uuid", MODE_PRIVATE)
-                var uuideditor:SharedPreferences.Editor = useruuid.edit()
+                val useruuid: SharedPreferences = getSharedPreferences("uuid", MODE_PRIVATE)
+                val uuideditor:SharedPreferences.Editor = useruuid.edit()
                 uuideditor.putString("uuid", uuid)
-                uuideditor.commit()
+                uuideditor.apply()
                 finish()
             }
         }
@@ -204,7 +198,7 @@ class JoinActivity : AppCompatActivity() {
 
 
 class checkInvalid(val sId: String) : AsyncTask<Void, Int, Int>() {
-    protected override fun doInBackground(vararg unused:Void): Int? {
+    override fun doInBackground(vararg unused:Void): Int? {
         /* 인풋 파라메터값 생성 */
         val param = "u_id=" + sId
         try
@@ -214,17 +208,17 @@ class checkInvalid(val sId: String) : AsyncTask<Void, Int, Int>() {
                 "https://yoon-lab.xyz/mathpjt_validid.php")
             val conn = url.openConnection() as HttpURLConnection
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-            conn.setRequestMethod("POST")
-            conn.setDoInput(true)
+            conn.requestMethod = "POST"
+            conn.doInput = true
             conn.connect()
             /* 안드로이드 -> 서버 파라메터값 전달 */
-            val outs = conn.getOutputStream()
+            val outs = conn.outputStream
             outs.write(param.toByteArray(charset("UTF-8")))
             outs.flush()
             outs.close()
             /* 서버 -> 안드로이드 파라메터값 전달 */
-            val iss = conn.getInputStream()
-            var inn = BufferedReader(InputStreamReader(iss))
+            val iss = conn.inputStream
+            val inn = BufferedReader(InputStreamReader(iss))
             val line = inn.readLine()
             Log.e("RECV DATA", line)
             if (line == "Code 1: Same ID Exist"){
@@ -243,7 +237,7 @@ class checkInvalid(val sId: String) : AsyncTask<Void, Int, Int>() {
         return null
     }
 
-    protected override fun onPostExecute(code:Int){
+    override fun onPostExecute(code:Int){
         super.onPostExecute(code)
         return
 
@@ -259,7 +253,7 @@ class registDB(val sId: String,val sGrade: String, val sEmail: String, val sPw: 
         val decodedPw = URLDecoder.decode(cryptedPw)
         uuid = UUID.randomUUID().toString()
         /* 인풋 파라메터값 생성 */
-        val param = "u_id=" + sId + "&u_email=" + sEmail + "&u_pw=" + cryptedPw + "&u_uuid=" + uuid + "&u grade=" + sGrade
+        val param = "u_id=$sId&u_email=$sEmail&u_pw=$cryptedPw&u_uuid=$uuid&u grade=$sGrade"
         try
         {
             /* 서버연결 */
@@ -267,17 +261,17 @@ class registDB(val sId: String,val sGrade: String, val sEmail: String, val sPw: 
                 "https://yoon-lab.xyz/mathpjt_join.php")
             val conn = url.openConnection() as HttpURLConnection
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-            conn.setRequestMethod("POST")
-            conn.setDoInput(true)
+            conn.requestMethod = "POST"
+            conn.doInput = true
             conn.connect()
             /* 안드로이드 -> 서버 파라메터값 전달 */
-            val outs = conn.getOutputStream()
+            val outs = conn.outputStream
             outs.write(param.toByteArray(charset("UTF-8")))
             outs.flush()
             outs.close()
             /* 서버 -> 안드로이드 파라메터값 전달 */
-            val iss = conn.getInputStream()
-            var inn = BufferedReader(InputStreamReader(iss))
+            val iss = conn.inputStream
+            val inn = BufferedReader(InputStreamReader(iss))
             val line = inn.readLine()
             Log.e("RECV DATA", line)
             if (line == "success"){
@@ -300,7 +294,7 @@ class registDB(val sId: String,val sGrade: String, val sEmail: String, val sPw: 
     }
 
 
-    protected override fun onPostExecute(code:Int){
+    override fun onPostExecute(code:Int){
         super.onPostExecute(code)
         if (code == 0){
             JoinActivity.dispToast(mContext_Join, "회원가입이 완료되었습니다.")

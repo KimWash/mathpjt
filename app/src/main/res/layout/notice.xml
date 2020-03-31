@@ -40,7 +40,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="yjun273@gmail.com으로"
+            android:text="support@yoon-lab.xyz으로"
             />
         <TextView
             android:layout_width="wrap_content"

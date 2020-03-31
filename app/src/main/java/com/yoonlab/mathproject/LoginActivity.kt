@@ -1,28 +1,15 @@
 package com.yoonlab.mathproject
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.AsyncTask
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
-import com.yoonlab.mathproject.*
-import com.yoonlab.mathproject.registDB
 
-import kotlinx.android.synthetic.main.activity_join.*
+
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.password
 import kotlinx.android.synthetic.main.activity_login.username
@@ -31,24 +18,18 @@ import java.io.IOException
 import java.io.InputStreamReader
 
 import android.util.Base64
-import java.io.UnsupportedEncodingException;
 import java.net.*
-import java.security.CryptoPrimitive
-import java.security.GeneralSecurityException;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.Cipher
+import javax.crypto.spec.SecretKeySpec
 
-public var mContext_Login: Context? = null
+var mContext_Login: Context? = null
 class LoginActivity : AppCompatActivity() {
 
 
     fun nightMode(){
-        if (nightModeCheck.isNightModeActive(this) == true) {
+        if (nightModeCheck.isNightModeActive(this)) {
             setTheme(R.style.DarkTheme)
-        } else if (nightModeCheck.isNightModeActive(this) == false) {
+        } else if (!nightModeCheck.isNightModeActive(this)) {
             setTheme(R.style.LightTheme)
         }
     }
@@ -59,15 +40,15 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         mContext_Login = this
         setSupportActionBar(toolbar)
-        getSupportActionBar()?.title = "로그인"
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "로그인"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val submitButton = findViewById<Button>(R.id.submitButton)
         submitButton.setOnClickListener{submitButton()}
     }
 
     fun submitButton(){
-        val sId = username.getText().toString()
-        val sPw = password.getText().toString()
+        val sId = username.text.toString()
+        val sPw = password.text.toString()
         //Todo: 아이디
         if (sId == ""){
             JoinActivity.dispToast(this, "ID를 입력해주세요.")
@@ -86,8 +67,8 @@ class LoginActivity : AppCompatActivity() {
             }
             else {
                 val mainIntent = Intent(this@LoginActivity, MainActivity::class.java)
-                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(mainIntent)
                 finish()
             }
@@ -103,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
             val decodedPw = URLDecoder.decode(cryptedPw)
             Log.i("decodedPw", decodedPw)
             /* 인풋 파라메터값 생성 */
-            val param = "u_id=" + sId + "&u_pw=" + decodedPw
+            val param = "u_id=$sId&u_pw=$decodedPw"
             try
             {
                 /* 서버연결 */
@@ -111,17 +92,17 @@ class LoginActivity : AppCompatActivity() {
                     "https://yoon-lab.xyz/mathpjt_login.php")
                 val conn = url.openConnection() as HttpURLConnection
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-                conn.setRequestMethod("POST")
-                conn.setDoInput(true)
+                conn.requestMethod = "POST"
+                conn.doInput = true
                 conn.connect()
                 /* 안드로이드 -> 서버 파라메터값 전달 */
-                val outs = conn.getOutputStream()
+                val outs = conn.outputStream
                 outs.write(param.toByteArray(charset("UTF-8")))
                 outs.flush()
                 outs.close()
                 /* 서버 -> 안드로이드 파라메터값 전달 */
-                val iss = conn.getInputStream()
-                var inn = BufferedReader(InputStreamReader(iss))
+                val iss = conn.inputStream
+                val inn = BufferedReader(InputStreamReader(iss))
                 val line = inn.readLine()
                 Log.e("RECV DATA", line)
                 if (line.equals("0")){
@@ -148,7 +129,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-        protected override fun onPostExecute(code: Any?) {
+        override fun onPostExecute(code: Any?) {
             super.onPostExecute(code)
             if (code == 0){
                 JoinActivity.dispToast(mContext_Login, "비밀번호가 일치하지 않습니다.")
@@ -164,12 +145,12 @@ class LoginActivity : AppCompatActivity() {
             }
             else {
                 JoinActivity.dispToast(mContext_Login, "로그인에 성공하였습니다!")
-                var prefs: SharedPreferences = context.getSharedPreferences("Pref", AppCompatActivity.MODE_PRIVATE)
+                val prefs: SharedPreferences = context.getSharedPreferences("Pref", MODE_PRIVATE)
                 prefs.edit().putBoolean("isFirstRun", false).apply()
-                var useruuid: SharedPreferences = context.getSharedPreferences("uuid", MODE_PRIVATE)
-                var uuideditor: SharedPreferences.Editor = useruuid.edit()
+                val useruuid: SharedPreferences = context.getSharedPreferences("uuid", MODE_PRIVATE)
+                val uuideditor: SharedPreferences.Editor = useruuid.edit()
                 uuideditor.putString("uuid", code.toString())
-                uuideditor.commit()
+                uuideditor.apply()
                 return
             }
 

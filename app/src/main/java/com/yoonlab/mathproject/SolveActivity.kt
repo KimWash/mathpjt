@@ -4,15 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Paint
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,26 +15,20 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import kotlinx.android.synthetic.main.activity_solve.*
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
 import com.google.android.gms.ads.MobileAds
-import kotlinx.android.synthetic.main.activity_main.*
-import java.io.*
-import java.util.*
 
 
 var problemView: ImageView? = null
 var problemAns: Int? = null
 var problempoint: Int = 0
 var problemsolver: Int = 0
-public var mContext_Solve: Context? = null
+var mContext_Solve: Context? = null
 var uuidl2: String? = null
 
 class SolveActivity : AppCompatActivity() {
     private lateinit var mInterstitialAd: InterstitialAd
 
-    fun setThings1(): Int { //UUID 불러오기
+    private fun setThings1(): Int { //UUID 불러오기
         val getHeart = getInf(uuidl2, 3)
         val heart = getHeart.execute().get() as String
         val heart10 = Integer.parseInt(heart)
@@ -115,11 +104,11 @@ class SolveActivity : AppCompatActivity() {
         problemView = findViewById<ImageView>(R.id.problems)
         submit.setOnClickListener {
             checkAnswer()
-            editInf(uuidl2, 7, 0, sProblem!!)
+            editInf(uuidl2, 7, 0, sProblem)
         }
 
     }
-    fun HeartPlus(heart:Int){
+    private fun HeartPlus(heart:Int){
         MobileAds.initialize(this, "ca-app-pub-4544671315865800/9374767616")
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
@@ -164,16 +153,16 @@ class SolveActivity : AppCompatActivity() {
 
     fun getPoints(): Int {
         val getPoint = getInf(uuidl2, 5)
-        var points = getPoint.execute().get() as String
-        var points1 = Integer.parseInt(points)
+        val points = getPoint.execute().get() as String
+        val points1 = Integer.parseInt(points)
         pointView.setText(points1.toString())
         return points1
     }
 
 
-    fun checkAnswer() {
-        var useruuid: SharedPreferences = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
-        var uuid = useruuid.getString("uuid", null)
+    private fun checkAnswer() {
+        val useruuid: SharedPreferences = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
+        val uuid = useruuid.getString("uuid", null)
         if (uuid != null) {
             val editHeart = editInf(uuid.toString(), 3, 0, 1) //UUID 불러오기
             val getHeart = getInf(uuid, 3)
@@ -186,8 +175,8 @@ class SolveActivity : AppCompatActivity() {
                         ) == problemAns
                     ) { //DB상의 답과 입력한 답이 일치할때
                         JoinActivity.dispToast(this, "정답입니다!")
-                        var solvedProb = editInf(uuid, 7, 0, sProblem)
-                        var result = solvedProb.execute().get()
+                        val solvedProb = editInf(uuid, 7, 0, sProblem)
+                        val result = solvedProb.execute().get()
                         if (result == "success") {
 
                         } else {
@@ -212,7 +201,7 @@ class SolveActivity : AppCompatActivity() {
             } else if (heart <= 0) {
                 JoinActivity.dispToast(this, "하트가 모자랍니다. 충전해주세요!")
             }
-        } else if (uuid == null) {
+        } else {
             JoinActivity.dispToast(this, "유저 정보를 불러오지 못했습니다. 개발자에게 문의해주세요.")
             val homepage = Intent(this@SolveActivity, MainActivity::class.java)
             startActivity(homepage)

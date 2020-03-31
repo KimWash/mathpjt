@@ -147,7 +147,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="horizontal">
             <ImageButton
                 android:id="@+id/solve"
@@ -178,6 +178,20 @@
                 android:src="@drawable/store"
                 android:text="상점"
                 android:textSize="25dp" />
+        <ImageButton
+            android:layout_centerHorizontal="true"
+            android:id="@+id/gohome"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_width="68dp"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:elevation="4dp"
+            android:ems="5"
+            android:paddingTop="42dp"
+            android:paddingBottom="42dp"
+            android:src="@drawable/gohome"
+            android:text="상점"
+            android:textSize="25dp" />
 
             <ImageButton
                 android:id="@+id/ranking"

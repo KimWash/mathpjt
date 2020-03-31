@@ -3,7 +3,6 @@ package com.yoonlab.mathproject
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.content.SharedPreferences
@@ -35,31 +34,19 @@ var uuidl: String? = null
 
 
 class MainActivity : AppCompatActivity() {
-    //업데이트 체크
-    private val appUpdateManager: AppUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
-    private val appUpdatedListener: InstallStateUpdatedListener by lazy {
-        object : InstallStateUpdatedListener {
-            override fun onStateUpdate(installState: InstallState) {
-                when {
-                    installState.installStatus() == InstallStatus.DOWNLOADED -> popupSnackbarForCompleteUpdate()
-                    installState.installStatus() == InstallStatus.INSTALLED -> appUpdateManager.unregisterListener(this)
-                    else -> Timber.d("InstallStateUpdatedListener: state: %s", installState.installStatus())
-                }
-            }
-        }
-    }
+
     private lateinit var mInterstitialAd: InterstitialAd
 
 
     fun nightMode() {
-        if (nightModeCheck.isNightModeActive(this) == true) {
+        if (nightModeCheck.isNightModeActive(this)) {
             setTheme(R.style.DarkTheme)
-        } else if (nightModeCheck.isNightModeActive(this) == false) {
+        } else if (!nightModeCheck.isNightModeActive(this)) {
             setTheme(R.style.LightTheme)
         }
     }
 
-    fun setThings(): Int {
+    private fun setThings(): Int {
         val getHeart = getInf(uuidl, 3)
         var hearts = Integer.parseInt(getHeart.execute().get() as String)
         if (hearts == 0) {
@@ -111,6 +98,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //플레이스토어 업데이트 확인
         checkForAppUpdate()
         update_heart()
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
@@ -119,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         nightMode()
         setContentView(R.layout.activity_main)
         val getPoint = getInf(uuidl, 5)
-        var points = getPoint.execute().get() as String
+        val points = getPoint.execute().get() as String
         point2.text = points
         val getNick = getInf(uuidl, 0)
         val name = getNick.execute().get() as String
@@ -132,13 +120,13 @@ class MainActivity : AppCompatActivity() {
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
         heartplus.setOnClickListener {
-            HeartPlusMain(hearts)
+            plusmain(hearts)
         }
-        solve.setOnClickListener { View -> startActivity(selectpage) }
-        store.setOnClickListener { View -> startActivity(storepage) }
-        settingbutton.setOnClickListener { View -> startActivity(settingActivity) }
+        solve.setOnClickListener { startActivity(selectpage) }
+        store.setOnClickListener { startActivity(storepage) }
+        settingbutton.setOnClickListener { startActivity(settingActivity) }
     }
-    fun HeartPlusMain(hearts:Int){
+    private fun plusmain(hearts:Int){
         MobileAds.initialize(this, "ca-app-pub-4544671315865800/9374767616")
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
@@ -199,6 +187,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     //업데이트 체크
+    val appUpdateManager: AppUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
+    private val appUpdatedListener: InstallStateUpdatedListener by lazy {
+        object : InstallStateUpdatedListener {
+            override fun onStateUpdate(installState: InstallState) {
+                when {
+                    installState.installStatus() == InstallStatus.DOWNLOADED -> popupSnackbarForCompleteUpdate()
+                    installState.installStatus() == InstallStatus.INSTALLED -> appUpdateManager.unregisterListener(
+                        this
+                    )
+                    else -> Timber.d(
+                        "InstallStateUpdatedListener: state: %s",
+                        installState.installStatus()
+                    )
+                }
+            }
+        }
+    }
+
     private fun checkForAppUpdate() {
         // Returns an intent object that you use to check for an update.
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
@@ -213,13 +219,16 @@ class MainActivity : AppCompatActivity() {
                         appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE) -> AppUpdateType.IMMEDIATE
                         else -> null
                     }
-                    if (installType == AppUpdateType.FLEXIBLE) appUpdateManager.registerListener(appUpdatedListener)
+                    if (installType == AppUpdateType.FLEXIBLE) appUpdateManager.registerListener(
+                        appUpdatedListener
+                    )
 
                     appUpdateManager.startUpdateFlowForResult(
                         appUpdateInfo,
                         installType!!,
                         this,
-                        APP_UPDATE_REQUEST_CODE)
+                        APP_UPDATE_REQUEST_CODE
+                    )
                 } catch (e: IntentSender.SendIntentException) {
                     e.printStackTrace()
                 }
@@ -232,9 +241,11 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == APP_UPDATE_REQUEST_CODE) {
             if (resultCode != Activity.RESULT_OK) {
-                Toast.makeText(this,
+                Toast.makeText(
+                    this,
                     "App Update failed, please try again on the next app launch.",
-                    Toast.LENGTH_SHORT)
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }
@@ -244,7 +255,8 @@ class MainActivity : AppCompatActivity() {
         val snackbar = Snackbar.make(
             findViewById(R.id.drawer_layout),
             "An update has just been downloaded.",
-            Snackbar.LENGTH_INDEFINITE)
+            Snackbar.LENGTH_INDEFINITE
+        )
         snackbar.setAction("RESTART") { appUpdateManager.completeUpdate() }
         snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.colorAccent))
         snackbar.show()
@@ -271,16 +283,20 @@ class MainActivity : AppCompatActivity() {
                             appUpdateInfo,
                             AppUpdateType.IMMEDIATE,
                             this,
-                            APP_UPDATE_REQUEST_CODE)
+                            APP_UPDATE_REQUEST_CODE
+                        )
                     }
                 } catch (e: IntentSender.SendIntentException) {
                     e.printStackTrace()
                 }
+
             }
+
     }
 
     companion object {
         private const val APP_UPDATE_REQUEST_CODE = 1991
     }
+
 
 }

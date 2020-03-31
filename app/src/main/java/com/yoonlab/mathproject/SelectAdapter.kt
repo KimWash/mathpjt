@@ -3,13 +3,13 @@ package com.yoonlab.mathproject
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.select_item.view.*
-import kotlinx.android.synthetic.main.selectlevel.view.*
-import com.yoonlab.mathproject.ProblemList
+
 
 class SelectAdapter(data : MutableList<ProblemList>) : RecyclerView.Adapter<SelectAdapter.SelectViewHolder>() {
-    var items: MutableList<ProblemList> = data
+    private var items: MutableList<ProblemList> = data
 
     interface ItemClickListener {
         fun onClick(view: View, position: Int)
@@ -19,8 +19,6 @@ class SelectAdapter(data : MutableList<ProblemList>) : RecyclerView.Adapter<Sele
     fun setItemClickListener(itemClickListener: ItemClickListener) {
         this.itemClickListner = itemClickListener
     }
-
-
 
     //뷰홀더 생성
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int) = SelectViewHolder(p0)
