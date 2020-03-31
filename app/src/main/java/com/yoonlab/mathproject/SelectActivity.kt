@@ -18,6 +18,7 @@ var problemsolver1: String = ""
 var sProblem:Int = 0
 
 class SelectActivity : AppCompatActivity(){
+
     private var items: MutableList<ProblemList> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,20 +27,21 @@ class SelectActivity : AppCompatActivity(){
         uuidl2 = useruuid?.getString("uuid", null)
         problemView = findViewById(R.id.problems)
         val recycle = findViewById<RecyclerView>(R.id.selecting)
-        cratelist(items,recycle).execute()
+        val adapter = SelectAdapter(items)
+        recycle.adapter = adapter
+        recycle.layoutManager = LinearLayoutManager(this)
+        cratelist(items,recycle,adapter).execute()
+        val solvepage = Intent(this@SelectActivity, SolveActivity::class.java)
+        startActivity(solvepage)
 
     }
-    class cratelist(val items : MutableList<ProblemList>,val recycle : RecyclerView) : AsyncTask<Void, Int, Any>() {
+    class cratelist(private val items : MutableList<ProblemList>, private val recycle : RecyclerView,
+                    private val adapter:SelectAdapter) : AsyncTask<Void, Int, Any>() {
         override fun onPreExecute() {
             super.onPreExecute()
-            val adapter = SelectAdapter(items)
-            recycle.adapter = adapter
-            recycle.layoutManager = LinearLayoutManager(this)
             adapter.setItemClickListener(object : SelectAdapter.ItemClickListener {
                 override fun onClick(view: View, position: Int) {
                     sProblem = position
-                    val solvepage = Intent(this@SelectActivity, SolveActivity::class.java)
-                    startActivity(solvepage)
                 }
             })
         }
@@ -64,8 +66,7 @@ class SelectActivity : AppCompatActivity(){
                     }
                 }
             }
-
-            //클릭리스너 등록
+            return items
         }
 
         override fun onPostExecute(result: Any?) {
