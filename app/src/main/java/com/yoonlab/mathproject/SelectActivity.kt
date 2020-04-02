@@ -8,16 +8,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.selectlevel.*
-
 
 
 var problemlevel: String = ""
 var problempoint1: String = ""
 var problemsolver1: String = ""
-var sProblem:Int = 0
+var sProblem: Int = 0
 
-class SelectActivity : AppCompatActivity(){
+class SelectActivity : AppCompatActivity() {
 
     private var items: MutableList<ProblemList> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +28,16 @@ class SelectActivity : AppCompatActivity(){
         val adapter = SelectAdapter(items)
         recycle.adapter = adapter
         recycle.layoutManager = LinearLayoutManager(this)
-        cratelist(items,recycle,adapter).execute()
-        val solvepage = Intent(this@SelectActivity, SolveActivity::class.java)
-        startActivity(solvepage)
+        Catalyst(items, recycle, adapter).execute()
+        val selvage = Intent(this@SelectActivity, SolveActivity::class.java)
+        startActivity(selvage)
 
     }
-    class cratelist(private val items : MutableList<ProblemList>, private val recycle : RecyclerView,
-                    private val adapter:SelectAdapter) : AsyncTask<Void, Int, Any>() {
+
+    class Catalyst(
+        private val items: MutableList<ProblemList>, private val recycle: RecyclerView,
+        private val adapter: SelectAdapter
+    ) : AsyncTask<Void, Int, Any>() {
         override fun onPreExecute() {
             super.onPreExecute()
             adapter.setItemClickListener(object : SelectAdapter.ItemClickListener {
@@ -72,5 +73,6 @@ class SelectActivity : AppCompatActivity(){
         override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
         }
+
     }
 }

@@ -19,7 +19,7 @@
             android:textColor="#000000"
             android:textSize="45sp"
             android:textStyle="bold"
-            android:layout_toLeftOf="@id/hello2"></TextView>
+            android:layout_toLeftOf="@id/hello2" />
 
         <TextView
             android:layout_marginLeft="3dp"
@@ -32,8 +32,7 @@
             android:text="학문제를 풀고"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold"></TextView>
-
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/hello3"
             android:layout_width="wrap_content"
@@ -44,7 +43,7 @@
             android:text="포"
             android:textColor="#000000"
             android:textSize="45sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/hello4"
             android:layout_marginLeft="3dp"
@@ -56,7 +55,7 @@
             android:text="인트를 받는"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"/>
         <TextView
             android:layout_marginLeft="3dp"
             android:id="@+id/hello5"
@@ -68,7 +67,7 @@
             android:text="자"
             android:textColor="#000000"
             android:textSize="45sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"/>
 
         <ImageView
             android:layout_below="@id/hello"
@@ -77,7 +76,7 @@
             android:layout_height="300dp"
             android:src="@drawable/app_logo"
             android:id="@+id/logo"
-            android:layout_marginTop="50dp"></ImageView>
+            android:layout_marginTop="50dp"/>
 
         <Button
             android:id="@+id/startbutton"
@@ -90,9 +89,6 @@
             android:background="@drawable/button_design"
             android:text="Start"
             android:textSize="20sp"
-            android:elevation="5dp"></Button>
-
+            android:elevation="5dp"/>
     </RelativeLayout>
-
-
 </LinearLayout>

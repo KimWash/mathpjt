@@ -127,9 +127,9 @@ class MainActivity : AppCompatActivity() {
         settingbutton.setOnClickListener { startActivity(settingActivity) }
     }
     private fun plusmain(hearts:Int){
-        MobileAds.initialize(this, "ca-app-pub-4544671315865800/9374767616")
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544/1033173712")
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
         if (hearts >= 5) {
             Toast.makeText(this@MainActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
@@ -204,7 +204,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun checkForAppUpdate() {
         // Returns an intent object that you use to check for an update.
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
@@ -235,8 +234,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == APP_UPDATE_REQUEST_CODE) {
@@ -250,7 +247,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun popupSnackbarForCompleteUpdate() {
         val snackbar = Snackbar.make(
             findViewById(R.id.drawer_layout),
@@ -261,8 +257,6 @@ class MainActivity : AppCompatActivity() {
         snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.colorAccent))
         snackbar.show()
     }
-
-
     override fun onResume() {
         super.onResume()
         appUpdateManager
@@ -293,7 +287,6 @@ class MainActivity : AppCompatActivity() {
             }
 
     }
-
     companion object {
         private const val APP_UPDATE_REQUEST_CODE = 1991
     }

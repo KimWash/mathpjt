@@ -84,8 +84,8 @@
 
         <ImageView
             android:id="@+id/sheep"
-            android:layout_width="370dp"
-            android:layout_height="400dp"
+            android:layout_width="470dp"
+            android:layout_height="500dp"
             android:layout_centerVertical="true"
             android:src="@drawable/sheep" />
 

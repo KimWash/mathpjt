@@ -23,7 +23,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="250x200"
-        ads:adUnitId="ca-app-pub-4544671315865800/4449458582"></com.google.android.gms.ads.NativeExpressAdView>
+        ads:adUnitId="	ca-app-pub-3940256099942544/2247696110"></com.google.android.gms.ads.NativeExpressAdView>
 
     <LinearLayout
         android:layout_width="match_parent"
