@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -14,16 +15,6 @@
         android:text="수포자를 종료하시겠습니까?"
         android:textColor="#000000"
         android:textStyle="bold" />
-    /
-
-    <com.google.android.gms.ads.NativeExpressAdView
-        android:id="@+id/adView"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="250x200"
-        ads:adUnitId="	ca-app-pub-3940256099942544/2247696110"></com.google.android.gms.ads.NativeExpressAdView>
 
     <LinearLayout
         android:layout_width="match_parent"

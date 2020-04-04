@@ -58,7 +58,7 @@ class SplashActivity: AppCompatActivity()   {
             if(isFirstRun){
                 val hander = Handler()
                 hander.postDelayed({
-                    startActivity(Intent(application, IntroduceActivity::class.java))
+                    startActivity(Intent(application, SignActivity::class.java))
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
 
                     this@SplashActivity.finish()

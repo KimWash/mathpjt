@@ -113,7 +113,6 @@ class MainActivity : AppCompatActivity() {
         val name = getNick.execute().get() as String
         nickname.text = name
 
-
         //시그마 갯수 이미지로 띄우는 부분
         val hearts = setThings()
         val selectpage = Intent(this@MainActivity, SelectActivity::class.java)
@@ -173,9 +172,6 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this)
         setContentView(R.layout.back_press)
-        val mNativeExpressAdView :NativeExpressAdView = findViewById(R.id.adView)
-        val request = AdRequest.Builder().build()
-        mNativeExpressAdView.loadAd(request)
         builder.show()
         out_button.setOnClickListener() {
             finishAffinity()

@@ -80,13 +80,13 @@ class SettingsActivity : AppCompatActivity() {
             var uuideditor_Setting: SharedPreferences.Editor = useruuid_Setting!!.edit()
             uuideditor_Setting.putString("uuid", "")
             uuideditor_Setting.commit()
-            var IntAct = Intent(this@SettingsActivity, IntroduceActivity::class.java)
+            var IntAct = Intent(this@SettingsActivity, SignActivity::class.java)
             IntAct.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             IntAct.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(IntAct)
         }
         else{
-           var IntAct = Intent(this@SettingsActivity, IntroduceActivity::class.java)
+           var IntAct = Intent(this@SettingsActivity, SignActivity::class.java)
            IntAct.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             IntAct.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(IntAct)
