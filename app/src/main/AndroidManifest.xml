@@ -35,9 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".IntroduceActivity"></activity>
         <activity android:name=".SignActivity" />
-        <activity android:name=".AppUpdata" />
         <activity android:name=".JoinActivity" />
         <activity android:name=".SelectActivity" />
         <activity

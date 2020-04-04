@@ -29,7 +29,7 @@
                 android:background="@drawable/edge"></ImageView>
 
             <ImageView
-                android:id="@+id/heart1"
+                android:id="@+id/mainheart1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentTop="true"
@@ -38,36 +38,36 @@
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
-                android:id="@+id/heart2"
+                android:id="@+id/mainheart2"
                 android:layout_width="50dp"
                 android:layout_height="50sp"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@id/heart1"
+                android:layout_toLeftOf="@id/mainheart1"
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
-                android:id="@+id/heart3"
+                android:id="@+id/mainheart3"
                 android:layout_width="50dp"
                 android:layout_height="50sp"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@id/heart2"
+                android:layout_toLeftOf="@id/mainheart2"
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
-                android:id="@+id/heart4"
+                android:id="@+id/mainheart4"
                 android:layout_width="50dp"
                 android:layout_height="50sp"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/heart3"
+                android:layout_toLeftOf="@+id/mainheart3"
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
-                android:id="@+id/heart5"
+                android:id="@+id/mainheart5"
                 android:layout_width="50dp"
                 android:layout_height="50sp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="-2dp"
-                android:layout_toLeftOf="@id/heart4"
+                android:layout_toLeftOf="@id/mainheart4"
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageButton

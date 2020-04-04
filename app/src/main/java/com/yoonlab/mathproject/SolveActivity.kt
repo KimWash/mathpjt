@@ -33,7 +33,7 @@ class SolveActivity : AppCompatActivity() {
     private lateinit var mInterstitialAd: InterstitialAd
 
     private fun setThings1(): Int { //UUID 불러오기
-        val getHeart = getInf(uuidl2, 3)
+        val getHeart = GetInform(uuidl2, 3)
         val heart = getHeart.execute().get() as String
         val heart10 = Integer.parseInt(heart)
         if (heart10 == 0) {
@@ -160,7 +160,7 @@ class SolveActivity : AppCompatActivity() {
     }
 
     fun getPoints(): Int {
-        val getPoint = getInf(uuidl2, 5)
+        val getPoint = GetInform(uuidl2, 5)
         val points = getPoint.execute().get() as String
         val points1 = Integer.parseInt(points)
         pointView.setText(points1.toString())
@@ -185,7 +185,7 @@ class SolveActivity : AppCompatActivity() {
         val uuid = useruuid.getString("uuid", null)
         if (uuid != null) {
             val editHeart = editInf(uuid.toString(), 3, 0, 1) //UUID 불러오기
-            val getHeart = getInf(uuid, 3)
+            val getHeart = GetInform(uuid, 3)
             val heart = getHeart.execute().get() as Int
             if (heart > 0) {
                 val result = editHeart.execute().get().toString()

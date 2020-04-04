@@ -27,8 +27,6 @@ import kotlinx.android.synthetic.main.back_press.*
 import timber.log.Timber
 
 
-
-
 var useruuid: SharedPreferences? = null
 var uuidl: String? = null
 
@@ -47,51 +45,54 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setThings(): Int {
-        val getHeart = getInf(uuidl, 3)
-        var hearts = Integer.parseInt(getHeart.execute().get() as String)
-        if (hearts == 0) {
-            heart1.visibility = View.INVISIBLE
-            heart2.visibility = View.INVISIBLE
-            heart3.visibility = View.INVISIBLE
-            heart4.visibility = View.INVISIBLE
-            heart5.visibility = View.INVISIBLE
-
-        } else if (hearts == 1) {
-            heart1.visibility = View.VISIBLE
-            heart2.visibility = View.INVISIBLE
-            heart3.visibility = View.INVISIBLE
-            heart4.visibility = View.INVISIBLE
-            heart5.visibility = View.INVISIBLE
-        } else if (hearts == 2) {
-            heart1.visibility = View.VISIBLE
-            heart2.visibility = View.VISIBLE
-            heart3.visibility = View.INVISIBLE
-            heart4.visibility = View.INVISIBLE
-            heart5.visibility = View.INVISIBLE
-
-        } else if (hearts == 3) {
-            heart1.visibility = View.VISIBLE
-            heart2.visibility = View.VISIBLE
-            heart3.visibility = View.VISIBLE
-            heart4.visibility = View.INVISIBLE
-            heart5.visibility = View.INVISIBLE
-
-        } else if (hearts == 4) {
-            heart1.visibility = View.VISIBLE
-            heart2.visibility = View.VISIBLE
-            heart3.visibility = View.VISIBLE
-            heart4.visibility = View.VISIBLE
-            heart5.visibility = View.INVISIBLE
-
-        } else if (hearts == 5) {
-            heart1.visibility = View.VISIBLE
-            heart2.visibility = View.VISIBLE
-            heart3.visibility = View.VISIBLE
-            heart4.visibility = View.VISIBLE
-            heart5.visibility = View.VISIBLE
-
+        val getHeart = GetInform(uuidl, 3)
+        var mainsigma = Integer.parseInt(getHeart.execute().get() as String)
+        when (mainsigma) {
+            0 -> {
+                mainheart1.visibility = View.INVISIBLE
+                mainheart2.visibility = View.INVISIBLE
+                mainheart3.visibility = View.INVISIBLE
+                mainheart4.visibility = View.INVISIBLE
+                mainheart5.visibility = View.INVISIBLE
+            }
+            1 -> {
+                mainheart1.visibility = View.VISIBLE
+                mainheart2.visibility = View.INVISIBLE
+                mainheart3.visibility = View.INVISIBLE
+                mainheart4.visibility = View.INVISIBLE
+                mainheart5.visibility = View.INVISIBLE
+            }
+            2 -> {
+                mainheart1.visibility = View.VISIBLE
+                mainheart2.visibility = View.VISIBLE
+                mainheart3.visibility = View.INVISIBLE
+                mainheart4.visibility = View.INVISIBLE
+                mainheart5.visibility = View.INVISIBLE
+            }
+            3 -> {
+                mainheart1.visibility = View.VISIBLE
+                mainheart2.visibility = View.VISIBLE
+                mainheart3.visibility = View.VISIBLE
+                mainheart4.visibility = View.INVISIBLE
+                mainheart5.visibility = View.INVISIBLE
+            }
+            4 -> {
+                mainheart1.visibility = View.VISIBLE
+                mainheart2.visibility = View.VISIBLE
+                mainheart3.visibility = View.VISIBLE
+                mainheart4.visibility = View.VISIBLE
+                mainheart5.visibility = View.INVISIBLE
+            }
+            5 -> {
+                mainheart1.visibility = View.VISIBLE
+                mainheart2.visibility = View.VISIBLE
+                mainheart3.visibility = View.VISIBLE
+                mainheart4.visibility = View.VISIBLE
+                mainheart5.visibility = View.VISIBLE
+            }
         }
-        return hearts
+
+        return mainsigma
     }
 
 
@@ -106,26 +107,27 @@ class MainActivity : AppCompatActivity() {
         uuidl = useruuid?.getString("uuid", null)
         nightMode()
         setContentView(R.layout.activity_main)
-        val getPoint = getInf(uuidl, 5)
+        val getPoint = GetInform(uuidl, 5)
         val points = getPoint.execute().get() as String
         point2.text = points
-        val getNick = getInf(uuidl, 0)
+        val getNick = GetInform(uuidl, 0)
         val name = getNick.execute().get() as String
         nickname.text = name
 
         //시그마 갯수 이미지로 띄우는 부분
-        val hearts = setThings()
-        val selectpage = Intent(this@MainActivity, SelectActivity::class.java)
+        val mainheart = setThings()
+        val problemselect = Intent(this@MainActivity, SelectActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
         heartplus.setOnClickListener {
-            plusmain(hearts)
+            plusmain(mainheart)
         }
-        solve.setOnClickListener { startActivity(selectpage) }
+        solve.setOnClickListener { startActivity(problemselect) }
         store.setOnClickListener { startActivity(storepage) }
         settingbutton.setOnClickListener { startActivity(settingActivity) }
     }
-    private fun plusmain(hearts:Int){
+
+    private fun plusmain(hearts: Int) {
         MobileAds.initialize(this, "ca-app-pub-3940256099942544/1033173712")
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
@@ -169,6 +171,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this)
         setContentView(R.layout.back_press)
@@ -177,7 +180,7 @@ class MainActivity : AppCompatActivity() {
             finishAffinity()
         }
         out_button_cancel.setOnClickListener() {
-            val goback = Intent(this@MainActivity,MainActivity::class.java)
+            val goback = Intent(this@MainActivity, MainActivity::class.java)
             startActivity(goback)
         }
     }
@@ -200,6 +203,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun checkForAppUpdate() {
         // Returns an intent object that you use to check for an update.
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
@@ -230,6 +234,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == APP_UPDATE_REQUEST_CODE) {
@@ -243,6 +248,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun popupSnackbarForCompleteUpdate() {
         val snackbar = Snackbar.make(
             findViewById(R.id.drawer_layout),
@@ -253,6 +259,7 @@ class MainActivity : AppCompatActivity() {
         snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.colorAccent))
         snackbar.show()
     }
+
     override fun onResume() {
         super.onResume()
         appUpdateManager
@@ -283,6 +290,7 @@ class MainActivity : AppCompatActivity() {
             }
 
     }
+
     companion object {
         private const val APP_UPDATE_REQUEST_CODE = 1991
     }

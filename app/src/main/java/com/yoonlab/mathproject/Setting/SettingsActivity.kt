@@ -60,7 +60,7 @@ class SettingsActivity : AppCompatActivity() {
             val emails:Array<String> = arrayOf("support@yoon-lab.xyz")
             emailIntent.putExtra(Intent.EXTRA_EMAIL, emails)
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "수포자 앱 오류 신고")
-            var getInf = getInf(uuidl, 0)
+            var getInf = GetInform(uuidl, 0)
             emailIntent.putExtra(Intent.EXTRA_TEXT,
                 "어플리케이션 버전: " + getVersionInfo(this) +
                         "\n기기 제조사: " + Build.BRAND +
