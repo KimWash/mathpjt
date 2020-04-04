@@ -12,7 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.yoonlab.mathproject.updateHeart.Companion.update_heart
+//import com.yoonlab.mathproject.updateHeart.Companion.update_heart
 import com.google.android.gms.ads.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //플레이스토어 업데이트 확인
         checkForAppUpdate()
-        update_heart()
+        //update_heart()
         //시작할때 필수함수 (첫실행감지, 야간모드 전환)
         useruuid = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
         uuidl = useruuid?.getString("uuid", null)

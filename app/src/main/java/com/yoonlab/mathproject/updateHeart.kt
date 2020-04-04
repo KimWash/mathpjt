@@ -1,4 +1,4 @@
-package com.yoonlab.mathproject
+/**package com.yoonlab.mathproject
 
 import android.content.ContentValues.TAG
 import android.os.AsyncTask
@@ -76,4 +76,4 @@ class updateHeart(){
         }
     }
 
-}
+}**/

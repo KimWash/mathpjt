@@ -9,7 +9,7 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-class HWP : AsyncTask<Void, Int, Any>() {
+class HMP : AsyncTask<Void, Int, Any>() {
     override fun doInBackground(vararg unused: Void): Any? {
         //암호화
         //인풋 파라메터값 생성

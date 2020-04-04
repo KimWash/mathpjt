@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -14,11 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
-import kotlinx.android.synthetic.main.activity_solve.*
 import com.google.android.gms.ads.MobileAds
+import kotlinx.android.synthetic.main.activity_solve.*
+import java.io.InputStream
+import java.net.URL
 
 
-var problemView: ImageView? = null
 var problemAns: Int? = null
 var problempoint: Int = 0
 var problemsolver: Int = 0
@@ -95,13 +99,17 @@ class SolveActivity : AppCompatActivity() {
             false
         })
         val problemInf = GetProblem(sProblem).execute().get() as Array<*>
-        problempoint = problemInf[0] as Int
-        problemsolver = problemInf[1] as Int
-        problemAns = problemInf[3] as Int?
+        problempoint = (problemInf[0] as String).toInt()
+        problemsolver = (problemInf[1] as String).toInt()
+        problemAns = (problemInf[3] as String).toInt()
+        val problemView = findViewById<ImageView>(R.id.problems)
+        val problemUrl = problemInf[4] as String
 
+        val imgExe = setImgaebyUrl(problemUrl, problemView)
+        imgExe.execute()
         //어떤 문제를 불러옴??
 
-        problemView = findViewById<ImageView>(R.id.problems)
+
         submit.setOnClickListener {
             checkAnswer()
             editInf(uuidl2, 7, 0, sProblem)
@@ -157,6 +165,18 @@ class SolveActivity : AppCompatActivity() {
         val points1 = Integer.parseInt(points)
         pointView.setText(points1.toString())
         return points1
+    }
+
+    class setImgaebyUrl(var url: String, var probView: ImageView): AsyncTask<Void, Void, Bitmap>() {
+        override fun doInBackground(vararg params: Void?): Bitmap? {
+            val input: InputStream = URL(url).openStream()
+            return BitmapFactory.decodeStream(input)
+        }
+
+        override fun onPostExecute(result: Bitmap?) {
+            super.onPostExecute(result)
+            probView.setImageBitmap(result)
+        }
     }
 
 

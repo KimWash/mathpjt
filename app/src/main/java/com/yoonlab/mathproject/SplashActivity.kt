@@ -23,7 +23,7 @@ class SplashActivity: AppCompatActivity()   {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        Thread(Runnable {
+        /**Thread(Runnable {
             TrueTime.build().initialize();
             TrueTimeRx.build()
                 .initializeRx("ntp2.kornet.net")
@@ -34,7 +34,7 @@ class SplashActivity: AppCompatActivity()   {
                     }
                 ) { throwable: Throwable -> throwable.printStackTrace() }
 
-        }).start()
+        }).start()**/
 
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
