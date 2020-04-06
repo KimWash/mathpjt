@@ -191,7 +191,7 @@ class SolveActivity : AppCompatActivity() {
                 val result = editHeart.execute().get().toString()
                 if (result == "success") { //하트를 정상적으로 수정했을 때
                     if (Integer.parseInt(
-                            answer.getText().toString()
+                            answer.text.toString()
                         ) == problemAns
                     ) { //DB상의 답과 입력한 답이 일치할때
                         JoinActivity.dispToast(this, "정답입니다!")

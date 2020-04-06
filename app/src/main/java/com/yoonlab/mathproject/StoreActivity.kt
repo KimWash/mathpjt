@@ -15,8 +15,6 @@ class StoreActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_store)
-        val homepage = Intent(this@StoreActivity, MainActivity::class.java)
-        home.setOnClickListener{ startActivity(homepage)}
     }
 
 }

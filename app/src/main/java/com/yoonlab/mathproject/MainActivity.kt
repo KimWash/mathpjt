@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mInterstitialAd: InterstitialAd
 
-
     fun nightMode() {
         if (nightModeCheck.isNightModeActive(this)) {
             setTheme(R.style.DarkTheme)
@@ -119,6 +118,9 @@ class MainActivity : AppCompatActivity() {
         val problemselect = Intent(this@MainActivity, SelectActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
         heartplus.setOnClickListener {
             plusmain(mainheart)
         }
@@ -128,13 +130,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun plusmain(hearts: Int) {
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544/1033173712")
-        mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
         if (hearts >= 5) {
             Toast.makeText(this@MainActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
-        } else {
+        }
+        else {
             if (mInterstitialAd.isLoaded) {
                 mInterstitialAd.show()
                 mInterstitialAd.adListener = object : AdListener() {

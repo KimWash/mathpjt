@@ -3,18 +3,18 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    android:id="@+id/drawer_layout"
     tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8"
-        android:background="@color/backgroundcolor">
+        android:background="@color/colorAccent">
 
         <RelativeLayout
             android:id="@+id/box"
@@ -94,9 +94,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sheep"
+            android:layout_toLeftOf="@+id/nickname"
             android:text="ID :"
             android:textColor="#000000"
-            android:layout_toLeftOf="@+id/nickname"
             android:textSize="28dp" />
 
         <TextView
@@ -114,8 +114,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ID"
-            android:text="Point :"
             android:layout_toLeftOf="@+id/point2"
+            android:text="Point :"
             android:textColor="#000000"
             android:textSize="28sp" />
 
@@ -124,8 +124,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nickname"
-            android:layout_marginLeft="10dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
             android:text="point"
             android:textColor="#000000"
             android:textSize="28dp" />
@@ -149,80 +149,83 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <ImageButton
                 android:id="@+id/solve"
-                android:layout_width="68dp"
+                android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:elevation="4dp"
                 android:ems="5"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:paddingTop="42dp"
                 android:paddingBottom="42dp"
                 android:src="@drawable/problem"
-                android:text="문제"
-                android:textSize="25dp" />
-
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/store"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:layout_toRightOf="@+id/solve"
                 android:id="@+id/store"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_width="68dp"
+                android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_centerVertical="true"
                 android:elevation="4dp"
                 android:ems="5"
                 android:paddingTop="42dp"
                 android:paddingBottom="42dp"
                 android:src="@drawable/store"
-                android:text="상점"
-                android:textSize="25dp" />
-        <ImageButton
-            android:layout_centerHorizontal="true"
-            android:id="@+id/gohome"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_width="68dp"
-            android:layout_height="70dp"
-            android:layout_centerVertical="true"
-            android:elevation="4dp"
-            android:ems="5"
-            android:paddingTop="42dp"
-            android:paddingBottom="42dp"
-            android:src="@drawable/gohome"
-            android:text="상점"
-            android:textSize="25dp" />
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/gohome"
+                ads:layout_constraintStart_toEndOf="@+id/solve"
+                ads:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/gohome"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/gohome"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/ranking"
+                ads:layout_constraintStart_toEndOf="@+id/store"
+                ads:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/ranking"
-                android:layout_toLeftOf="@+id/learn"
-                android:layout_width="68dp"
+                android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:elevation="4dp"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:ems="5"
                 android:paddingTop="42dp"
                 android:paddingBottom="42dp"
-                android:layout_centerVertical="true"
                 android:src="@drawable/rank"
-                android:text="랭킹"
-                android:textSize="25dp" />
-
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/learn"
+                ads:layout_constraintStart_toEndOf="@+id/gohome"
+                ads:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/learn"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:layout_width="68dp"
+                android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:elevation="4dp"
                 android:ems="5"
                 android:paddingTop="42dp"
-                android:layout_centerVertical="true"
                 android:paddingBottom="42dp"
                 android:src="@drawable/learn"
-                android:text="배우기"
-                android:textSize="25dp" />
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintRight_toRightOf="parent"
+                ads:layout_constraintStart_toEndOf="@+id/ranking"
+                ads:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </RelativeLayout>
