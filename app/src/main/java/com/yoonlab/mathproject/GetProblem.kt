@@ -40,7 +40,7 @@ class GetProblem(private var problem: Int) : AsyncTask<Void, Int, Array<String>>
             val prob = line.split(",".toRegex())
             var problempoint1 = prob[2]
             var problemsolver1 = prob[3]
-            var problemlevel = prob[1].split("_".toRegex())[2].split(".jp".toRegex())[0]
+            var problemlevel = prob[1].split("_".toRegex())[2].split("\\.".toRegex())[0]
             var problemAns = prob[0]
             return arrayOf<String>(problempoint1, problemsolver1, problemlevel, problemAns, prob[1])
         } catch (e: MalformedURLException) {

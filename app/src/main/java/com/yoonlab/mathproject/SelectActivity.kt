@@ -60,7 +60,7 @@ class SelectActivity : AppCompatActivity(){
         //클릭리스너 등록
         adapter.setItemClickListener( object : SelectAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int) {
-                sProblem = position
+                sProblem = position+1
                 val solvepage = Intent(this@SelectActivity, SolveActivity::class.java)
                 startActivity(solvepage)
             }
