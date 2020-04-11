@@ -118,9 +118,9 @@ class MainActivity : AppCompatActivity() {
         val problemselect = Intent(this@MainActivity, SelectActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544/1033173712")
+        MobileAds.initialize(this, "ca-app-pub-4544671315865800/1289253832")
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/1289253832"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
         heartplus.setOnClickListener {
             plusmain(mainheart)

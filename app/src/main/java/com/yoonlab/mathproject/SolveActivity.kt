@@ -117,9 +117,9 @@ class SolveActivity : AppCompatActivity() {
 
     }
     private fun HeartPlus(heart:Int){
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544/1033173712")
+        MobileAds.initialize(this, "ca-app-pub-4544671315865800/1289253832")
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/1289253832"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
         if (heart >= 5) {
             Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()

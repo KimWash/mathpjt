@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class SplashActivity: AppCompatActivity()   {
-    private val SPLASH_TIME = 1500
+    private val SPLASH_TIME = 800
 
 
     @Override
