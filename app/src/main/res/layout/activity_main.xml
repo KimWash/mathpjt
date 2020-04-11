@@ -20,7 +20,7 @@
             android:id="@+id/box"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp">
 
             <ImageView
@@ -33,8 +33,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="50dp"
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
@@ -42,7 +42,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50sp"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@id/mainheart1"
+                android:layout_toStartOf="@id/mainheart1"
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
@@ -50,7 +50,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50sp"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@id/mainheart2"
+                android:layout_toStartOf="@id/mainheart2"
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
@@ -58,7 +58,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50sp"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/mainheart3"
+                android:layout_toStartOf="@+id/mainheart3"
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageView
@@ -67,24 +67,25 @@
                 android:layout_height="50sp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="-2dp"
-                android:layout_toLeftOf="@id/mainheart4"
+                android:layout_toStartOf="@id/mainheart4"
                 android:src="@drawable/ic_functions_black_24dp" />
 
             <ImageButton
                 android:id="@+id/heartplus"
                 android:layout_width="37dp"
                 android:layout_height="37dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8sp"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/plusbutton" />
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/sheep"
-            android:layout_width="270dp"
-            android:layout_height="420dp"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/sheep" />
@@ -95,20 +96,24 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/sheep"
             android:layout_alignStart="@+id/sheep"
+            android:fontFamily="sans-serif-condensed"
             android:text="ID :"
             android:textColor="#000000"
-            android:textSize="28dp" />
+            android:textSize="28dp"
+            app:autoSizeTextType="uniform" />
 
         <TextView
             android:id="@+id/nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sheep"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_toRightOf="@id/ID"
+            android:fontFamily="sans-serif-condensed"
             android:text="nickname"
             android:textColor="#000000"
-            android:textSize="28dp" />
+            android:textSize="28dp"
+            app:autoSizeTextType="uniform" />
 
         <TextView
             android:id="@+id/point"
@@ -116,29 +121,33 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ID"
             android:layout_alignStart="@+id/sheep"
+            android:fontFamily="sans-serif-condensed"
             android:text="Point :"
             android:textColor="#000000"
-            android:textSize="28sp" />
+            android:textSize="28sp"
+            app:autoSizeTextType="uniform" />
 
         <TextView
             android:id="@+id/point2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nickname"
-            android:layout_toRightOf="@id/point"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/point"
+            android:fontFamily="sans-serif-condensed"
             android:text="point"
             android:textColor="#000000"
-            android:textSize="28dp" />
+            android:textSize="28dp"
+            app:autoSizeTextType="uniform" />
 
         <Button
             android:id="@+id/settingbutton"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="15sp"
-            android:layout_marginRight="14sp"
+            android:layout_marginEnd="14sp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/settingbutton"
             android:padding="15dp" />
