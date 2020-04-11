@@ -10,8 +10,8 @@ android {
         applicationId "com.yoonlab.mathproject"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode=104 //버전
-        versionName "1.0.4" //버전과 같이 바꿔줘야함
+        versionCode=105 //버전
+        versionName "1.0.5" //버전과 같이 바꿔줘야함
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 }
     buildTypes {

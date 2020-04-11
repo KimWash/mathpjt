@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sheep"
-            android:layout_toLeftOf="@+id/nickname"
+            android:layout_alignStart="@+id/sheep"
             android:text="ID :"
             android:textColor="#000000"
             android:textSize="28dp" />
@@ -105,7 +105,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sheep"
-            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/ID"
             android:text="nickname"
             android:textColor="#000000"
             android:textSize="28dp" />
@@ -115,8 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ID"
-            android:layout_toLeftOf="@+id/point2"
-
+            android:layout_alignStart="@+id/sheep"
             android:text="Point :"
             android:textColor="#000000"
             android:textSize="28sp" />
@@ -126,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nickname"
-            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/point"
             android:layout_marginLeft="10dp"
             android:text="point"
             android:textColor="#000000"

@@ -66,7 +66,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8sp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/plusbutton"></ImageButton>
+            android:src="@drawable/plusbutton" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -98,34 +98,7 @@
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="120dp"
-            android:background="@color/backgroundcolor"></ImageView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이 문제의 포인트 :"
-            android:layout_below="@+id/problems"
-            android:id="@+id/s1"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/s1"
-            android:text=""
-            android:id="@+id/problemspoint"
-            android:layout_below="@+id/problems"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/problemspoint"
-            android:layout_below="@id/problems"
-            android:id="@+id/s2"
-            android:text="지금까지 이 문제를 푼 사람:" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/s2"
-            android:text=""
-            android:layout_below="@+id/problems"
-            android:id="@+id/problemssolver" />
+            android:background="@color/backgroundcolor" />
 
         <EditText
             android:id="@+id/answer"

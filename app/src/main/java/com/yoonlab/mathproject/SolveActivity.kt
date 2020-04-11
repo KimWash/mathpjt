@@ -117,9 +117,9 @@ class SolveActivity : AppCompatActivity() {
 
     }
     private fun HeartPlus(heart:Int){
-        MobileAds.initialize(this, "ca-app-pub-4544671315865800/9374767616")
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544/1033173712")
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
         if (heart >= 5) {
             Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
@@ -186,8 +186,9 @@ class SolveActivity : AppCompatActivity() {
         if (uuid != null) {
             val editHeart = editInf(uuid.toString(), 3, 0, 1) //UUID 불러오기
             val getHeart = GetInform(uuid, 3)
-            val heart = getHeart.execute().get() as Int
-            if (heart > 0) {
+            var heart = getHeart.execute().get() as String
+            var newheart = Integer.parseInt(heart)
+            if (newheart > 0) {
                 val result = editHeart.execute().get().toString()
                 if (result == "success") { //하트를 정상적으로 수정했을 때
                     if (Integer.parseInt(
@@ -218,7 +219,7 @@ class SolveActivity : AppCompatActivity() {
                     val homepage = Intent(this@SolveActivity, MainActivity::class.java)
                     startActivity(homepage)
                 }
-            } else if (heart <= 0) {
+            } else if (newheart <= 0) {
                 JoinActivity.dispToast(this, "하트가 모자랍니다. 충전해주세요!")
             }
         } else {

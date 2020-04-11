@@ -118,8 +118,9 @@ class MainActivity : AppCompatActivity() {
         val problemselect = Intent(this@MainActivity, SelectActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544/1033173712")
         mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/9374767616"
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
         mInterstitialAd.loadAd(AdRequest.Builder().build())
         heartplus.setOnClickListener {
             plusmain(mainheart)
@@ -146,8 +147,7 @@ class MainActivity : AppCompatActivity() {
                                 "하트가 충전됩니다",
                                 Toast.LENGTH_LONG
                             ).show()
-                            val refresh = Intent(this@MainActivity, MainActivity::class.java)
-                            startActivity(refresh)
+                            setThings()
                         }
 
                     }

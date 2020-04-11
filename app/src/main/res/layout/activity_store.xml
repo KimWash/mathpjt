@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent">
     <RelativeLayout
@@ -14,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="상점"
-            android:textSize="60dp"
+            android:textSize="60sp"
             android:layout_centerHorizontal="true"
             android:id="@+id/storeletter"
             android:textStyle="bold"
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="죄송합니다 "
-            android:textSize="40dp"
+            android:textSize="40sp"
             android:id="@+id/sort"
             android:layout_below="@id/storeletter"
             android:layout_marginTop="80dp"
@@ -33,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="곧 업데이트 하겠습니다 "
-            android:textSize="40dp"
+            android:textSize="40sp"
             android:id="@+id/sort2"
             android:layout_below="@id/sort"
             android:layout_centerHorizontal="true"
@@ -46,15 +47,8 @@
             android:text="현재는 카카오톡친구추가를 통해 기프티콘을 드리고 있습니다"
             android:layout_below="@id/sort2"
             android:layout_marginTop="20dp"
-            android:textSize="30dp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="홈으로"
-            android:id="@+id/home"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/sort2"
-            android:layout_marginTop="130dp" />
+            android:textSize="30sp"/>
+
 
     </RelativeLayout>
     <RelativeLayout
@@ -62,80 +56,80 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
-        <ImageButton
-            android:id="@+id/solve"
-            android:layout_width="68dp"
-            android:layout_height="70dp"
-            android:elevation="4dp"
-            android:ems="5"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:paddingTop="42dp"
-            android:paddingBottom="42dp"
-            android:src="@drawable/problem"
-            android:text="문제"
-            android:textSize="25dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/solve"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/problem"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/store"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/store"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/gohome"
+                ads:layout_constraintStart_toEndOf="@+id/solve"
+                ads:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/gohome"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/gohome"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/ranking"
+                ads:layout_constraintStart_toEndOf="@+id/store"
+                ads:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/ranking"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/rank"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/learn"
+                ads:layout_constraintStart_toEndOf="@+id/gohome"
+                ads:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/learn"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/learn"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintRight_toRightOf="parent"
+                ads:layout_constraintTop_toTopOf="parent" />
 
 
-        <ImageButton
-            android:layout_toRightOf="@+id/solve"
-            android:id="@+id/store"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_width="68dp"
-            android:layout_height="70dp"
-            android:layout_centerVertical="true"
-            android:elevation="4dp"
-            android:ems="5"
-            android:paddingTop="42dp"
-            android:paddingBottom="42dp"
-            android:src="@drawable/store"
-            android:text="상점"
-            android:textSize="25dp" />
-        <ImageButton
-            android:layout_centerHorizontal="true"
-            android:id="@+id/gohome"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_width="68dp"
-            android:layout_height="70dp"
-            android:layout_centerVertical="true"
-            android:elevation="4dp"
-            android:ems="5"
-            android:paddingTop="42dp"
-            android:paddingBottom="42dp"
-            android:src="@drawable/gohome"
-            android:text="상점"
-            android:textSize="25dp" />
-
-        <ImageButton
-            android:id="@+id/ranking"
-            android:layout_toLeftOf="@+id/learn"
-            android:layout_width="68dp"
-            android:layout_height="70dp"
-            android:elevation="4dp"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:ems="5"
-            android:paddingTop="42dp"
-            android:paddingBottom="42dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/rank"
-            android:text="랭킹"
-            android:textSize="25dp" />
-
-
-        <ImageButton
-            android:id="@+id/learn"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_width="68dp"
-            android:layout_height="70dp"
-            android:elevation="4dp"
-            android:ems="5"
-            android:paddingTop="42dp"
-            android:layout_centerVertical="true"
-            android:paddingBottom="42dp"
-            android:src="@drawable/learn"
-            android:text="배우기"
-            android:textSize="25dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </RelativeLayout>
