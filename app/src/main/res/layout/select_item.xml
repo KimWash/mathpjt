@@ -14,7 +14,7 @@
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:background="#FFFFFF"
             android:elevation="3dp"
             android:orientation="horizontal"
@@ -22,34 +22,35 @@
             android:paddingTop="5dp">
 
             <TextView
+                android:layout_marginLeft="5dp"
                 android:id="@+id/number1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="60dp"
                 android:text="@{Problem.number11}"
                 android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:layout_height="60dp"
                 android:text="@{Problem.level11}"
                 android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/solver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="2"
                 android:text="@{Problem.solver11}"
                 android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/point1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="60dp"
                 android:text="@{Problem.point11}"
                 android:textSize="30dp" />
 

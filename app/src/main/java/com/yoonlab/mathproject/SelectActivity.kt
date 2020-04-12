@@ -40,6 +40,7 @@ class SelectActivity : AppCompatActivity(){
         uuidl2 = useruuid?.getString("uuid", null)
         //어떤 문제를 불러옴??
         val pCount = HMP().execute().get() as Int
+        items.add(ProblemList("번호","난이도", "푼 사람" ,"포인트"))
         for (i in 1 until pCount+1) {
             var problemInf = GetProblem(i).execute().get() as Array<String>
             val problemlevel = problemInf[2].toInt()
