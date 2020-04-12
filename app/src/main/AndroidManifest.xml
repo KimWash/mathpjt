@@ -42,6 +42,8 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".LearnActivity" />
+        <activity android:name=".RankActivity" />
         <activity android:name=".StoreActivity" />
         <activity android:name=".SolveActivity" />
     </application>

@@ -23,6 +23,12 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.gohome
+import kotlinx.android.synthetic.main.activity_main.learn
+import kotlinx.android.synthetic.main.activity_main.ranking
+import kotlinx.android.synthetic.main.activity_main.solve
+import kotlinx.android.synthetic.main.activity_main.store
+import kotlinx.android.synthetic.main.activity_store.*
 import kotlinx.android.synthetic.main.back_press.*
 import timber.log.Timber
 
@@ -117,7 +123,25 @@ class MainActivity : AppCompatActivity() {
         val mainheart = setThings()
         val problemselect = Intent(this@MainActivity, SelectActivity::class.java)
         val storepage = Intent(this@MainActivity, StoreActivity::class.java)
+        val home = Intent(this@MainActivity, MainActivity::class.java)
+        val rank = Intent(this@MainActivity, RankActivity::class.java)
+        val learning = Intent(this@MainActivity, LearnActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
+        solve.setOnClickListener {
+            finish()
+            startActivity(problemselect) }
+        store.setOnClickListener {
+            finish()
+            startActivity(storepage) }
+        gohome.setOnClickListener {
+            finish()
+            startActivity(home)}
+        learn.setOnClickListener{
+            finish()
+            startActivity(learning)}
+        ranking.setOnClickListener{
+            finish()
+            startActivity(rank)}
         MobileAds.initialize(this, "ca-app-pub-4544671315865800/1289253832")
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/1289253832"

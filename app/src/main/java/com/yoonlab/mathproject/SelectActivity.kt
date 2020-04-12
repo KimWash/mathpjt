@@ -20,6 +20,12 @@ import kotlinx.android.synthetic.main.activity_solve.*
 import java.io.BufferedReader
 import java.io.IOException
 import android.os.NetworkOnMainThreadException
+import kotlinx.android.synthetic.main.activity_store.*
+import kotlinx.android.synthetic.main.selectlevel.gohome
+import kotlinx.android.synthetic.main.selectlevel.learn
+import kotlinx.android.synthetic.main.selectlevel.ranking
+import kotlinx.android.synthetic.main.selectlevel.solve
+import kotlinx.android.synthetic.main.selectlevel.store
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -36,6 +42,26 @@ class SelectActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.selectlevel)
+        val problemselect = Intent(this@SelectActivity, SelectActivity::class.java)
+        val storepage = Intent(this@SelectActivity, StoreActivity::class.java)
+        val home = Intent(this@SelectActivity, MainActivity::class.java)
+        val rank = Intent(this@SelectActivity, RankActivity::class.java)
+        val learning = Intent(this@SelectActivity, LearnActivity::class.java)
+        solve.setOnClickListener {
+            finish()
+            startActivity(problemselect) }
+        store.setOnClickListener {
+            finish()
+            startActivity(storepage) }
+        gohome.setOnClickListener {
+            finish()
+            startActivity(home)}
+        learn.setOnClickListener{
+            finish()
+            startActivity(learning)}
+        ranking.setOnClickListener{
+            finish()
+            startActivity(rank)}
         useruuid = getSharedPreferences("uuid", Activity.MODE_PRIVATE)
         uuidl2 = useruuid?.getString("uuid", null)
         //어떤 문제를 불러옴??

@@ -1,13 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="준비 중입니다..."
-        android:textSize="50dp"
-        android:textStyle="bold"
-        android:layout_gravity="center" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="준비 중입니다..."
+            android:textSize="50dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+     <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/solve"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toTopOf="parent"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/problem" />
+
+            <ImageButton
+                android:id="@+id/store"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/gohome"
+                ads:layout_constraintStart_toEndOf="@+id/solve"
+                ads:layout_constraintTop_toTopOf="parent"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/store" />
+
+            <ImageButton
+                android:id="@+id/gohome"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/ranking"
+                ads:layout_constraintStart_toEndOf="@+id/store"
+                ads:layout_constraintTop_toTopOf="parent"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/gohome" />
+
+            <ImageButton
+                android:id="@+id/ranking"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toStartOf="@+id/learn"
+                ads:layout_constraintStart_toEndOf="@+id/gohome"
+                ads:layout_constraintTop_toTopOf="parent"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/rank" />
+
+            <ImageButton
+                android:id="@+id/learn"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintRight_toRightOf="parent"
+                ads:layout_constraintTop_toTopOf="parent"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:elevation="4dp"
+                android:ems="5"
+                android:paddingTop="42dp"
+                android:paddingBottom="42dp"
+                android:src="@drawable/learn" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </RelativeLayout>
 </LinearLayout>
