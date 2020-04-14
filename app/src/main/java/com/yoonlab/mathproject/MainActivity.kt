@@ -9,12 +9,17 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 //import com.yoonlab.mathproject.updateHeart.Companion.update_heart
 import com.google.android.gms.ads.*
+import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.InstallState
@@ -29,7 +34,6 @@ import kotlinx.android.synthetic.main.activity_main.ranking
 import kotlinx.android.synthetic.main.activity_main.solve
 import kotlinx.android.synthetic.main.activity_main.store
 import kotlinx.android.synthetic.main.activity_store.*
-import kotlinx.android.synthetic.main.back_press.*
 import timber.log.Timber
 
 
@@ -38,7 +42,8 @@ var uuidl: String? = null
 
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var mRewardedAd: RewardedAd
+    private var mIsLoading = false
     private lateinit var mInterstitialAd: InterstitialAd
 
     fun nightMode() {
@@ -129,41 +134,74 @@ class MainActivity : AppCompatActivity() {
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
         solve.setOnClickListener {
             finish()
-            startActivity(problemselect) }
+            startActivity(problemselect)
+        }
         store.setOnClickListener {
             finish()
-            startActivity(storepage) }
+            startActivity(storepage)
+        }
         gohome.setOnClickListener {
             finish()
-            startActivity(home)}
-        learn.setOnClickListener{
+            startActivity(home)
+        }
+        learn.setOnClickListener {
             finish()
-            startActivity(learning)}
-        ranking.setOnClickListener{
+            startActivity(learning)
+        }
+        ranking.setOnClickListener {
             finish()
-            startActivity(rank)}
-        MobileAds.initialize(this, "ca-app-pub-4544671315865800/1289253832")
-        mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/1289253832"
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
+            startActivity(rank)
+        }
         heartplus.setOnClickListener {
-            plusmain(mainheart)
+            MobileAds.initialize(this) {}
+            loadRewardedAd()
         }
         solve.setOnClickListener { startActivity(problemselect) }
         store.setOnClickListener { startActivity(storepage) }
         settingbutton.setOnClickListener { startActivity(settingActivity) }
     }
 
-    private fun plusmain(hearts: Int) {
-        if (hearts >= 5) {
-            Toast.makeText(this@MainActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
+    fun loadRewardedAd() {
+        if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
+            mIsLoading = true
+            mRewardedAd = RewardedAd(this, "ca-app-pub-4544671315865800/1118034886")
+            mRewardedAd.loadAd(
+                AdRequest.Builder().build(),
+                object : RewardedAdLoadCallback() {
+                    override fun onRewardedAdLoaded() {
+                        mIsLoading = false
+                        Toast.makeText(
+                            this@MainActivity,
+                            "광고가 재생 됩니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        showRewardedVideo()
+                    }
+
+                    override fun onRewardedAdFailedToLoad(errorCode: Int) {
+                        mIsLoading = false
+                        Toast.makeText(
+                            this@MainActivity,
+                            "오류가 났습니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                }
+            )
+
         }
-        else {
-            if (mInterstitialAd.isLoaded) {
-                mInterstitialAd.show()
-                mInterstitialAd.adListener = object : AdListener() {
-                    override fun onAdLoaded() {
-                        val changeheart = editInf(uuidl2, 3, 1, 1)
+    }
+
+    fun showRewardedVideo() {
+        if (mRewardedAd.isLoaded) {
+            mRewardedAd.show(
+                this,
+                object : RewardedAdCallback() {
+                    override fun onUserEarnedReward(
+                        rewardItem: RewardItem
+                    ) {
+                        val changeheart = editInf(uuidl, 3, 1, 1)
                         val result = changeheart.execute().get()
                         if (result.toString() == "success") {
                             Toast.makeText(
@@ -172,44 +210,77 @@ class MainActivity : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show()
                             setThings()
+                        } else {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "광고 재생에 문제가 있습니다",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
 
                     }
 
-                    override fun onAdFailedToLoad(errorCode: Int) {
+                    override fun onRewardedAdClosed() {
+                        Log.d("SSS", "onRewardVideoAdClosed()")
+                    }
+
+                    override fun onRewardedAdFailedToShow(errorCode: Int) {
                         Toast.makeText(
                             this@MainActivity,
-                            "광고 재생에 문제가 있습니다",
+                            "오류",
                             Toast.LENGTH_LONG
                         ).show()
                     }
 
-                    override fun onAdClosed() {
-                        mInterstitialAd.loadAd(AdRequest.Builder().build())
+                    override fun onRewardedAdOpened() {
                     }
                 }
-            } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.")
-            }
+            )
         }
-
     }
 
+
     override fun onBackPressed() {
-        val builder = AlertDialog.Builder(this)
-        setContentView(R.layout.back_press)
-        builder.show()
-        out_button.setOnClickListener() {
-            finishAffinity()
+        MobileAds.initialize(this, "ca-app-pub-4544671315865800/1289253832")
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/1289253832"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+        mInterstitialAd.show()
+        if (mInterstitialAd.isLoaded) {
+            mInterstitialAd.adListener = object : AdListener() {
+                override fun onAdLoaded() {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "감사합니다",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    finishAffinity()
+                }
+
+                override fun onAdFailedToLoad(errorCode: Int) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "광고 재생에 문제가 있습니다",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                override fun onAdClosed() {
+                    mInterstitialAd.loadAd(AdRequest.Builder().build())
+                }
+            }
         }
-        out_button_cancel.setOnClickListener() {
-            val goback = Intent(this@MainActivity, MainActivity::class.java)
-            startActivity(goback)
+        else{
+            Log.d("TAG", "The interstitial wasn't loaded yet.")
         }
     }
 
     //업데이트 체크
-    val appUpdateManager: AppUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
+    val appUpdateManager: AppUpdateManager by lazy {
+        AppUpdateManagerFactory.create(
+            this
+        )
+    }
     private val appUpdatedListener: InstallStateUpdatedListener by lazy {
         object : InstallStateUpdatedListener {
             override fun onStateUpdate(installState: InstallState) {
@@ -258,7 +329,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == APP_UPDATE_REQUEST_CODE) {
             if (resultCode != Activity.RESULT_OK) {
@@ -279,7 +354,12 @@ class MainActivity : AppCompatActivity() {
             Snackbar.LENGTH_INDEFINITE
         )
         snackbar.setAction("RESTART") { appUpdateManager.completeUpdate() }
-        snackbar.setActionTextColor(ContextCompat.getColor(this, R.color.colorAccent))
+        snackbar.setActionTextColor(
+            ContextCompat.getColor(
+                this,
+                R.color.colorAccent
+            )
+        )
         snackbar.show()
     }
 

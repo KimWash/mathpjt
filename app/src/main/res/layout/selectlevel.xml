@@ -17,6 +17,7 @@
         android:background="@color/colorAccent"
         >
         <TextView
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:textSize="28dp"
             android:id="@+id/test"

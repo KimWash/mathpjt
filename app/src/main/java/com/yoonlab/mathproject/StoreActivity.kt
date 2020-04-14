@@ -40,6 +40,8 @@ class StoreActivity : AppCompatActivity() {
         ranking.setOnClickListener{
             finish()
             startActivity(rank)}
+        chshop.setOnClickListener{ }
+        realshop.setOnClickListener{ }
     }
 
 }

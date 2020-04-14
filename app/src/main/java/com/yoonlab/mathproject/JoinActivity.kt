@@ -93,6 +93,7 @@ class JoinActivity : AppCompatActivity() {
                     }
                     else -> {
                         howgrade.text = "학년을 고르세요"
+                        sgrade = ""
                     }
                 }
             }
