@@ -25,6 +25,8 @@ class StoreActivity : AppCompatActivity() {
         val home = Intent(this@StoreActivity, MainActivity::class.java)
         val rank = Intent(this@StoreActivity, RankActivity::class.java)
         val learning = Intent(this@StoreActivity, LearnActivity::class.java)
+        val chshop = Intent(this@StoreActivity, ChshopAcitivity::class.java) // 캐릭터샵으로 가기
+        val realshop = Intent(this@StoreActivity, RealShopActivity::class.java) // 기프티콘 샵으로 가기
         solve.setOnClickListener {
             finish()
             startActivity(problemselect) }
@@ -40,8 +42,14 @@ class StoreActivity : AppCompatActivity() {
         ranking.setOnClickListener{
             finish()
             startActivity(rank)}
-        chshop.setOnClickListener{ }
-        realshop.setOnClickListener{ }
+        chshopbutton.setOnClickListener{
+            finish()
+            startActivity(chshop)
+        }
+        realshopbutton.setOnClickListener{
+            finish()
+            startActivity(realshop)
+        }
     }
 
 }

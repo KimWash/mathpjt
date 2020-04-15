@@ -27,7 +27,6 @@
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
 
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +41,9 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".InterstitialAdsActivity" />
+        <activity android:name=".RealShopActivity" />
+        <activity android:name=".ChshopAcitivity" />
         <activity android:name=".LearnActivity" />
         <activity android:name=".RankActivity" />
         <activity android:name=".StoreActivity" />

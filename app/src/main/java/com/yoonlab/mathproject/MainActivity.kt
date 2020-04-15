@@ -1,25 +1,25 @@
 package com.yoonlab.mathproject
 
 
+//import com.yoonlab.mathproject.updateHeart.Companion.update_heart
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.IntentSender
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-//import com.yoonlab.mathproject.updateHeart.Companion.update_heart
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.rewarded.RewardItem
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdCallback
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.InstallState
@@ -27,13 +27,10 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import io.dclick.ads.AdConfig
+import io.dclick.ads.AdManager
+import io.dclick.ads.AdNetwork
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.gohome
-import kotlinx.android.synthetic.main.activity_main.learn
-import kotlinx.android.synthetic.main.activity_main.ranking
-import kotlinx.android.synthetic.main.activity_main.solve
-import kotlinx.android.synthetic.main.activity_main.store
-import kotlinx.android.synthetic.main.activity_store.*
 import timber.log.Timber
 
 
@@ -123,7 +120,11 @@ class MainActivity : AppCompatActivity() {
         val getNick = GetInform(uuidl, 0)
         val name = getNick.execute().get() as String
         nickname.text = name
-
+        //전면광고 초기화
+        val adConfig = AdConfig()
+        adConfig.setApiKey(AdNetwork.Dclick, "256957c4-82b4-44ce-8059-2b39af650fcd")
+        adConfig.setApiKey(AdNetwork.Google, "ca-app-pub-3940256099942544/1033173712")
+        AdManager.initialize(this, adConfig)
         //시그마 갯수 이미지로 띄우는 부분
         val mainheart = setThings()
         val problemselect = Intent(this@MainActivity, SelectActivity::class.java)
@@ -132,6 +133,10 @@ class MainActivity : AppCompatActivity() {
         val rank = Intent(this@MainActivity, RankActivity::class.java)
         val learning = Intent(this@MainActivity, LearnActivity::class.java)
         val settingActivity = Intent(this@MainActivity, SettingsActivity::class.java)
+        speedsolve.setOnClickListener {
+            finish()
+            startActivity(problemselect)
+        }
         solve.setOnClickListener {
             finish()
             startActivity(problemselect)
@@ -153,6 +158,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(rank)
         }
         heartplus.setOnClickListener {
+            Toast.makeText(this, "하트가 곧 충전됩니다", Toast.LENGTH_LONG).show()
             MobileAds.initialize(this) {}
             loadRewardedAd()
         }
@@ -239,41 +245,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onBackPressed() {
-        MobileAds.initialize(this, "ca-app-pub-4544671315865800/1289253832")
-        mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/1289253832"
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
-        mInterstitialAd.show()
-        if (mInterstitialAd.isLoaded) {
-            mInterstitialAd.adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "감사합니다",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    finishAffinity()
-                }
-                override fun onAdFailedToLoad(errorCode: Int) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "광고 재생에 문제가 있습니다",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    finishAffinity()
-                }
-                override fun onAdClosed() {
-                    mInterstitialAd.loadAd(AdRequest.Builder().build())
-                    finishAffinity()
-                }
-            }
-        }
-        else{
-            Log.d("TAG", "The interstitial wasn't loaded yet.")
-            finishAffinity()
-        }
+        finish()
+        val adintent = Intent(this@MainActivity, InterstitialAdsActivity::class.java)
+        startActivity(adintent)
     }
 
     //업데이트 체크
@@ -398,6 +373,4 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val APP_UPDATE_REQUEST_CODE = 1991
     }
-
-
 }

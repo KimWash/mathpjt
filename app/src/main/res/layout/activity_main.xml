@@ -99,13 +99,17 @@
                 ads:layout_constraintStart_toStartOf="parent"
                 ads:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <TextView
                 android:id="@+id/speedsolve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sheep"
                 android:layout_centerHorizontal="true"
-                android:text="지금 바로 문제 풀러 가기"
+                android:textSize="19dp"
+                android:textStyle="bold"
+                ads:layout_constraintHorizontal_bias="0.3"
+                android:text="＞ 지금 바로 문제 풀러 가기 ＜"
+                android:textColor="#000000"
                 ads:layout_constraintBottom_toBottomOf="parent"
                 ads:layout_constraintEnd_toEndOf="parent"
                 ads:layout_constraintStart_toStartOf="parent"
@@ -117,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="sans-serif-condensed"
-                android:text="ID :"
+                android:text="NickName :"
                 android:textColor="#000000"
                 android:textSize="28dp"
                 ads:layout_constraintBottom_toBottomOf="parent"
@@ -135,7 +139,9 @@
                 android:text="nickname"
                 android:textColor="#000000"
                 android:textSize="28dp"
-                ads:layout_constraintLeft_toRightOf="@+id/ID"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="0.7"
+                ads:layout_constraintStart_toEndOf="@+id/sheep"
                 ads:layout_constraintTop_toBottomOf="@+id/ID"
                 app:autoSizeTextType="uniform" />
 
@@ -147,7 +153,7 @@
                 android:layout_alignStart="@+id/sheep"
                 android:layout_marginTop="36dp"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Point :"
+                android:text="My Point :"
                 android:textColor="#000000"
                 android:textSize="28sp"
                 ads:layout_constraintLeft_toRightOf="@+id/sheep"
@@ -162,7 +168,8 @@
                 android:text="point"
                 android:textColor="#000000"
                 android:textSize="28dp"
-                ads:layout_constraintLeft_toRightOf="@id/point"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintStart_toEndOf="@+id/sheep"
                 ads:layout_constraintTop_toBottomOf="@+id/point"
                 app:autoSizeTextType="uniform" />
 
