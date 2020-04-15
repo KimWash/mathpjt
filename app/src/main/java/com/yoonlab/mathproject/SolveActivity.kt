@@ -18,6 +18,10 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import kotlinx.android.synthetic.main.activity_solve.*
 import java.io.InputStream
 import java.net.URL
@@ -30,7 +34,8 @@ var mContext_Solve: Context? = null
 var uuidl2: String? = null
 
 class SolveActivity : AppCompatActivity() {
-    private lateinit var mInterstitialAd: InterstitialAd
+    private lateinit var mRewardedAd: RewardedAd
+    private var mIsLoading = false
 
     private fun setThings1(): Int { //UUID 불러오기
         val getHeart = GetInform(uuidl2, 3)
@@ -88,7 +93,8 @@ class SolveActivity : AppCompatActivity() {
         val heart = setThings1()
         getPoints()
         heartplus1.setOnClickListener {
-            HeartPlus(heart)
+            MobileAds.initialize(this) {}
+            loadRewardedAd()
         }
         answer.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
@@ -116,19 +122,47 @@ class SolveActivity : AppCompatActivity() {
         }
 
     }
-    private fun HeartPlus(heart:Int){
-        MobileAds.initialize(this, "ca-app-pub-4544671315865800/1289253832")
-        mInterstitialAd = InterstitialAd(this)
-        mInterstitialAd.adUnitId = "ca-app-pub-4544671315865800/1289253832"
-        mInterstitialAd.loadAd(AdRequest.Builder().build())
-        if (heart >= 5) {
-            Toast.makeText(this@SolveActivity, "하트가 최대입니다!", Toast.LENGTH_LONG).show()
-        } else {
-            if (mInterstitialAd.isLoaded) {
-                mInterstitialAd.show()
-                mInterstitialAd.adListener = object : AdListener() {
-                    override fun onAdLoaded() {
-                        val changeheart = editInf(uuidl2, 3, 1, 1)
+    fun loadRewardedAd() {
+        if (!(::mRewardedAd.isInitialized) || !mRewardedAd.isLoaded) {
+            mIsLoading = true
+            mRewardedAd = RewardedAd(this, "ca-app-pub-4544671315865800/1118034886")
+            mRewardedAd.loadAd(
+                AdRequest.Builder().build(),
+                object : RewardedAdLoadCallback() {
+                    override fun onRewardedAdLoaded() {
+                        mIsLoading = false
+                        Toast.makeText(
+                            this@SolveActivity,
+                            "광고가 재생 됩니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        showRewardedVideo()
+                    }
+
+                    override fun onRewardedAdFailedToLoad(errorCode: Int) {
+                        mIsLoading = false
+                        Toast.makeText(
+                            this@SolveActivity,
+                            "오류가 났습니다",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                }
+            )
+
+        }
+    }
+
+    fun showRewardedVideo() {
+        if (mRewardedAd.isLoaded) {
+            mRewardedAd.show(
+                this,
+                object : RewardedAdCallback() {
+                    override fun onUserEarnedReward(
+                        rewardItem: RewardItem
+                    ) {
+                        val changeheart = editInf(uuidl, 3, 1, 1)
                         val result = changeheart.execute().get()
                         if (result.toString() == "success") {
                             Toast.makeText(
@@ -136,26 +170,33 @@ class SolveActivity : AppCompatActivity() {
                                 "하트가 충전됩니다",
                                 Toast.LENGTH_LONG
                             ).show()
-                            val refresh = Intent(this@SolveActivity, SolveActivity::class.java)
-                            startActivity(refresh)
+                            setThings1()
+                        } else {
+                            Toast.makeText(
+                                this@SolveActivity,
+                                "광고 재생에 문제가 있습니다",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
 
                     }
-                    override fun onAdFailedToLoad(errorCode: Int) {
+
+                    override fun onRewardedAdClosed() {
+                        Log.d("SSS", "onRewardVideoAdClosed()")
+                    }
+
+                    override fun onRewardedAdFailedToShow(errorCode: Int) {
                         Toast.makeText(
                             this@SolveActivity,
-                            "광고 재생에 문제가 있습니다",
+                            "오류",
                             Toast.LENGTH_LONG
                         ).show()
                     }
 
-                    override fun onAdClosed() {
-                        mInterstitialAd.loadAd(AdRequest.Builder().build())
+                    override fun onRewardedAdOpened() {
                     }
                 }
-            } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.")
-            }
+            )
         }
     }
 
@@ -163,7 +204,7 @@ class SolveActivity : AppCompatActivity() {
         val getPoint = GetInform(uuidl2, 5)
         val points = getPoint.execute().get() as String
         val points1 = Integer.parseInt(points)
-        pointView.setText(points1.toString())
+        pointView.text = points1.toString()
         return points1
     }
 
@@ -186,8 +227,8 @@ class SolveActivity : AppCompatActivity() {
         if (uuid != null) {
             val editHeart = editInf(uuid.toString(), 3, 0, 1) //UUID 불러오기
             val getHeart = GetInform(uuid, 3)
-            var heart = getHeart.execute().get() as String
-            var newheart = Integer.parseInt(heart)
+            val heart = getHeart.execute().get() as String
+            val newheart = Integer.parseInt(heart)
             if (newheart > 0) {
                 val result = editHeart.execute().get().toString()
                 if (result == "success") { //하트를 정상적으로 수정했을 때

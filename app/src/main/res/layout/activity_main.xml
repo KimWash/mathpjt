@@ -81,76 +81,106 @@
                 android:src="@drawable/plusbutton" />
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/sheep"
-            android:adjustViewBounds="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/sheep" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/ID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/sheep"
-            android:layout_alignStart="@+id/sheep"
-            android:fontFamily="sans-serif-condensed"
-            android:text="ID :"
-            android:textColor="#000000"
-            android:textSize="28dp"
-            app:autoSizeTextType="uniform" />
+            <ImageView
+                android:id="@+id/sheep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:src="@drawable/sheep"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintHorizontal_bias="0.18"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/sheep"
-            android:layout_marginStart="10dp"
-            android:layout_toRightOf="@id/ID"
-            android:fontFamily="sans-serif-condensed"
-            android:text="nickname"
-            android:textColor="#000000"
-            android:textSize="28dp"
-            app:autoSizeTextType="uniform" />
+            <Button
+                android:id="@+id/speedsolve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sheep"
+                android:layout_centerHorizontal="true"
+                android:text="지금 바로 문제 풀러 가기"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toBottomOf="@+id/sheep" />
 
-        <TextView
-            android:id="@+id/point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ID"
-            android:layout_alignStart="@+id/sheep"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Point :"
-            android:textColor="#000000"
-            android:textSize="28sp"
-            app:autoSizeTextType="uniform" />
+            <TextView
+                android:id="@+id/ID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="ID :"
+                android:textColor="#000000"
+                android:textSize="28dp"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintStart_toEndOf="@+id/sheep"
+                ads:layout_constraintTop_toTopOf="parent"
+                ads:layout_constraintVertical_bias="0.408"
+                app:autoSizeTextType="uniform" />
 
-        <TextView
-            android:id="@+id/point2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/nickname"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@id/point"
-            android:fontFamily="sans-serif-condensed"
-            android:text="point"
-            android:textColor="#000000"
-            android:textSize="28dp"
-            app:autoSizeTextType="uniform" />
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sheep"
+                android:fontFamily="sans-serif-condensed"
+                android:text="nickname"
+                android:textColor="#000000"
+                android:textSize="28dp"
+                ads:layout_constraintLeft_toRightOf="@+id/ID"
+                ads:layout_constraintTop_toBottomOf="@+id/ID"
+                app:autoSizeTextType="uniform" />
 
-        <Button
-            android:id="@+id/settingbutton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="15sp"
-            android:layout_marginEnd="14sp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/settingbutton"
-            android:padding="15dp" />
+            <TextView
+                android:id="@+id/point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ID"
+                android:layout_alignStart="@+id/sheep"
+                android:layout_marginTop="36dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Point :"
+                android:textColor="#000000"
+                android:textSize="28sp"
+                ads:layout_constraintLeft_toRightOf="@+id/sheep"
+                ads:layout_constraintTop_toBottomOf="@+id/nickname"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/point2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:text="point"
+                android:textColor="#000000"
+                android:textSize="28dp"
+                ads:layout_constraintLeft_toRightOf="@id/point"
+                ads:layout_constraintTop_toBottomOf="@+id/point"
+                app:autoSizeTextType="uniform" />
+
+            <Button
+                android:id="@+id/settingbutton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/settingbutton"
+                android:padding="15dp"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </RelativeLayout>
 

@@ -256,22 +256,23 @@ class MainActivity : AppCompatActivity() {
                     ).show()
                     finishAffinity()
                 }
-
                 override fun onAdFailedToLoad(errorCode: Int) {
                     Toast.makeText(
                         this@MainActivity,
                         "광고 재생에 문제가 있습니다",
                         Toast.LENGTH_LONG
                     ).show()
+                    finishAffinity()
                 }
-
                 override fun onAdClosed() {
                     mInterstitialAd.loadAd(AdRequest.Builder().build())
+                    finishAffinity()
                 }
             }
         }
         else{
             Log.d("TAG", "The interstitial wasn't loaded yet.")
+            finishAffinity()
         }
     }
 

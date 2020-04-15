@@ -97,9 +97,9 @@ class JoinActivity : AppCompatActivity() {
                     }
                 }
             }
-
             override fun onNothingSelected(parent: AdapterView<*>) {
-                howgrade.text = "학년을 고르세요"
+                howgrade.text = "몇학년?"
+                sgrade = ""
             }
         }
 
@@ -122,8 +122,6 @@ class JoinActivity : AppCompatActivity() {
             }
         })
     }
-
-
 
     fun checkInvalid(){
         val sId = username.getText().toString()

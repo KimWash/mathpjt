@@ -4,23 +4,24 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="65dp"
         android:text="환영합니다"
-        android:layout_centerHorizontal="true"
-        android:textSize="55dp"
-        android:layout_above="@+id/username"
-        android:layout_marginBottom="55dp"
-        />
+        android:textSize="55sp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="수포자에 오신 것을 환영합니다"
         android:layout_above="@+id/username"
-        android:textSize="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="30dp"
+        android:text="수포자에 오신 것을 환영합니다"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/username"
@@ -51,12 +52,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/username"
-        android:layout_marginLeft="30dp"
-        android:textStyle="italic"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="7dp"
-        android:layout_toRightOf="@+id/checkInvalid"
+        android:layout_toEndOf="@+id/checkInvalid"
         android:text="Grade"
-        android:textSize="20dp" />
+        android:textSize="20sp"
+        android:textStyle="italic" />
 
 
     <Spinner
@@ -64,9 +65,8 @@
         android:layout_width="80dp"
         android:layout_height="38dp"
         android:layout_below="@+id/username"
-        android:layout_marginLeft="40dp"
-
-        android:layout_toRightOf="@+id/checkInvalid" />
+        android:layout_marginStart="40dp"
+        android:layout_toEndOf="@+id/checkInvalid" />
 
     <EditText
         android:id="@+id/email"
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/email"
         android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@color/colorAccent"
         android:elevation="2dp"
         android:ems="15"
@@ -101,11 +101,10 @@
         android:id="@+id/password_chk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@android:dimen/app_icon_size"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="@android:dimen/app_icon_size"
+        android:layout_marginTop="15dp"
         android:background="@color/colorAccent"
         android:elevation="2dp"
         android:ems="15"
